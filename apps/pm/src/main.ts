@@ -11,7 +11,7 @@ import clickOutside from './directives/clickOutside'
 import reSize from './directives/reSize'
 import 'vue3-colorpicker/style.css'
 import filters from './filters'
-import router from '@/routes'
+import router from './routes'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

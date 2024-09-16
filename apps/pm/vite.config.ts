@@ -1,8 +1,6 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import Components from 'unplugin-vue-components/vite'
-import path from 'path'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
@@ -20,16 +18,17 @@ export default defineConfig({
           isCustomElement: (tag) => tag.startsWith('ant-')
         }
       }
-    }),
-    Components({
-      resolvers: [AntDesignVueResolver()]
     })
   ],
   resolve: {
     alias: [
       {
         find: '@',
-        replacement: pathResolve('src') + '/'
+        replacement: `${pathResolve('src')  }/`
+      },
+      {
+        find: '#',
+        replacement: `${pathResolve('src/types')  }/`
       }
     ]
   }
