@@ -180,17 +180,16 @@ import {
   SearchOutlined
 } from '@ant-design/icons-vue'
 import { useForm } from 'ant-design-vue/es/form'
+import { storeToRefs } from 'pinia'
+import {EditIcon, DeleteIcon} from 'ui'
+import { message, Modal } from 'ant-design-vue'
 import { checkRoles, filterOption, getTableRowIndex } from '@/utils'
 import { useGlobalListStore, useLocationStore } from '@/stores/sysModuleStore'
-import { storeToRefs } from 'pinia'
 import { useContractorStore } from '@/stores/contractorStore.ts'
-import EditIcon from '@/assets/svg/EditIcon.vue'
-import DeleteIcon from '@/assets/svg/DeleteIcon.vue'
 import { GLOBAL_ROLES } from '@/configs'
-import FormDrawer from './FormDrawer.vue'
-import { message, Modal } from 'ant-design-vue'
-import { Contractor, SearchForm } from '@/types/contractor.ts'
+import type { Contractor, SearchForm } from '@/types/contractor.ts'
 import contractorApi from '@/apis/project-management/contractor.ts'
+import FormDrawer from './FormDrawer.vue'
 
 const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_CREATE))
 const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_UPDATE))

@@ -143,6 +143,7 @@ export default {
 <script lang="ts" setup>
 import { createVNode, reactive, ref, toRaw, watch } from 'vue'
 import { Form, Modal } from 'ant-design-vue'
+import { StaffSelect } from 'ui'
 
 const props = defineProps<{
   title: string

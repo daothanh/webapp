@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import contractorApi from '@/apis/project-management/contractor.ts'
 import { PAGINATION } from '@/contants'
-import { Contractor, SearchForm } from '@/types/contractor.ts'
+import type { Contractor, SearchForm } from '@/types/contractor.ts'
 
 interface SearchParams extends SearchForm {
   pageSize: number

@@ -1,8 +1,7 @@
+import type { AxiosResponse } from 'axios'
 import { $httpRequest } from '@/apis'
 import { asm } from '@/apis/defineRouting.ts'
-import { AxiosResponse } from 'axios'
-import { SearchForm } from '@/types/contractor.ts'
-import { Contractor } from '@/types/contractor.ts'
+import type { SearchForm , Contractor } from '@/types/contractor.ts'
 
 export default {
   search: async (params: SearchForm) => {

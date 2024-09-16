@@ -526,8 +526,9 @@ import { Form } from 'ant-design-vue'
 import { getGlobalListDetail } from '@/apis/global'
 import { SaveOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
 import BudgetExp from '@/views/project-management/project-list/project-detail/general-info/BudgetExp.vue'
-import ProjectCodeInput from '@/components/common/ProjectCodeInput.vue'
+import ProjectCodeInput from '@/components/ProjectCodeInput.vue'
 import type { Rule } from 'ant-design-vue/es/form'
+import { StaffSelect } from 'ui'
 
 const props = defineProps({
   record: {

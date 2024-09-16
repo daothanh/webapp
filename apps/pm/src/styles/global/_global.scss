@@ -1,7 +1,3 @@
-@import 'ant-design-vue/lib/modal/style/index.css';
-@import 'ant-design-vue/lib/steps/style/index.css';
-@import 'ant-design-vue/lib/notification/style/index.css';
-@import 'ant-design-vue/lib/message/style/index.css';
 @import 'src/styles/font/font';
 @import "src/styles/global/vars";
 @import 'src/styles/module/customAntd';
@@ -9,6 +5,7 @@
 @import "src/styles/module/drawer";
 @import "src/styles/module/table";
 @import "src/styles/module/calendar";
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 

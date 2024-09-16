@@ -146,11 +146,12 @@
 <script lang="ts" setup>
 import { computed, reactive, ref, toRaw, watchEffect } from 'vue'
 import { Form, message } from 'ant-design-vue'
-import { Contractor } from '@/types/contractor'
+import { storeToRefs } from 'pinia'
+import type { Contractor } from '@/types/contractor'
 import { filterOption } from '@/utils'
 import { useGlobalListStore, useLocationStore } from '@/stores/sysModuleStore.ts'
-import { storeToRefs } from 'pinia'
 import contractorApi from '@/apis/project-management/contractor.ts'
+
 const props = defineProps({
   visible: {
     type: Boolean,

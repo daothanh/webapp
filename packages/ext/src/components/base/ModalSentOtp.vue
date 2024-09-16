@@ -61,7 +61,6 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import OtpInput from '@/components/base/OtpInput.vue'
 import debounce from 'lodash/debounce.js'
 
 const MAX_TIME = 60

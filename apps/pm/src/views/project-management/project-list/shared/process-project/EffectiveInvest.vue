@@ -40,8 +40,7 @@ export default {
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import ProjectIcon from '@/assets/svg/ProjectIcon.vue'
-import INumber from '@/components/common/Number.vue'
+import {ProjectIcon, INumber} from 'ui'
 import {
   EFFECTIVE_INVEST_PROJECT,
   STATE_PROJECT,

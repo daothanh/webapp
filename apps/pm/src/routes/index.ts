@@ -1,9 +1,8 @@
 import {
   createRouter,
-  createWebHistory,
-  NavigationGuardNext,
-  RouteLocationNormalized
+  createWebHistory
 } from 'vue-router'
+import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'
 import { routes } from '@/routes/routerMap'
 import { checkRoles, isEmptyObject, setItemToLocalStorage } from '@/utils'
 import { KEY_LOCAL } from '@/contants'
@@ -65,8 +64,7 @@ router.beforeEach(
 
     if (userInfo?.email && !userInfo?.authorization.length) {
       next('/403')
-    } else {
-      if (to?.meta?.uriRole && !isEmptyObject(userInfo)) {
+    } else if (to?.meta?.uriRole && !isEmptyObject(userInfo)) {
         if (checkRoles(to?.meta?.uriRole as string)) {
           next()
         }
@@ -74,7 +72,6 @@ router.beforeEach(
       } else {
         next()
       }
-    }
   }
 )
 

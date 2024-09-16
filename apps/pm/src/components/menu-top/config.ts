@@ -1,4 +1,4 @@
-import { MenuTopType } from '@/types'
+import type { MenuTopType } from '@/types'
 
 export const MENU_TOP: MenuTopType[] = [
   {

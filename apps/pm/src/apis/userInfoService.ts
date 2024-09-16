@@ -1,7 +1,7 @@
+import type { AxiosResponse } from 'axios'
 import { getItemFromLocalStorage } from '@/utils'
 import { KEY_LOCAL } from '@/contants'
-import { AxiosResponse } from 'axios'
-import { TypeAPIError } from '@/apis/types.ts'
+import type { TypeAPIError } from '@/apis/types.ts'
 import { $httpRequest } from '@/apis/index.ts'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL

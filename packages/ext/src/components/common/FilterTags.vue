@@ -77,7 +77,7 @@ import $ from 'jquery'
 import { gsap } from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import ScrollToPlugin from 'gsap/ScrollToPlugin'
-import ArrowDownIcon from '@/assets/svg/ArrowDownIcon.vue'
+import {ArrowDownIcon} from 'ui'
 
 gsap.registerPlugin(Draggable)
 gsap.registerPlugin(ScrollToPlugin)

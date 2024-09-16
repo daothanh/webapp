@@ -277,7 +277,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { columnTable } from './columns.ts'
 import { projectListService } from '@/apis/project-management/project-list'
 import ModalCreateProject from '@/views/project-management/project-list/ModalCreateProject.vue'
-import EditIcon from '@/assets/svg/EditIcon.vue'
+import {EditIcon} from 'ui'
 import { message } from 'ant-design-vue'
 import { PAGINATION } from '@/contants'
 import {
@@ -289,6 +289,7 @@ import {
 import { GLOBAL_ROLES, MODE_ACTION_TO_PAGE } from '@/configs'
 import { RouterName } from '@/routes/config.ts'
 import _ from 'lodash'
+import { StaffSelect } from 'ui'
 
 const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
 const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))

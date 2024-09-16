@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 import {
   getGlobalListDetail,
   getListCommune,
   getListDistrict,
   getListProvince
 } from '@/apis/global'
-import { ref } from 'vue'
-import { GlobalListItem } from '@/types/global-list.ts'
+import type { GlobalListItem } from '@/types/global-list.ts'
 
 export const useLocationStore = defineStore(
   'locationStore',
@@ -100,7 +100,7 @@ export const useGlobalListStore = defineStore(
       if (temp[code].length === 0) {
         loading.value = true
         try {
-          const res = await getGlobalListDetail({ code: code })
+          const res = await getGlobalListDetail({ code })
           if (res.message === 'SUCCESS') {
             temp[code] = res.body
           }

@@ -30,7 +30,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import SingleOtpInput from '@/components/common/SingleOtpInput.vue'
 
 // keyCode constants
 const BACKSPACE = 8
@@ -40,9 +39,6 @@ const DELETE = 46
 
 export default defineComponent({
   name: 'OtpInput',
-  components: {
-    SingleOtpInput
-  },
   props: {
     numInputs: {
       default: 4

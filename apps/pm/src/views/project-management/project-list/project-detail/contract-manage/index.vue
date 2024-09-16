@@ -103,10 +103,9 @@ export default {
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { getTableRowIndex, isEmptyObject } from '@/utils'
-import EditIcon from '@/assets/svg/EditIcon.vue'
+import {EditIcon, DeleteIcon} from 'ui'
 import { EyeOutlined } from '@ant-design/icons-vue'
 import { PAGINATION } from '@/contants'
-import DeleteIcon from '@/assets/svg/DeleteIcon.vue'
 import { columnContractList } from './columns.ts'
 import { contractProjectListService } from '@/apis/project-management/project-list/contract-manage'
 import { message, Modal } from 'ant-design-vue'

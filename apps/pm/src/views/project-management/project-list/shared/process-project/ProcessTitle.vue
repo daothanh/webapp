@@ -22,7 +22,7 @@ export default {
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import TriangleIcon from '@/assets/svg/TriangleIcon.vue'
+import {TriangleIcon} from 'ui'
 
 const props = defineProps({
   record: {

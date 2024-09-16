@@ -1,7 +1,8 @@
+import type {AxiosResponse} from 'axios'
+import axios from 'axios'
 import { $httpRequest } from '@/apis'
 import { auth } from '@/apis/defineRouting.ts'
-import axios, { AxiosResponse } from 'axios'
-import { authParams } from '@/apis/auth/types.ts'
+import type { authParams } from '@/apis/auth/types.ts'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 export const refreshToken = async (params: {

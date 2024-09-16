@@ -121,7 +121,7 @@ export default {
 import { ref, watch } from 'vue'
 import { BUDGET_EXP_PROJECT } from '@/configs'
 import { debounce } from 'lodash'
-import INumber from '@/components/common/Number.vue'
+import {INumber} from 'ui'
 import { PlusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons-vue'
 import _ from 'lodash'
 import { message } from 'ant-design-vue'

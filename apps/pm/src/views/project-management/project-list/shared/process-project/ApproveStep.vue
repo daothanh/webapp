@@ -34,9 +34,9 @@ export default {
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import ProjectIcon from '@/assets/svg/ProjectIcon.vue'
+import {ProjectIcon} from 'ui'
 import { APPROVE_STEP_PROJECT, APPROVE_STEP_PROJECT_OVER_APPROVED, STATE_PROJECT } from '@/configs'
-import INumber from '@/components/common/Number.vue'
+import {INumber} from 'ui'
 import { debounce } from 'lodash'
 
 const props = defineProps({

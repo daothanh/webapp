@@ -54,8 +54,7 @@
 <script lang="ts">
 import { VueDraggableNext } from 'vue-draggable-next'
 import { defineComponent, reactive, watch } from 'vue'
-import DragIcon from '@/assets/svg/DragIvon.vue'
-import SortIcon from '@/assets/svg/SortIcon.vue'
+import {DragIcon, SortIcon} from 'ui'
 
 export default defineComponent({
   components: {

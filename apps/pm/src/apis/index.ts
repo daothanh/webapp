@@ -1,8 +1,10 @@
-import axios, { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
+import axios from 'axios'
+import { message } from 'ant-design-vue'
 import { getDevBaseUrl, getItemFromLocalStorage, setItemToLocalStorage } from '@/utils'
 import { KEY_LOCAL } from '@/contants'
-import { message } from 'ant-design-vue'
 import { refreshToken } from '@/apis/auth'
+
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 let isRefreshing = false
@@ -25,7 +27,7 @@ export const $httpRequest = (moduleCode: string) => {
       const access_token: string | null =
         config?.data?.access_token || getItemFromLocalStorage(`${KEY_LOCAL}access_token`)
       if (access_token) {
-        config.headers['Authorization'] = 'Bearer ' + access_token
+        config.headers['Authorization'] = `Bearer ${  access_token}`
         config.headers['X-App-Code'] = import.meta.env.VITE_APP_CODE
       }
       return config
@@ -70,11 +72,11 @@ export const $httpRequest = (moduleCode: string) => {
               isRefreshing = false
               return Promise.reject(error)
             })
-        } else {
+        } 
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject, originalRequest })
           })
-        }
+        
       }
       if (error?.response?.data) {
         message.error(error.response.data.message || 'Đã có lỗi xảy ra!')

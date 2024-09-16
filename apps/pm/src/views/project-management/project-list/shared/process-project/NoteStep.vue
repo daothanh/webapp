@@ -27,7 +27,7 @@ export default {
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import ProjectIcon from '@/assets/svg/ProjectIcon.vue'
+import {ProjectIcon} from 'ui'
 import { debounce } from 'lodash'
 
 const props = defineProps({

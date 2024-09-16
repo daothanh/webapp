@@ -39,22 +39,19 @@
       </div>
     </div>
     <loading-circle v-if="loading" class="down-icon" />
-    <arrow-down v-else class="down-icon" :width="12" color="#999" />
+    <arrow-down-icon v-else class="down-icon" :width="12" color="#999" />
   </div>
 </template>
 
 <script>
-import ArrowDown from '@/assets/svg/ArrowDownIcon.vue'
-import EmptyIcon from '@/assets/svg/EmptyIcon.vue'
-import CCheckbox from '@/components/common/Checkbox.vue'
-import LoadingCircle from '@/components/common/LoadingCircle.vue'
 import { Empty } from 'ant-design-vue'
-import { filter, includes, debounce, isNull } from 'lodash'
+import { filter, includes, isNull } from 'lodash'
+import {ArrowDownIcon, EmptyIcon, } from 'ui'
 import { converVietNamese } from '@/utils'
 
 export default {
   name: 'CDropdown',
-  components: { LoadingCircle, CCheckbox, EmptyIcon, ArrowDown },
+  components: {EmptyIcon, ArrowDownIcon },
   props: {
     value: {
       type: Array,
@@ -203,8 +200,7 @@ export default {
       if (this.isSingle) {
         this.onChange(this.value.includes(_value) ? [] : [_value])
         this.openDropdown = false
-      } else {
-        if (_value === 'all') {
+      } else if (_value === 'all') {
           this.onChange(
             this.value.filter((v) => v !== 'all').length
               ? []
@@ -222,7 +218,6 @@ export default {
               : this.value.concat(_value)
           )
         }
-      }
     },
     handleScroll(event) {
       if (this.onScroll) {

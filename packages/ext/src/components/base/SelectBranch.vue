@@ -17,18 +17,11 @@
   />
 </template>
 
-<script>
-export default {
-  name: 'BranchSelect'
-}
-</script>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, watch, computed } from 'vue'
-import { debounce } from 'lodash'
-import { isEmptyObject } from '@/utils'
+import _, { debounce } from 'lodash'
 import { getCompanyList } from '@/apis/global'
-import _ from 'lodash'
 
 const props = defineProps({
   branchId: {
@@ -65,17 +58,17 @@ const differenceBranch = computed(() => {
     : branchList.value
 })
 
-const handleSearchBranch = debounce((val) => {
+const handleSearchBranch = debounce(async (val) => {
   currentPage.value = 0
   totalPage.value = 0
   branchList.value = []
-  getBranch(val)
+  await getBranch(val)
 }, 500)
 
-const handleScrollBranch = () => {
+const handleScrollBranch = async () => {
   if (totalPage.value > currentPage.value) {
     currentPage.value += 1
-    getBranch()
+    await getBranch('')
   }
 }
 

@@ -223,9 +223,7 @@ import {
   DownloadOutlined,
   FullscreenExitOutlined
 } from '@ant-design/icons-vue'
-import FullscreenIcon from '@/assets/svg/FullscreenIcon.vue'
-import ReloadIcon from '@/assets/svg/ReloadIcon.vue'
-import SettingIcon from '@/assets/svg/SettingIcon.vue'
+import {FullscreenIcon, ReloadIcon, SettingIcon} from 'ui'
 import { ref, watch, onMounted } from 'vue'
 import debounce from 'lodash/debounce'
 import { useRouter } from 'vue-router'

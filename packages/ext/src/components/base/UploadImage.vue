@@ -32,11 +32,18 @@ import { ref, watch } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import { uploadFile } from '@/apis/global'
 import { PlusOutlined } from '@ant-design/icons-vue'
-import { filesProps } from '@/types'
+
+type FileProp = {
+  id: number
+  fileUrl: string
+  fileName: string
+  key: string
+  publicKey?: string
+}
 
 interface IProps {
   max: number
-  files: filesProps[]
+  files: FileProp[]
   disabled: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {

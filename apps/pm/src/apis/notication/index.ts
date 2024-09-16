@@ -1,6 +1,6 @@
+import type { AxiosResponse } from 'axios'
 import { $httpRequest } from '@/apis'
 import { noti } from '@/apis/defineRouting.ts'
-import { AxiosResponse } from 'axios'
 
 export const notiAppService = {
   async search(params: any) {

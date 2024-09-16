@@ -61,7 +61,7 @@ export default {
 import { ref, watch } from 'vue'
 import { EXPECT_EFFECTIVE_PROJECT } from '@/configs'
 import { debounce } from 'lodash'
-import INumber from '@/components/common/Number.vue'
+import {INumber} from 'ui'
 
 const props = defineProps({
   record: {

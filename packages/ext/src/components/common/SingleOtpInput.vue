@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref, watch } from 'vue'
+import {defineComponent, onMounted, type Ref, ref, watch} from 'vue'
 
 export default defineComponent({
   name: 'SingleOtpInput',

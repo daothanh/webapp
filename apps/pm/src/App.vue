@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useGlobalStore } from '@/stores/globalStore.ts'
 import { computed, onMounted } from 'vue'
 import vi_VN from 'ant-design-vue/es/locale/vi_VN'
 import dayjs from 'dayjs'
+import { useGlobalStore } from '@/stores/globalStore.ts'
 import 'dayjs/locale/vi'
 import { setTheme } from '@/utils/setupDefaultSetting.ts'
 

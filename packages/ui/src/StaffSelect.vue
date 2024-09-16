@@ -28,17 +28,9 @@
 </template>
 
 <script>
-import CDropdown from '@/components/common/Dropdown.vue'
-
-export default {
-  name: 'StaffSelect',
-  components: {
-    CDropdown
-  }
-}
 </script>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash'
 import { isEmptyObject } from '@/utils'

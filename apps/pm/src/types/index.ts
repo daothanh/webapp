@@ -1,29 +1,23 @@
-export type MenuTopType = {
+type MenuTopType = {
   id: number
   name: string
   clientId?: string
   url?: string
 }
 
-export type filesProps = {
-  id: number
-  fileUrl: string
-  fileName: string
-  key: string
-  publicKey?: string
-}
 
-export type typeSelectRouter = {
+type typeSelectRouter = {
   value?: number
   label?: string
   name: string
   uriRole?: string
   children?: any[]
 }
-export type typeTreeSelectRouter = {
+type typeTreeSelectRouter = {
   value: number
   label: string
   name?: string
   uriRole?: string
   children?: any
 }
+export type { MenuTopType, typeSelectRouter, typeTreeSelectRouter}

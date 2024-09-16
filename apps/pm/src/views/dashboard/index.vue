@@ -21,7 +21,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import SelectRouter from '@/components/base/SelectRouter.vue'
+import {SelectRouter} from 'ui'
 import { selectedRouterList } from '@/views/dashboard/config.ts'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

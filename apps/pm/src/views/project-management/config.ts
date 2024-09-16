@@ -1,5 +1,5 @@
 import { RouterName, UriRole } from '@/routes/config.ts'
-import { typeSelectRouter } from '@/types'
+import type { typeSelectRouter } from '@/types'
 
 export const selectedRouterList: typeSelectRouter[] = [
   {

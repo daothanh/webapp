@@ -126,7 +126,7 @@ export default {
 
 <script lang="ts" setup>
 import { ref, computed, watch, createVNode, onMounted } from 'vue'
-import DeleteIcon from '@/assets/svg/DeleteIcon.vue'
+import {DeleteIcon} from 'ui'
 import { columnTableDocsContract } from './columns.ts'
 import { message } from 'ant-design-vue'
 import { checkRoles, getTableRowIndex } from '@/utils'

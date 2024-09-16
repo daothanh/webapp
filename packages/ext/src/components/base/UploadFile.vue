@@ -54,15 +54,21 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { message, Modal } from 'ant-design-vue'
+import { message } from 'ant-design-vue'
 import { uploadFile } from '@/apis/global'
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons-vue'
-import DeleteIcon from '@/assets/svg/DeleteIcon.vue'
-import { filesProps } from '@/types'
-import DownloadIcon from '@/assets/svg/DownloadIcon.vue'
+import {DeleteIcon, DownloadIcon} from 'ui'
+
+type FileProp = {
+  id: number
+  fileUrl: string
+  fileName: string
+  key: string
+  publicKey?: string
+}
 
 interface IProps {
-  files: filesProps[] | any
+  files: FileProp[] | any
   max?: number
   visible?: boolean
   fileType?: string

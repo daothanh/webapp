@@ -70,13 +70,12 @@ export default {
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import ProjectIcon from '@/assets/svg/ProjectIcon.vue'
+import {ProjectIcon, INumber} from 'ui'
 import {
   ESTIMATED_COSTS_PROJECT,
   ESTIMATED_COSTS_PROJECT_OVER_APPROVED,
   STATE_PROJECT
 } from '@/configs'
-import INumber from '@/components/common/Number.vue'
 import { debounce } from 'lodash'
 
 const props = defineProps({

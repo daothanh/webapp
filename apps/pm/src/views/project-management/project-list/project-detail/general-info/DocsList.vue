@@ -148,7 +148,7 @@ export default {
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import DeleteIcon from '@/assets/svg/DeleteIcon.vue'
+import {DeleteIcon} from 'ui'
 import { columnTableDocs } from './columns.ts'
 import { projectListService } from '@/apis/project-management/project-list'
 import { message } from 'ant-design-vue'

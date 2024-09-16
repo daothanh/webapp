@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ArrowDownIcon from '@/assets/svg/ArrowDownIcon.vue'
+import {ArrowDownIcon} from 'ui'
 import { h } from 'vue'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 

@@ -1,6 +1,6 @@
+import type { AxiosResponse } from 'axios'
 import { $httpRequest } from '@/apis'
 import { asm } from '@/apis/defineRouting.ts'
-import { AxiosResponse } from 'axios'
 
 export const projectListService = {
   async search(params: {
