@@ -1,0 +1,15 @@
+.add-dynamic-row-table, {
+  .ant-table-thead > tr > th {
+    padding: 10px;
+  }
+  .ant-table-tbody > tr > td {
+    padding: 3px;
+  }
+}
+
+.custom-table {
+  .ant-table-thead > tr > th , .ant-table-tbody > tr > td {
+    padding: 8px;
+  }
+
+}

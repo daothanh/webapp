@@ -1,0 +1,50 @@
+pipeline {
+  agent any
+  environment {
+    IMAGE_NAME = 'registry.wilad.io/nwop/wop-toc-boc-web'
+    IMAGE_NAME_PROD = 'registry.wilad.io/nwop/wop-toc-boc-web.prod'
+  }
+  parameters {
+    choice(name: 'profile', choices: ['dev', 'prod'])
+    booleanParam(name: 'installNpm', defaultValue: false, description: 'Toggle this value')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        script {
+         if(params.installNpm) {
+            sh 'npm install'
+         }
+          if (env.profile == 'prod') {
+            sh 'npm run build'
+          } else {
+            sh 'npm run build-dev'
+          }
+        }
+      }
+    }
+    stage('Build Docker') {
+      steps {
+        script {
+          if (env.profile == 'prod') {
+            sh 'docker build -f Dockerfile -t ${IMAGE_NAME_PROD}:latest .'
+            sh 'docker push ${IMAGE_NAME_PROD}:latest'
+          } else {
+            sh 'docker build -f Dockerfile.develop -t ${IMAGE_NAME}:latest .'
+            sh 'docker push ${IMAGE_NAME}:latest'
+//             sh 'curl -X POST http://10.6.3.50:9000/api/webhooks/d28ece39-eab5-425f-940f-2d63703d236c'
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo "SUCCESSFUL"
+    }
+    failure {
+      echo "FAILED"
+    }
+  }
+}

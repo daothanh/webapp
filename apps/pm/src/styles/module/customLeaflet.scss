@@ -1,0 +1,14 @@
+.leaflet-popup-content-wrapper {
+  font-family: 'Quicksand', sans-serif;
+  border: 1px solid #25AAE1;
+  .leaflet-popup-content {
+    margin: 16px;
+  }
+}
+.leaflet-popup-tip {
+  border: 1px solid #25AAE1 !important;
+}
+
+.c-tooltip {
+  font-family: 'Quicksand', sans-serif !important;
+}

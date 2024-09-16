@@ -1,0 +1,27 @@
+.ant-picker-calendar {
+  .ant-picker-panel .ant-picker-content {
+     thead {
+        tr th {
+          background-color:  #7dd3fc;
+          margin-bottom: 10px;
+          padding: 12px 8px 12px 0 !important;
+          text-align: center;
+          border: 1px solid #e0f2fe;
+          font-size: 16px;
+        }
+     }
+    tbody {
+      tr td {
+        border: 1px solid #e0f2fe;
+        .ant-picker-calendar-date {
+          border: none;
+          margin: 0;
+          font-size: 15px;
+        }
+        .ant-picker-calendar-date-today {
+          border-top: 2px solid #1890ff !important;
+        }
+      }
+    }
+  }
+}
