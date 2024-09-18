@@ -1,3 +1,4 @@
+import type { App } from 'vue';
 import CollapseCriteria from './src/components/base/collapse-criteria.vue'
 import ModalConfirmEdit from './src/components/base/modal-confirm-edit.vue'
 import FormatPrice from './src/components/base/format-price.vue'
@@ -28,8 +29,8 @@ import LoadingDots from './src/components/common/loading-dots.vue'
 import SingleOtpInput from './src/components/common/single-otp-input.vue'
 import mixins from './src/mixins'
 
-export default {
-  install(app, options) {
+const _default = {
+  install(app: App) {
     app.component('CBreadCrumb', Breadcrumb)
     app.component('BarChart', BarChart)
     app.component('LineChart', LineChart)
@@ -62,3 +63,5 @@ export default {
     app.mixin(mixins)
   }
 }
+export * from './src/composable'
+export default _default

@@ -34,22 +34,20 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'ModalImportFile'
-}
 </script>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, toRaw, watch } from 'vue'
+import { reactive, toRaw } from 'vue'
 import { Form } from 'ant-design-vue'
-import { isEmptyObject } from '@/utils'
+import { useUtils } from 'dnp-core'
 
-const props = defineProps<{
-  visible: boolean
-  loading: boolean
-  orgUnitName: string
-  title: string
-  waterSupplyAreaList: []
-}>()
+defineProps({
+  visible: Boolean,
+  loading: Boolean,
+  orgUnitName: String,
+  title: String,
+  waterSupplyAreaList: Array
+})
+const { isEmptyObject } = useUtils()
 
 const modelRef = reactive({
   publicKey: null

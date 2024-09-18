@@ -47,8 +47,8 @@ import {Empty} from "ant-design-vue";
 import {computed, watch,ref} from "vue";
 import {filter, includes, isNull} from "lodash";
 import {ArrowDownIcon } from 'dnp-ui'
+import { useUtils } from '../../composable/utils.ts'
 import LoadingCircle from "./loading-circle.vue";
-import { converVietNamese } from '@/utils'
 
 const props = defineProps({
   value: {
@@ -115,16 +115,16 @@ const props = defineProps({
   }
 })
 const emits = defineEmits(['change', 'update:value', 'search'])
-const textSearch = ref<string>()
+const textSearch = ref<string|null>()
 const openDropdown = ref<boolean>(false)
 const simpleImage = ref(Empty.PRESENTED_IMAGE_SIMPLE)
-
+const { convertVietnamese } = useUtils()
 const filterListOptions = computed(() => {
   if (props.showSearch && textSearch && !props.isSearchByApi) {
-    const formattedSearchText = converVietNamese(textSearch.value.trim().toLowerCase())
+    const formattedSearchText = convertVietnamese(textSearch.value?.trim().toLowerCase())
     return formattedSearchText
         ? filter(props.options, (x) =>
-            includes(converVietNamese(x?.title?.trim().toLowerCase()), formattedSearchText)
+            includes(convertVietnamese(x?.title?.trim().toLowerCase()), formattedSearchText)
         )
         : props.options
   }

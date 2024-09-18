@@ -32,26 +32,24 @@
   </a-modal>
 </template>
 <script lang="ts">
-export default {
-  name: 'ModalProgressImportFile'
-}
 </script>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import { CopyOutlined } from '@ant-design/icons-vue'
-import { copyTextToClipboard } from '@/utils'
+import { useUtils } from '../../composable/utils.ts'
 
-const props = defineProps<{
-  visible: boolean
-  loading: boolean
+defineProps({
+  visible: Boolean,
+  loading: Boolean,
   isSuccess: {
-    type: boolean
+    type: Boolean,
     default: false
-  }
+  },
   data: Array
-}>()
+})
 
+const { copyTextToClipboard } = useUtils()
 const columnsTable = ref([
   {
     title: 'STT',

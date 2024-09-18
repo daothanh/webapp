@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash'
-import { isEmptyObject } from '@/utils'
+import { useUtils } from "dnp-core";
 import { staffServices } from '@/apis/staff'
 
 const props = defineProps({
@@ -76,6 +76,7 @@ const props = defineProps({
   }
 })
 
+const { isEmptyObject } = useUtils()
 const currentPage = ref(0)
 const totalPage = ref(0)
 const loadingStaffList = ref(false)
