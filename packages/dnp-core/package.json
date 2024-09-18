@@ -1,0 +1,22 @@
+{
+  "name": "dnp-core",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "ant-design-vue": "^4.2.4",
+    "@ant-design/icons-vue": "^7.0.1",
+    "antd-table-saveas-excel": "^2.2.1",
+    "lodash": "^4.17.21",
+    "ui": "*"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "vue": "^3.4.21"
+  }
+}

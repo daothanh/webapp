@@ -11,7 +11,7 @@
     "prettier": "^3.2.5",
     "turbo": "^2.1.2"
   },
-  "packageManager": "npm@10.8.2",
+  "packageManager": "bun@1.1.22",
   "workspaces": [
     "apps/*",
     "packages/*"
