@@ -7,16 +7,13 @@
   </a-button>
 </template>
 
-<script>
-export default {
-  name: 'ButtonCustom',
-  props: {
-    type: {
-      type: String,
-      default: ''
-    }
+<script lang="ts" setup>
+defineProps({
+  type: {
+    type: String,
+    default: ''
   }
-}
+})
 </script>
 
 <style scoped></style>

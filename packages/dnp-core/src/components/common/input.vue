@@ -8,25 +8,17 @@
     </template>
   </a-input>
 </template>
-
-<script>
-export default {
-  name: 'InputCustom',
-  props: {
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: 'text'
-    }
+<script lang="ts" setup>
+defineProps({
+  placeholder: {
+    type: String,
+    default: ''
   },
-  data() {
-    return {}
-  },
-  methods: {}
-}
+  type: {
+    type: String,
+    default: 'text'
+  }
+})
 </script>
 
 <style lang="scss">

@@ -4,11 +4,13 @@
   </a-checkbox>
 </template>
 
-<script>
-export default {
-  name: 'CCheckbox',
-  props: ['size'],
-};
+<script lang="ts" setup>
+defineProps({
+  size: {
+    type: String,
+    default: 'normal'
+  }
+})
 </script>
 
 <style lang="scss">

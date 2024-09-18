@@ -6,14 +6,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'LoadingDots',
-  components: {},
-  computed: {}
-}
-</script>
-
 <style lang="scss" scoped>
 .dot-flashing {
   position: relative;

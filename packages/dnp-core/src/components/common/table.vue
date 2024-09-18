@@ -221,6 +221,7 @@ import debounce from 'lodash/debounce'
 import { useRouter } from 'vue-router'
 import { Excel } from 'antd-table-saveas-excel'
 import moment from 'moment'
+import DropTable from '../table/drop-table.vue'
 
 const props = defineProps({
   title: {

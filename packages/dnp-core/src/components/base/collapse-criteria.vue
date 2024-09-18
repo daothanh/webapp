@@ -16,13 +16,13 @@
           <slot />
         </div>
         <div v-if="isShowSearch" class="flex justify-end space-x-2">
-          <c-button @click="$emit('handleCancel')">
+          <c-button @click="onCancel">
             <template #icon>
               <close-outlined />
             </template>
             Bỏ lọc
           </c-button>
-          <c-button type="primary" :disabled="loading || disable" @click="$emit('handleSearch')">
+          <c-button type="primary" :disabled="loading || disable" @click="onSearch">
             <template #icon>
               <search-outlined />
             </template>
@@ -33,16 +33,11 @@
     </a-collapse-panel>
   </a-collapse>
 </template>
-
-<script>
-export default {
-  name: 'CollapseCriteria'
-}
-</script>
-<script setup>
+<script lang="ts" setup>
 import { CaretRightOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
-const props = defineProps({
+
+defineProps({
   header: {
     type: String,
     default: 'Tìm kiếm'
@@ -67,6 +62,12 @@ const props = defineProps({
 
 const emit = defineEmits(['handleSearch', 'handleCancel'])
 const activeKey = ref(1)
+const onSearch = () => {
+  emit('handleSearch')
+}
+const onCancel = () => {
+  emit('handleCancel')
+}
 </script>
 
 <style lang="scss">
