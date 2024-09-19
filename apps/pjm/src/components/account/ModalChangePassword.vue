@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    v-model:visible="visibleModal"
+    :open="visibleModal"
     type="success"
     ok-text="Đóng"
     :cancel-button-props="{ style: 'display: none' }"
@@ -30,12 +30,9 @@
 </template>
 
 <script>
-export default {
-  name: 'ModalWarningChangePassword'
-}
 </script>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { InfoCircleOutlined, EditOutlined } from '@ant-design/icons-vue'
 

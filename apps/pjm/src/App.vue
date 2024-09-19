@@ -17,11 +17,11 @@ const loading = computed(() => {
 const theme = {
   token: {
     colorPrimary: '#1890ff',
-    borderRadius: '2px',
+    borderRadius: 2,
     fontFamily: "'Quicksand', sans-serif",
-    fontFeatureSettings: 'tnum'
-  },
-};
+    fontFeatureSettings: 'tnum',
+  }
+}
 
 onMounted(() => {
   setTheme()

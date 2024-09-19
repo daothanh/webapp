@@ -2,9 +2,9 @@
   <a-modal
     class="modal-noti-detail"
     :width="'45%'"
-    :visible="visible"
+    :open="visible"
     :footer="null"
-    @cancel="onClose"
+    @close="onClose"
   >
     <template #title>
       <div class="title space-x-1 font-bold">
@@ -40,15 +40,16 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'ModalNotiDetail'
-}
 </script>
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { notiAppService } from '@/apis/notication'
 import { formatRelativeTime } from '../../utils'
+import { notiAppService } from '@/apis/notication'
+
+export default {
+  name: 'ModalNotiDetail'
+}
 
 const props = defineProps<{
   visible: boolean

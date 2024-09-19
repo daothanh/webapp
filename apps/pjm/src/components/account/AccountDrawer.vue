@@ -63,7 +63,7 @@
     </section>
     <setting-theme />
     <a-modal
-      v-model:visible="showModalChangePassword"
+      :open="showModalChangePassword"
       :confirm-loading="loadingSendMail"
       :body-style="{ textAlign: 'center' }"
       :closable="false"
@@ -76,16 +76,11 @@
   </a-drawer>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'AccountDrawer'
-}
-</script>
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { EditOutlined } from '@ant-design/icons-vue'
-import SettingTheme from '@/components/account/SettingTheme.vue'
 import { message } from 'ant-design-vue'
+import SettingTheme from '@/components/account/SettingTheme.vue'
 import { changePassword } from '@/apis/userInfoService.ts'
 
 const width = window.screen.width

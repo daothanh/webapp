@@ -20,6 +20,7 @@
 <script lang="ts" setup>
 import {computed, h} from "vue";
 import {LoadingOutlined} from "@ant-design/icons-vue";
+import { ArrowDownIcon } from 'dnp-ui'
 
 const props = defineProps({
   value: {
