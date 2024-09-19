@@ -45,24 +45,21 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'DeleteIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 16
-    },
-    height: {
-      type: Number,
-      default: 18
-    },
-    color: {
-      type: String,
-      default: '#73777A'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 16
+  },
+  height: {
+    type: Number,
+    default: 18
+  },
+  color: {
+    type: String,
+    default: '#73777A'
   }
-}
+})
 </script>
 
 <style scoped></style>

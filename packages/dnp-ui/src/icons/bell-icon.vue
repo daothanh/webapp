@@ -7,24 +7,21 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'BellIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 6
-    },
-    height: {
-      type: Number,
-      default: 6
-    },
-    color: {
-      type: String,
-      default: '#4196F0'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 6
+  },
+  height: {
+    type: Number,
+    default: 6
+  },
+  color: {
+    type: String,
+    default: '#4196F0'
   }
-}
+})
 </script>
 
 <style scoped></style>

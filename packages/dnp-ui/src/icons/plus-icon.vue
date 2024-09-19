@@ -14,24 +14,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'PlusIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 16
-    },
-    height: {
-      type: Number,
-      default: 16
-    },
-    color: {
-      type: String,
-      default: '#73777A'
-    }
+<script lang="ts" setup>
+defintProps({
+  width: {
+    type: Number,
+    default: 16
+  },
+  height: {
+    type: Number,
+    default: 16
+  },
+  color: {
+    type: String,
+    default: '#73777A'
   }
-}
+})
 </script>
-
-<style scoped></style>

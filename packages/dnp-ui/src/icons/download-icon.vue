@@ -21,22 +21,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'DownloadIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 15
-    },
-    height: {
-      type: Number,
-      default: 15
-    },
-    color: {
-      type: String,
-      default: '#000000'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 15
+  },
+  height: {
+    type: Number,
+    default: 15
+  },
+  color: {
+    type: String,
+    default: '#000000'
   }
-}
+})
 </script>

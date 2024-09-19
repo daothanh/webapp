@@ -22,7 +22,6 @@ import DirectoryTree from './src/components/common/directory-tree.vue'
 import DatePicker from './src/components/common/range-date-picker.vue'
 import InputNumber from './src/components/common/input-number.vue'
 import CDropdown from './src/components/common/dropdown.vue'
-import FilterTags from './src/components/common/filter-tags.vue'
 import FullScreenModal from './src/components/common/full-screen-modal.vue'
 import LoadingCircle from './src/components/common/loading-circle.vue'
 import LoadingDots from './src/components/common/loading-dots.vue'
@@ -36,7 +35,6 @@ const _default = {
     app.component('LineChart', LineChart)
     app.component('CCheckbox', CCheckbox)
     app.component('CDropdown', CDropdown)
-    app.component('FilterTags', FilterTags)
     app.component('FullScreenModal', FullScreenModal)
     app.component('CTable', Table)
     app.component('CInput', Input)

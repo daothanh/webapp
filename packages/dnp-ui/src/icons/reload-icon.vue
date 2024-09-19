@@ -14,10 +14,8 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'ReloadIcon',
-  props: {
+<script lang="ts" setup>
+defineProps( {
     width: {
       type: Number,
       default: 17
@@ -31,5 +29,5 @@ export default {
       default: '#73777A'
     }
   }
-}
+)
 </script>

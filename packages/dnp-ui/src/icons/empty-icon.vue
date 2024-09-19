@@ -39,18 +39,15 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'EmptyIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 150,
-    },
-    height: {
-      type: Number,
-      default: 100,
-    },
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 150,
   },
-};
+  height: {
+    type: Number,
+    default: 100,
+  },
+})
 </script>

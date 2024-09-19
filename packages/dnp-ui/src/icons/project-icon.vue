@@ -53,10 +53,8 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'ProjectIcon',
-  props: {
+<script lang="ts" setup>
+defineProps({
     width: {
       type: Number,
       default: 20
@@ -70,5 +68,5 @@ export default {
       default: '#44494D'
     }
   }
-}
+)
 </script>

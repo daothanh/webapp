@@ -14,24 +14,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'AssignConfigIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 16
-    },
-    height: {
-      type: Number,
-      default: 18
-    },
-    color: {
-      type: String,
-      default: '#73777A'
-    }
+<script setup lang="ts">
+defineProps({
+  width: {
+    type: Number,
+    default: 16
+  },
+  height: {
+    type: Number,
+    default: 18
+  },
+  color: {
+    type: String,
+    default: '#73777A'
   }
-}
+})
 </script>
-
-<style scoped></style>

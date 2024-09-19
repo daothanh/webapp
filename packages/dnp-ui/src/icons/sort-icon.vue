@@ -19,10 +19,8 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'SortIcon',
-  props: {
+<script lang="ts" setup>
+defineProps({
     width: {
       type: Number,
       default: 15
@@ -36,5 +34,5 @@ export default {
       default: '#000000'
     }
   }
-}
+)
 </script>

@@ -14,28 +14,25 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'TriangleIcon',
-  props: {
-    width: {
-      type: [String, Number],
-      default: 100
-    },
-    height: {
-      type: [String, Number],
-      default: 100
-    },
-    borderColor: {
-      type: String,
-      default: 'black'
-    },
-    color: {
-      type: String,
-      default: 'red'
-    }
+<script lang="ts" setup>
+defineProps( {
+  width: {
+    type: [String, Number],
+    default: 100
+  },
+  height: {
+    type: [String, Number],
+    default: 100
+  },
+  borderColor: {
+    type: String,
+    default: 'black'
+  },
+  color: {
+    type: String,
+    default: 'red'
   }
-}
+})
 </script>
 
 <style scoped lang="scss"></style>

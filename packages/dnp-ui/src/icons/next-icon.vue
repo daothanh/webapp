@@ -15,28 +15,23 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'NextIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 16
-    },
-    height: {
-      type: Number,
-      default: 16
-    },
-    color: {
-      type: String,
-      default: '#4196F0'
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 16
+  },
+  height: {
+    type: Number,
+    default: 16
+  },
+  color: {
+    type: String,
+    default: '#4196F0'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
-}
+})
 </script>
-
-<style scoped></style>

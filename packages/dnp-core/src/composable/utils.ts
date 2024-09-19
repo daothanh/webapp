@@ -1,65 +1,75 @@
 import {message} from "ant-design-vue";
 
 export function useUtils () {
-    const convertVietnamese = (str = '') => {
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a')
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e')
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i')
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o')
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u')
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y')
-        str = str.replace(/đ/g, 'd')
-        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, 'A')
-        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, 'E')
-        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, 'I')
-        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, 'O')
-        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, 'U')
-        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, 'Y')
-        str = str.replace(/Đ/g, 'D')
-        // Some system encode vietnamese combining accent as individual utf-8 characters
-        // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
-        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, '') // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
-        str = str.replace(/\u02C6|\u0306|\u031B/g, '') // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
-        // Remove extra spaces
-        // Bỏ các khoảng trắng liền nhau
-        str = str.replace(/ + /g, ' ')
-        str = str.trim()
-        // Remove punctuations
-        // Bỏ dấu câu, kí tự đặc biệt
-        str = str.replace(
-            /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
-            ' '
-        )
-        return str
-    }
+    const convertVietnamese = (str: string): string => {
+        let text = removeUtf8Vowel(str)
+        // Xóa dấu và các ký tự đặc biệt
+        text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Loại bỏ dấu
+        // text = text.replace(/[!@%^\*\(\)\+=<>?\/,.:;"&\[\]~$`{}|\\\-]/g, ' '); // Bỏ các ký tự đặc biệt
+        text = text.replace(/ +/g, ' ').trim(); // Bỏ khoảng trắng thừa
+
+        return text;
+    };
 
     const isEmptyObject = (obj: object) => {
         return Object.keys(obj).length === 0
     }
 
-    const copyTextToClipboard = (text: string) => {
-        const input = document.createElement('input')
-        input.value = text
-        document.body.appendChild(input)
-        input.select()
-        const success = document.execCommand('copy')
-        document.body.removeChild(input)
-
-        message.success('Copy thành công')
+    const copyTextToClipboard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            message.success('Copy thành công');
+        } catch (err) {
+            message.error('Copy thất bại');
+        }
     }
 
     const removeUtf8Vowel = (val: string): string => {
-        let str = String(val)
-        str = str.toLowerCase()
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a')
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e')
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i')
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o')
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u')
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y')
-        str = str.replace(/đ/g, 'd')
-        str = str.trim()
-        return str
+        const map: { [key: string]: string } = {
+            a: 'àáạảãâầấậẩẫăằắặẳẵ',
+            e: 'èéẹẻẽêềếệểễ',
+            i: 'ìíịỉĩ',
+            o: 'òóọỏõôồốộổỗơờớợởỡ',
+            u: 'ùúụủũưừứựửữ',
+            y: 'ỳýỵỷỹ',
+            d: 'đ',
+            A: 'ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ',
+            E: 'ÈÉẸẺẼÊỀẾỆỂỄ',
+            I: 'ÌÍỊỈĨ',
+            O: 'ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ',
+            U: 'ÙÚỤỦŨƯỪỨỰỬỮ',
+            Y: 'ỲÝỴỶỸ',
+            D: 'Đ'
+        };
+
+        let text = val;
+
+        // Thay thế các ký tự tiếng Việt
+        for (const key in map) {
+            const regex = new RegExp(`[${map[key]}]`, 'g');
+            text = text.replace(regex, key);
+        }
+
+        return text
     }
-    return {convertVietnamese, isEmptyObject, copyTextToClipboard, removeUtf8Vowel}
+
+    const isNumeric = (str: string) => {
+        if (typeof str !== 'string') return false
+        return !isNaN(Number(str)) && !isNaN(parseFloat(str))
+    }
+
+    const numberFormatter = (value: any, seg = ',') =>
+        value ? `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, seg) : value
+
+    const numberCommaParser = (value: string) => (value ? value.replace(/\$\s?|(,*)/g, '') : value)
+
+    return {
+        convertVietnamese,
+        isEmptyObject,
+        copyTextToClipboard,
+        removeUtf8Vowel,
+        numberFormatter,
+        numberCommaParser,
+        isNumeric
+    }
 }

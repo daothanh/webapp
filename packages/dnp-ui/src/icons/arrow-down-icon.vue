@@ -14,22 +14,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'ArrowDownIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 20
-    },
-    height: {
-      type: Number,
-      default: 20
-    },
-    color: {
-      type: String,
-      default: '#44494D'
-    }
+<script setup lang="ts">
+defineProps({
+  width: {
+    type: Number,
+    default: 20
+  },
+  height: {
+    type: Number,
+    default: 20
+  },
+  color: {
+    type: String,
+    default: '#44494D'
   }
-}
+})
 </script>

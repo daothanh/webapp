@@ -34,22 +34,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'DragIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 9
-    },
-    height: {
-      type: Number,
-      default: 15
-    },
-    color: {
-      type: String,
-      default: '#73777A'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 9
+  },
+  height: {
+    type: Number,
+    default: 15
+  },
+  color: {
+    type: String,
+    default: '#73777A'
   }
-}
+})
 </script>

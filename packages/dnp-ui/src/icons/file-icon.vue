@@ -14,24 +14,21 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'FileIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 20
-    },
-    height: {
-      type: Number,
-      default: 20
-    },
-    color: {
-      type: String,
-      default: '#44494D'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 20
+  },
+  height: {
+    type: Number,
+    default: 20
+  },
+  color: {
+    type: String,
+    default: '#44494D'
   }
-}
+})
 </script>
 
 <style scoped></style>

@@ -16,24 +16,21 @@
     />
   </svg>
 </template>
-<script>
-export default {
-  name: 'PinIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 16
-    },
-    height: {
-      type: Number,
-      default: 16
-    },
-    color: {
-      type: String,
-      default: '#4196F0'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 16
+  },
+  height: {
+    type: Number,
+    default: 16
+  },
+  color: {
+    type: String,
+    default: '#4196F0'
   }
-}
+})
 </script>
 
 <style scoped></style>

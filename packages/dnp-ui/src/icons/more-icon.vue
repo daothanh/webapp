@@ -8,24 +8,19 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'MoreIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 6
-    },
-    height: {
-      type: Number,
-      default: 6
-    },
-    color: {
-      type: String,
-      default: '#999'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 6
+  },
+  height: {
+    type: Number,
+    default: 6
+  },
+  color: {
+    type: String,
+    default: '#999'
   }
-}
+})
 </script>
-
-<style scoped></style>

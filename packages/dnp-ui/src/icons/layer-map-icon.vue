@@ -23,24 +23,21 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: 'LayerMapIcon',
-  props: {
-    width: {
-      type: Number,
-      default: 19
-    },
-    height: {
-      type: Number,
-      default: 19
-    },
-    color: {
-      type: String,
-      default: '#73777A'
-    }
+<script lang="ts" setup>
+defineProps({
+  width: {
+    type: Number,
+    default: 19
+  },
+  height: {
+    type: Number,
+    default: 19
+  },
+  color: {
+    type: String,
+    default: '#73777A'
   }
-}
+})
 </script>
 
 <style scoped></style>

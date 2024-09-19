@@ -7,6 +7,10 @@
   "scripts": {
     "lint": "eslint ."
   },
+  "dependencies": {
+    "dnp-core": "*",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "eslint-config-custom": "*",
     "tsconfig": "*",
