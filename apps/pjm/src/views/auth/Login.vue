@@ -9,12 +9,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@/utils'
+import { setItemToLocalStorage } from '@/utils'
 import { KEY_LOCAL } from '@/contants'
 import { useAuthStore } from '@/stores/authStore.ts'
-import { RouterName } from '@/routes/config.ts'
 import { getUserInfo } from '@/apis/userInfoService.ts'
-import { message } from 'ant-design-vue'
 
 onMounted(async () => {
   const route = useRoute()
