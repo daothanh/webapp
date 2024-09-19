@@ -1,8 +1,8 @@
 import { Excel } from 'antd-table-saveas-excel'
 import moment from 'moment'
-import { useAuthStore } from '@/stores/authStore.ts'
 import _ from 'lodash'
 import { message } from 'ant-design-vue'
+import { useAuthStore } from '@/stores/authStore.ts'
 
 export const setItemToLocalStorage = (key: string, payload: any): any => {
   return localStorage.setItem(key, JSON.stringify(payload))
@@ -366,9 +366,9 @@ export const formatRelativeTime = (inputDate) => {
   } else if (timeDifference < 31536000) {
     const monthsAgo = Math.floor(timeDifference / 2592000)
     return `${monthsAgo} tháng trước`
-  } else {
+  } 
     return inputMoment.format('DD/MM/YYYY HH:mm')
-  }
+  
 }
 
 export const showNotification = (title, options) => {
@@ -420,7 +420,6 @@ export const renderProcessColorByState = (state: number | string) => {
 }
 
 export const filterOption = (val: string, option: { value: string; label: string }) => {
-  console.log(val, option.label)
   return val
     ? removeUtf8Vowel(option.label?.toLowerCase()).includes(
         removeUtf8Vowel(String(val).toLowerCase())
