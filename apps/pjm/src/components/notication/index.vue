@@ -118,30 +118,23 @@
   />
 </template>
 
-<script lang="ts">
-</script>
 <script setup lang="ts">
-import { h, ref, onMounted, computed, onUnmounted, watch } from 'vue'
+import { ref, onMounted, computed, onUnmounted, watch } from 'vue'
 import {BellIcon, EmptyIcon,MoreIcon} from 'dnp-ui'
-import { EllipsisOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons-vue'
 import $ from 'jquery'
+import { notification, Button } from 'ant-design-vue'
+import moment from 'moment'
 import { useAuthStore } from '@/stores/authStore.ts'
-import { RouterName } from '@/routes/config.ts'
 import { useNotiStore } from '@/stores/notiStore.ts'
 import { notiAppService } from '@/apis/notication'
 import mqttService from '@/services/mqttService'
-import { formatRelativeTime, isEmptyObject, showNotification } from '@/utils'
+import { formatRelativeTime } from '@/utils'
 import ringSound from '@/assets/files/ring.mp3'
-import { notification, Button } from 'ant-design-vue'
-import moment from 'moment'
 import PopupConfirm from '@/components/notication/PopupConfirm.vue'
 
-export default {
-  name: 'NoticationHeader'
-}
 
 const topicNoti = computed(() => {
-  return `NOTI_APP_${import.meta.env.VITE_APP_CODE}_${userInfo.userName}`
+  return `NOTI_APP_${import.meta.env.VITE_APP_CLIENT_ID}_${userInfo.userName}`
 })
 
 onMounted(() => {

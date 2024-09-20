@@ -1,4 +1,4 @@
-import { MainLayout } from '../layouts'
+import { MainLayout } from 'dnp-core'
 import overviewIcon from '@/assets/icons/sidebar/overview.svg'
 import businessPlanIcon from '@/assets/icons/sidebar/business-plan.svg'
 import customerServiceIcon from '@/assets/icons/sidebar/customer-service.svg'
@@ -7,7 +7,6 @@ import networkManagementIcon from '@/assets/icons/sidebar/network-management.svg
 import assetManagementIcon from '@/assets/icons/sidebar/asset-management.svg'
 import projectIcon from '@/assets/icons/sidebar/project.svg'
 import personnelIcon from '@/assets/icons/sidebar/personnel.svg'
-
 import { RouterName, UriRole } from '@/routes/config.ts'
 
 export const routes = [

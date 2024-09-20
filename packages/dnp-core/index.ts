@@ -62,4 +62,5 @@ const _default = {
   }
 }
 export * from './src/composable'
+export * from './src/layouts'
 export default _default
