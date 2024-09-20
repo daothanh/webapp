@@ -30,7 +30,7 @@ export const contractProjectListService = {
     return res.data
   },
   async update(params: any) {
-    const res: AxiosResponse = await httpRequest('').post(
+    const res: AxiosResponse = await httpRequest().post(
       `${asm.CONTRACT_PROJECT_LIST_UPDATE}`,
       params
     )

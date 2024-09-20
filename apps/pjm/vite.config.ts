@@ -31,5 +31,12 @@ export default defineConfig({
         replacement: `${pathResolve('src/types')  }/`
       }
     ]
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ["legacy-js-api"],
+      },
+    },
   }
 })
