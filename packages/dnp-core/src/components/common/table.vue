@@ -215,12 +215,14 @@ import {
   DownloadOutlined,
   FullscreenExitOutlined
 } from '@ant-design/icons-vue'
-import {FullscreenIcon, ReloadIcon, SettingIcon} from 'dnp-ui'
 import { ref, watch, onMounted } from 'vue'
 import debounce from 'lodash/debounce'
 import { useRouter } from 'vue-router'
 import { Excel } from 'antd-table-saveas-excel'
 import moment from 'moment'
+import FullscreenIcon from '../../ui/icons/fullscreen-icon.vue'
+import ReloadIcon from '../../ui/icons/reload-icon.vue'
+import SettingIcon from '../../ui/icons/setting-icon.vue'
 import DropTable from '../table/drop-table.vue'
 
 const props = defineProps({

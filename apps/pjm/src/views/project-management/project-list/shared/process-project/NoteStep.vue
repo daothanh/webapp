@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import {ProjectIcon} from 'dnp-ui'
+import {ProjectIcon} from 'dnp-core'
 import { debounce } from 'lodash'
 
 const props = defineProps({

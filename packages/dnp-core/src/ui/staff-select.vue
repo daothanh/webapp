@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash'
-import { useUtils } from "dnp-core";
+import { useUtils } from "../composable";
 import { staffServices } from '@/apis/staff'
 
 const props = defineProps({

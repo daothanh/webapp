@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import { size, trim } from 'lodash'
 import {computed, ref} from "vue";
-import { useUtils } from "dnp-core";
+import { useUtils } from "../composable";
 
 const props = defineProps({
   modelValue: [String, Number],

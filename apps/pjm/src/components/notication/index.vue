@@ -120,7 +120,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, onUnmounted, watch } from 'vue'
-import {BellIcon, EmptyIcon,MoreIcon} from 'dnp-ui'
+import {BellIcon, EmptyIcon,MoreIcon} from 'dnp-core'
 import $ from 'jquery'
 import { notification, Button } from 'ant-design-vue'
 import moment from 'moment'

@@ -57,7 +57,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash'
-import {INumber} from 'dnp-ui'
+import {INumber} from 'dnp-core'
 import { EXPECT_EFFECTIVE_PROJECT } from '@/configs'
 
 const props = defineProps({

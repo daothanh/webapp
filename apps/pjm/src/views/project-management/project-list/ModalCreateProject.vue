@@ -140,7 +140,7 @@
 <script lang="ts" setup>
 import { createVNode, reactive, ref, toRaw, watch } from 'vue'
 import { Form, Modal } from 'ant-design-vue'
-import { StaffSelect } from 'dnp-ui'
+import { StaffSelect } from 'dnp-core'
 
 const props = defineProps<{
   title: string

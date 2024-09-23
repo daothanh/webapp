@@ -181,7 +181,7 @@ import {
 } from '@ant-design/icons-vue'
 import { useForm } from 'ant-design-vue/es/form'
 import { storeToRefs } from 'pinia'
-import {EditIcon, DeleteIcon} from 'dnp-ui'
+import {EditIcon, DeleteIcon} from 'dnp-core'
 import { message, Modal } from 'ant-design-vue'
 import FormDrawer from './FormDrawer.vue'
 import { checkRoles, filterOption, getTableRowIndex } from '@/utils'

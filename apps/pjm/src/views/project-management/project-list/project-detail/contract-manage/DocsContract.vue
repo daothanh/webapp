@@ -123,7 +123,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, createVNode, onMounted } from 'vue'
-import {DeleteIcon} from 'dnp-ui'
+import {DeleteIcon} from 'dnp-core'
 import { message } from 'ant-design-vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
 import { columnTableDocsContract } from './columns.ts'

@@ -18,7 +18,7 @@
 </script>
 
 <script lang="ts" setup>
-import {SelectRouter} from 'dnp-ui'
+import {SelectRouter} from 'dnp-core'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { selectedRouterList } from '@/views/dashboard/config.ts'

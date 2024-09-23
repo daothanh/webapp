@@ -266,7 +266,7 @@
 <script lang="ts" setup>
 import { onMounted, computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import {EditIcon, StaffSelect } from 'dnp-ui'
+import {EditIcon, StaffSelect } from 'dnp-core'
 import { message } from 'ant-design-vue'
 import {
   CaretRightOutlined,

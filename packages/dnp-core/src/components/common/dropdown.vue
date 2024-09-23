@@ -46,8 +46,8 @@
 import {Empty} from "ant-design-vue";
 import {computed, watch,ref} from "vue";
 import {filter, includes, isNull} from "lodash";
-import {ArrowDownIcon } from 'dnp-ui'
-import { useUtils } from '../../composable/utils.ts'
+import ArrowDownIcon from '../../ui/icons/arrow-down-icon.vue'
+import { useUtils } from '../../composable'
 import LoadingCircle from "./loading-circle.vue";
 
 const props = defineProps({

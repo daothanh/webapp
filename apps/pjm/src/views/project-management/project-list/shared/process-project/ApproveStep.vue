@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import {ProjectIcon,INumber} from 'dnp-ui'
+import {ProjectIcon,INumber} from 'dnp-core'
 import { debounce } from 'lodash'
 import { APPROVE_STEP_PROJECT, APPROVE_STEP_PROJECT_OVER_APPROVED, STATE_PROJECT } from '@/configs'
 

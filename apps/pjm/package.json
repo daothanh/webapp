@@ -30,7 +30,6 @@
     "pinia-plugin-persistedstate": "^4.0.0",
     "popper.js": "^2.0.0-next.4",
     "uuid": "^9.0.1",
-    "dnp-ui": "*",
     "dnp-core": "*",
     "vue": "^3.5.6",
     "vue-chartjs": "^5.3.1",

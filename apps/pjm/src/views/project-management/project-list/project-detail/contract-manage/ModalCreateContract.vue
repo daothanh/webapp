@@ -206,7 +206,7 @@
 <script lang="ts" setup>
 import { createVNode, reactive, ref, toRaw, watch } from 'vue'
 import { Form, Modal } from 'ant-design-vue'
-import {INumber} from 'dnp-ui'
+import {INumber} from 'dnp-core'
 
 const props = defineProps<{
   title: string

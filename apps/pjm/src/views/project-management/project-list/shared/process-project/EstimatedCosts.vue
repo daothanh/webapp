@@ -67,7 +67,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import {ProjectIcon, INumber} from 'dnp-ui'
+import {ProjectIcon, INumber} from 'dnp-core'
 import { debounce } from 'lodash'
 import {
   ESTIMATED_COSTS_PROJECT,

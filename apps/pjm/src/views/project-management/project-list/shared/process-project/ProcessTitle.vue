@@ -18,7 +18,7 @@
 </script>
 
 <script lang="ts" setup>
-import {TriangleIcon} from 'dnp-ui'
+import {TriangleIcon} from 'dnp-core'
 
 const props = defineProps({
   record: {

@@ -56,7 +56,8 @@
 import { ref, watch } from 'vue'
 import { message } from 'ant-design-vue'
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons-vue'
-import {DeleteIcon, DownloadIcon} from 'dnp-ui'
+import DeleteIcon from '../../ui/icons/delete-icon.vue'
+import DownloadIcon from '../../ui/icons/download-icon.vue'
 import { uploadFile } from '@/apis/global'
 
 type FileProp = {

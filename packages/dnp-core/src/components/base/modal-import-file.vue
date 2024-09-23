@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { reactive, toRaw } from 'vue'
 import { Form } from 'ant-design-vue'
-import { useUtils } from 'dnp-core'
+import { useUtils } from '../../composable'
 
 defineProps({
   visible: Boolean,

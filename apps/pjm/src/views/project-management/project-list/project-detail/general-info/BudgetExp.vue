@@ -117,7 +117,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import _, { debounce } from 'lodash'
-import {INumber} from 'dnp-ui'
+import {INumber} from 'dnp-core'
 import { PlusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import { BUDGET_EXP_PROJECT } from '@/configs'

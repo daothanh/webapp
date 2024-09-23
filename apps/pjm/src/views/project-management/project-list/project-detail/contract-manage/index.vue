@@ -99,7 +99,7 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import {EditIcon, DeleteIcon} from 'dnp-ui'
+import {EditIcon, DeleteIcon} from 'dnp-core'
 import { EyeOutlined } from '@ant-design/icons-vue'
 import { message, Modal } from 'ant-design-vue'
 import { columnContractList } from './columns.ts'
