@@ -1,13 +1,13 @@
 <template>
   <a-layout has-sider>
     <a-layout-sider
-      v-model:collapsed="collapsed"
-      :trigger="null"
-      collapsible
-      :collapsed-width="width > 1024 ? 64 : 44"
-      width="280px"
-      style="height: 100vh; position: sticky; top: 0; left: 0"
-      :class="[
+        v-model:collapsed="collapsed"
+        :trigger="null"
+        collapsible
+        :collapsed-width="width > 1024 ? 64 : 44"
+        width="280px"
+        style="height: 100vh; position: sticky; top: 0; left: 0"
+        :class="[
         'z-[1000] transition-all sm:block hidden',
         { 'slide-bar-out': !collapseSideBar && collapsed }
       ]"
@@ -17,30 +17,37 @@
           <img src="/logo_sider_bar_white.jpg" alt="" style="width: 75%; height: auto" />
         </router-link>
         <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          style="color: white; font-size: 24px"
-          @click="handleCollapseMenu"
+            v-if="collapsed"
+            class="trigger"
+            style="color: white; font-size: 24px"
+            @click="handleCollapseMenu"
         />
         <menu-fold-outlined
-          v-else
-          class="trigger"
-          style="color: white; font-size: 24px"
-          @click="handleCollapseMenu"
+            v-else
+            class="trigger"
+            style="color: white; font-size: 24px"
+            @click="handleCollapseMenu"
         />
       </div>
       <LeftSideMenu :menus="menus" :collapsed="collapsed" @toggle-collapse="toggleCollapse" />
     </a-layout-sider>
     <a-layout
-      class="layout-main-content transition-all"
-      :class="`layout-${nameRouter?.name?.replace(/[./]/g, '-')} `"
+        class="layout-main-content transition-all"
+        :class="`layout-${nameRouter?.name?.replace(/[./]/g, '-')} `"
     >
       <app-header
-        class="sm:flex hidden"
-        :sidebar-opened="!collapsed"
-        :sidebar-slide="collapseSideBar"
+          class="hidden sm:flex"
+          :sidebar-opened="!collapsed"
+          :sidebar-slide="collapseSideBar"
       />
-      <a-layout-content class="main-content">
+      <mobile-header custom-class="sm:hidden block" :menus="menus" />
+      <a-layout-content
+          class="main-content sm:my-12"
+          :style="{
+          padding: '8px',
+          backgroundColor: '#f5f5f5'
+        }"
+      >
         <router-view />
       </a-layout-content>
       <app-footer />
@@ -58,7 +65,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLocalStorage } from "../composable";
 import { KEY_LOCAL } from '../contants'
-import { themeStore } from "../stores/themeStore"
+import { useThemeStore } from "../stores"
 import LeftSideMenu from './menu/SideMenu.vue'
 import AppHeader from './header/index.vue'
 import AppFooter from './footer/index.vue'
@@ -70,8 +77,7 @@ const nameRouter = useRoute()
 const menus = ref([])
 const collapsed = ref<boolean>(false)
 
-
-const { setMenu } = themeStore()
+const { setMenu } = useThemeStore()
 onMounted(() => {
   const originRouter = useRouter()
   const routerMenu = originRouter.getRoutes().find((item) => item.path === '/')

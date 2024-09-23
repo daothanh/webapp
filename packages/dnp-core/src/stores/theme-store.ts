@@ -1,7 +1,7 @@
 import { defineStore }  from "pinia"
 import {ref} from "vue";
 
-export const themeStore = defineStore('themeStore', () => {
+export const useThemeStore = defineStore('themeStore', () => {
     const loading = ref(false)
     const isCollapseMenu= ref(false)
     const theme= ref('')

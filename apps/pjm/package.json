@@ -46,6 +46,11 @@
     "@vitejs/plugin-vue": "^4.6.2",
     "@vue/eslint-config-typescript": "^11.0.3",
     "@types/lodash": "^4.17.7",
+    "@rushstack/eslint-patch": "^1.7.2",
+    "@tsconfig/node18": "^18.2.2",
+    "@repo/eslint-config-custom": "*",
+    "@repo/tailwind-config": "*",
+    "@repo/typescript-config": "*",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^8.10.0",
@@ -55,14 +60,11 @@
     "postcss": "^8.4.47",
     "prettier": "^2.8.8",
     "sass": "^1.78.0",
+    "npm-run-all2": "^6.1.2",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
     "vite-plugin-eslint": "^1.8.1",
-    "vue-tsc": "^2.1.6",
-    "@rushstack/eslint-patch": "^1.7.2",
-    "@tsconfig/node18": "^18.2.2",
-    "npm-run-all2": "^6.1.2",
-    "tsconfig": "*"
+    "vue-tsc": "^2.1.6"
   }
 }

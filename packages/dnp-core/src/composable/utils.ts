@@ -63,6 +63,19 @@ export function useUtils () {
 
     const numberCommaParser = (value: string) => (value ? value.replace(/\$\s?|(,*)/g, '') : value)
 
+    const setItemToCookies = (key: string, payload: any): any => {
+        const currentDomain = window.location.hostname
+        return !currentDomain.includes(domain)
+            ? cookies.set(key, payload)
+            : cookies.set(key, payload, null, null, domain)
+    }
+    const getItemFromCookies = (key: string) => {
+        return JSON.parse(JSON.stringify(cookies.get(key) || '{}'))
+    }
+
+    const removeAllCookies = () => {
+        cookies.keys().forEach((cookie) => cookies.remove(cookie))
+    }
     return {
         convertVietnamese,
         isEmptyObject,
@@ -70,6 +83,9 @@ export function useUtils () {
         removeUtf8Vowel,
         numberFormatter,
         numberCommaParser,
-        isNumeric
+        isNumeric,
+        setItemToCookies,
+        getItemFromCookies,
+        removeAllCookies
     }
 }

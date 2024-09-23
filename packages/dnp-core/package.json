@@ -5,8 +5,17 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "lint": "eslint ."
+    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "lint": "eslint src/",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "type-check": "tsc --noEmit"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.39",
     "ant-design-vue": "^4.2.4",
@@ -20,10 +29,15 @@
     "pinia": "^2.2.2"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "@repo/eslint-config-custom": "*",
+    "@repo/tailwind-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/node": "^20.11.24",
     "sass": "^1.79.1",
-    "tsconfig": "*",
     "vue": "^3.4.21",
-    "vite": "^5.4.2"
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
   }
 }

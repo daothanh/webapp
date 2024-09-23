@@ -1,12 +1,13 @@
 <template>
   <div
-    :class="`header px-3 h-[50px] flex items-center justify-between bg-white pl-10 ${
+      :class="`header px-3 h-[50px] flex items-center justify-between  bg-white ${
       isOpenSideBar ? (sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed') : null
     }`"
   >
     <menu-top />
-    <!--    <notication-header class="mr-[10px]" />-->
-<!--    <avatar-header />-->
+    <div class="flex items-center space-x-6">
+<!--      <avatar-header />-->
+    </div>
   </div>
 </template>
 

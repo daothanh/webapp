@@ -1,5 +1,3 @@
-/* eslint-env node */
 module.exports = {
-  root: true,
-  extends: ["plugin:vue/vue3-essential", "custom/vue"],
+  extends: ["@repo/eslint-config-custom/vue.js"],
 };

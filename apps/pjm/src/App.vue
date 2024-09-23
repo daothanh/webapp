@@ -5,6 +5,11 @@ import dayjs from 'dayjs'
 import { useGlobalStore } from '@/stores/globalStore.ts'
 import 'dayjs/locale/vi'
 import { setTheme } from '@/utils/setupDefaultSetting.ts'
+import { useActiveAppStore } from "dnp-core";
+import { storeToRefs } from "pinia";
+
+const { activeApp } = storeToRefs(useActiveAppStore())
+activeApp.value = "Quản lý dự án"
 
 dayjs.locale('en')
 const loading = computed(() => {
