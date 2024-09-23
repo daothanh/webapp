@@ -18,13 +18,13 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 const app = createApp(App)
 
+app.use(pinia)
 app.use(Antd)
+app.use(DnpCore)
 app.use(router)
 app.directive('click-outside', clickOutside)
 app.directive('resize', reSize)
-app.use(DnpCore)
 app.use(Vue3ColorPicker)
-app.use(pinia)
 app.mount('#app')
 
 app.config.globalProperties.$filters = filters

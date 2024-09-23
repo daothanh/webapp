@@ -7,7 +7,7 @@ export type MenuTopType = {
     children?: MenuTopType[]
 }
 
-export type filesProps = {
+export type FilesProps = {
     id: number
     fileUrl: string
     fileName: string
@@ -15,17 +15,35 @@ export type filesProps = {
     publicKey?: string
 }
 
-export type typeSelectRouter = {
+export type SelectRouter = {
     value?: number
     label?: string
     name: string
     uriRole?: string
     children?: any[]
 }
-export type typeTreeSelectRouter = {
+export type TreeSelectRouter = {
     value: number
     label: string
     name?: string
     uriRole?: string
     children?: any
 }
+
+export type ResponseType = {
+    code: string
+    body: any
+    message: string
+}
+
+export type APIError = {
+    code: string
+    message: string
+    context?: any
+}
+
+export type TypeAPIError =
+    | {
+    response?: { data?: APIError }
+}
+    | any

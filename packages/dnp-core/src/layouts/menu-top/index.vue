@@ -34,9 +34,9 @@ import { h } from 'vue'
 import { useUtils } from '../../composable'
 import { KEY_LOCAL } from '../../contants'
 import { MENU_TOP } from './config.ts'
-import { authAPI } from '@/apis/auth'
 import { useActiveAppStore } from '../../stores'
 import { storeToRefs } from "pinia";
+import { useAuthStore } from "../../stores";
 
 const { activeApp } = storeToRefs(useActiveAppStore())
 const { getItemFromCookies } = useUtils()
@@ -54,9 +54,8 @@ const handleMenuClick = async (
     onOk() {
       return new Promise((resolve, reject) => {
         const refreshToken = getItemFromCookies(`${KEY_LOCAL}refresh_token`)
-
-        authAPI
-            .exchangeToken({ refreshToken, newClientId: menu.clientId })
+        const { exchangeToken } = useAuthStore()
+        exchangeToken({ refreshToken, newClientId: menu.clientId })
             .then((res) => {
               if (res.message === 'SUCCESS') {
                 const { refresh_token, access_token } = res.body

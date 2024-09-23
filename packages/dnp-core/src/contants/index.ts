@@ -1,6 +1,6 @@
-export const KEY_LOCAL = 'DNP_'
+const KEY_LOCAL = 'DNP_'
 
-export const PAGINATION = {
+const PAGINATION = {
   page: 0,
   total: 0,
   current: 1,
@@ -12,3 +12,5 @@ export const PAGINATION = {
     return 'Tổng số dòng ' + total
   }
 }
+
+export { KEY_LOCAL, PAGINATION }

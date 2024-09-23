@@ -6,7 +6,7 @@
   >
     <menu-top />
     <div class="flex items-center space-x-6">
-<!--      <avatar-header />-->
+      <account-menu />
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import MenuTop from '../menu-top/index.vue'
-
+import AccountMenu from './account/index.vue'
 const props = defineProps<{
   sidebarOpened: boolean
   sidebarSlide: boolean

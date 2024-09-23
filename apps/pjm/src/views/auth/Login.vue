@@ -9,11 +9,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { setItemToLocalStorage } from '@/utils'
-import { KEY_LOCAL } from '@/contants'
-import { useAuthStore } from '@/stores/authStore.ts'
-import { getUserInfo } from '@/apis/userInfoService.ts'
+import { useAuthStore , useLocalStorage , KEY_LOCAL } from 'dnp-core'
 
+const lc = useLocalStorage()
 onMounted(async () => {
   const route = useRoute()
   const router = useRouter()
@@ -21,20 +19,20 @@ onMounted(async () => {
   const authStore = useAuthStore()
   if (refresh_token && access_token) {
     try {
-      const res = await getUserInfo(access_token as string)
+      const res = await authStore.getUserInfo(access_token as string)
       if (
         res.message === 'SUCCESS' &&
         res.body.authorization &&
         res.body.authorization.length > 0
       ) {
-        await setItemToLocalStorage(`${KEY_LOCAL}access_token`, access_token)
-        await setItemToLocalStorage(`${KEY_LOCAL}refresh_token`, refresh_token)
+        await lc.setItem(`${KEY_LOCAL}access_token`, access_token)
+        await lc.setItem(`${KEY_LOCAL}refresh_token`, refresh_token)
         authStore.setUserInfo(res.body)
         authStore.setIsAuthentication(true)
         authStore.setShowModalChangePassword(res?.body?.rqrChangePwd || false)
-        setItemToLocalStorage(`${KEY_LOCAL}user_info`, res.body)
+        lc.setItem(`${KEY_LOCAL}user_info`, res.body)
         await router.replace({ path: '/welcome' })
-        setItemToLocalStorage(`${KEY_LOCAL}client_id`, 'WP_WDNM')
+        lc.setItem(`${KEY_LOCAL}client_id`, 'WP_WDNM')
       } else {
         window.location.replace(import.meta.env.VITE_REDIRECT_URL)
       }
@@ -42,7 +40,7 @@ onMounted(async () => {
       console.log(e)
     }
     // router.replace({ path: '/' })
-  } else if (!localStorage.getItem(`${KEY_LOCAL}_TOKEN`)) {
+  } else if (!lc.getItem(`${KEY_LOCAL}_TOKEN`)) {
     window.location.replace(import.meta.env.VITE_REDIRECT_URL)
   }
 })

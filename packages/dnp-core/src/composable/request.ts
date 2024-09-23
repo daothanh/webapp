@@ -8,12 +8,16 @@ const lcStorage = useLocalStorage()
 type AppRequestConfig = {
     baseUrl: string
     clientId: string
-    mode: string
-    apiPrefix: string
+    prefix: string
     logoutUrl: string
 }
-export function useRequest(configs: AppRequestConfig)  {
-    const appConfigs: AppRequestConfig = {...configs}
+export function useRequest()  {
+    const appConfigs: AppRequestConfig = {
+        baseUrl: import.meta.env.VITE_BASE_URL,
+        clientId: import.meta.env.VITE_CLIENT_ID,
+        prefix: import.meta.env.VITE_MODULE_CODE,
+        logoutUrl: import.meta.env.VITE_REDIRECT_URL_LOGOUT
+    }
 
     const httpRequest = () => {
         let isRefreshing = false
@@ -94,9 +98,8 @@ export function useRequest(configs: AppRequestConfig)  {
         return httpClient
     };
     const getBaseUrl = () =>{
-        console.log(appConfigs)
-        let url = `${appConfigs.baseUrl}/cop/${appConfigs.apiPrefix.toLowerCase()}`
-        if (appConfigs.mode !== 'production') {
+        let url = `${appConfigs.baseUrl}/cop/${appConfigs.prefix.toLowerCase()}`
+        if (!import.meta.env.PROD) {
             const devBaseUrls = {
                 iam: 'http://localhost:8050',
                 auth: 'http://localhost:8051',
@@ -107,13 +110,13 @@ export function useRequest(configs: AppRequestConfig)  {
                 asm: 'http://localhost:8059',
                 wsm: 'http://localhost:8062'
             }
-            url = devBaseUrls[appConfigs.apiPrefix.toLowerCase()]
+            url = devBaseUrls[appConfigs.prefix.toLowerCase()]
         }
         return url
     }
 
     const externalRequest = (module: string) => {
-        appConfigs.apiPrefix = module
+        appConfigs.prefix = module
         return httpRequest()
     }
     return {

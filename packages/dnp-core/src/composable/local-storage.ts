@@ -6,5 +6,9 @@ export function useLocalStorage () {
         return JSON.parse(localStorage.getItem(key) || '{}')
     }
 
-    return { setItem, getItem }
+    const clear = () => {
+        localStorage.clear()
+    }
+
+    return { setItem, getItem, clear }
 }

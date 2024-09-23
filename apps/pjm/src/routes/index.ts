@@ -3,14 +3,13 @@ import {
     createWebHistory
 } from 'vue-router'
 import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'
+import {useAuthStore,KEY_LOCAL, useUtils, useLocalStorage } from 'dnp-core'
 import {routes} from '@/routes/routerMap'
-import {checkRoles, isEmptyObject, setItemToLocalStorage} from '@/utils'
-import {KEY_LOCAL} from '@/contants'
-import {useAuthStore} from '@/stores/authStore.ts'
-import {getUserInfo} from '@/apis/userInfoService.ts'
 import {RouterName} from '@/routes/config.ts'
 import {useGlobalStore} from '@/stores/globalStore.ts'
 
+const lc = useLocalStorage()
+const { isEmptyObject } = useUtils()
 const router = createRouter({
     history: createWebHistory(),
     routes
@@ -28,24 +27,21 @@ router.beforeEach(
         if (to.name === RouterName.LOGIN) {
             return next()
         }
-        const {auth} = useAuthStore()
-
-        const {isAuthentication} = auth
-
         // Lấy thông tin user
         const authStore = useAuthStore()
         const globalStore = useGlobalStore()
 
-        if (!isAuthentication) {
+        if (!authStore.auth.isAuthentication) {
             globalStore.setLoading(true)
 
             try {
-                const res = await getUserInfo()
+                const res = await authStore.getUserInfo()
                 if (res?.message === 'SUCCESS') {
-                    authStore.setUserInfo(res.body)
-                    authStore.setIsAuthentication(true)
-                    authStore.setShowModalChangePassword(res?.body?.rqrChangePwd || false)
-                    setItemToLocalStorage(`${KEY_LOCAL}user_info`, res.body)
+                    authStore.setAuth({
+                        userInfo: res.body,
+                        isAuthentication: true,
+                        showModalChangePassword: res?.body?.rqrChangePwd || false
+                    })
                 }
             } catch (e) {
                 console.log(e)
@@ -54,16 +50,12 @@ router.beforeEach(
             }
         }
 
-        const {
-            auth: {userInfo}
-        } = useAuthStore()
-
         if (to.name === 'welcome' || to.name === 'error') {
             next()
-        } else if (userInfo?.email && !userInfo?.authorization.length) {
+        } else if (authStore.auth.userInfo?.email && !authStore.auth.userInfo?.authorization.length) {
                 next('/403')
-            } else if (to?.meta?.uriRole && !isEmptyObject(userInfo)) {
-                if (checkRoles(to?.meta?.uriRole as string)) {
+            } else if (to?.meta?.uriRole && !isEmptyObject(authStore.auth.userInfo)) {
+                if (authStore.hasRole(to?.meta?.uriRole as string)) {
                     next()
                 } else {
                     next('/403')
