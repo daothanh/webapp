@@ -84,10 +84,11 @@ export default {
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { EditOutlined } from '@ant-design/icons-vue'
-import SettingTheme from '@/components/account/SettingTheme.vue'
+import SettingTheme from './SettingTheme.vue'
 import { message } from 'ant-design-vue'
-import { changePassword } from '@/apis/userInfoService.ts'
+import { useAuthStore } from "../../../stores"
 
+const { changePassword } = useAuthStore()
 const width = window.screen.width
 const props = defineProps<{ visibleProp: boolean; userInfo: any }>()
 const visible = computed(() => props.visibleProp)

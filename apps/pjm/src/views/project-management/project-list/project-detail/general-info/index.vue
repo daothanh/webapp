@@ -769,7 +769,7 @@ const setField = (data) => {
   modelRef.value.capitalType = data.capitalType || []
 }
 
-onMounted(() => {
+onMounted(async () => {
   await fetchGlobalListByCodes(['ASM_ASSET_PROJECT.TYPE', 'ASM_ASSET_PROJECT.OBJECTIVES_TYPE', 'ASM_ASSET_PROJECT.BUDGET_TYPE', 'ASM_ASSET_PROJECT.INVEST_TYPE', 'ASM_ASSET_PROJECT.IMPORTANT', 'ASM_ASSET_PROJECT.CAPITAL_TYPE'])
 })
 

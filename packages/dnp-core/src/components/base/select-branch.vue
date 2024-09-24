@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed } from 'vue'
 import _, { debounce } from 'lodash'
-import { getCompanyList } from '@/apis/global'
+import { useSysStore } from "../../stores";
 
 const props = defineProps({
   branchId: {
@@ -41,6 +41,7 @@ const props = defineProps({
   listCheck: Array
 })
 
+const { fetchCompanies } = useSysStore()
 const currentPage = ref(0)
 const totalPage = ref(0)
 const loadingBranchList = ref(false)
@@ -76,17 +77,17 @@ const getBranch = async (val) => {
   loadingBranchList.value = true
 
   try {
-    const res = await getCompanyList({
+    branchList.value = await fetchCompanies({
       orgUnitId: props.orgUnitId,
       listOrgUnitType: props.listOrgUnitType,
       getParent: false,
       keyword: val
     })
 
-    if (res.message === 'SUCCESS') {
+    /*if (res.message === 'SUCCESS') {
       totalPage.value = res.body?.page_meta?.total_pages || 0
       branchList.value = res.body || []
-    }
+    }*/
   } finally {
     loadingBranchList.value = false
   }

@@ -285,7 +285,7 @@ const handleScroll = () => {
   isBtnSaveFixed.value = mainContent.scrollTop >= 240
 }
 
-onMounted(() => {
+onMounted(async () => {
   const mainContent = document.querySelector('.main-content')
   if (mainContent) {
     mainContent.addEventListener('scroll', handleScroll)

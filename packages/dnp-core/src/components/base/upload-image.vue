@@ -30,8 +30,8 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { message, Modal } from 'ant-design-vue'
-import { uploadFile } from '@/apis/global'
 import { PlusOutlined } from '@ant-design/icons-vue'
+import {useSysStore} from "../../stores";
 
 type FileProp = {
   id: number
@@ -51,7 +51,7 @@ const props = withDefaults(defineProps<IProps>(), {
   files: [],
   disabled: false
 })
-
+const { uploadFile } = useSysStore()
 const uploading = ref(false)
 const fileList = ref([])
 const previewImage = ref('')

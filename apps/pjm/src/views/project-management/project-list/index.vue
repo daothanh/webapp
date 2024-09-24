@@ -266,7 +266,7 @@
 <script lang="ts" setup>
 import {onMounted, computed, ref, watch} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
-import {EditIcon, StaffSelect, useSysStore} from 'dnp-core'
+import {EditIcon, StaffSelect, useSysStore,PAGINATION, useAuthStore } from 'dnp-core'
 import {message} from 'ant-design-vue'
 import {
   CaretRightOutlined,
@@ -279,21 +279,20 @@ import {storeToRefs} from "pinia";
 import {columnTable} from './columns.ts'
 import {
   buildTree,
-  checkRoles,
   filterDataTree,
   getTableRowIndex,
   renderProcessColorByState
 } from '@/utils'
 import {projectListService} from '@/apis/project-management/project-list'
 import ModalCreateProject from '@/views/project-management/project-list/ModalCreateProject.vue'
-import {PAGINATION} from '@/contants'
 import {GLOBAL_ROLES, MODE_ACTION_TO_PAGE} from '@/configs'
 import {RouterName} from '@/routes/config.ts'
 
-const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
-const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))
-const isAgreeDetail = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_SELF))
-const isAgreeExportExcel = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_EXPORT_EXCEL))
+const { hasRole } = useAuthStore()
+const isAgreeUpdate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
+const isAgreeCreate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))
+const isAgreeDetail = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_SELF))
+const isAgreeExportExcel = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_EXPORT_EXCEL))
 const {fetchCompanies, fetchGlobalListByCodes} = useSysStore()
 const {companies, companyLoading, globalListItems, globalListLoading} = storeToRefs(useSysStore())
 const pagination = ref({...PAGINATION})

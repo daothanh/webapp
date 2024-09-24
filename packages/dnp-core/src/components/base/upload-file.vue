@@ -58,7 +58,7 @@ import { message } from 'ant-design-vue'
 import { UploadOutlined, PaperClipOutlined } from '@ant-design/icons-vue'
 import DeleteIcon from '../../ui/icons/delete-icon.vue'
 import DownloadIcon from '../../ui/icons/download-icon.vue'
-import { uploadFile } from '@/apis/global'
+import { useSysStore } from '../../stores'
 
 type FileProp = {
   id: number
@@ -91,6 +91,7 @@ const props = withDefaults(defineProps<IProps>(), {
   isDownloadFile: false
 })
 
+const { uploadFile } = useSysStore()
 const uploading = ref(false)
 const fileList = ref([])
 
