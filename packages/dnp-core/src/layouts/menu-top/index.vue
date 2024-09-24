@@ -1,29 +1,32 @@
 <template>
-  <div class="flex items-center gap-8 overflow-auto pr-6">
-    <a-dropdown v-for="menu in MENU_TOP" :key="menu.id" v-model:open="menu.open">
-      <a class="flex items-center gap-1" @click.prevent>
-        <strong class="uppercase text-[15px] text-primary block whitespace-nowrap">
-          {{ menu.name }}</strong
-        >
-        <DownOutlined :style="{ color: 'var(--color-primary)' }" />
-      </a>
-      <template #overlay>
-        <a-menu>
-          <a-menu-item
-              v-for="m in menu.children"
-              :key="m.id"
-              class="text-primary font-semibold hover:bg-primary hover:text-white"
-              @click="handleMenuClick(menu, m)"
-          >{{ m.name }}</a-menu-item
+  <div class="flex items-center gap-8 overflow-auto">
+    <div v-for="menu in MENU_TOP" :key="menu.id" class="px-2">
+      <a-dropdown>
+        <a class="flex items-center gap-1" :class="activeApp.menuId === menu.id ? 'text-[#fa284e]' : ''" @click.prevent>
+          <strong class="uppercase text-[15px] text-primary block whitespace-nowrap">
+            {{ menu.name }}</strong
           >
-        </a-menu>
-      </template>
-    </a-dropdown>
+          <DownOutlined :style="{ color: 'var(--color-primary)' }" class="w-3 h-3" />
+        </a>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item
+                v-for="m in menu.children"
+                :key="m.id"
+                class="font-semibold hover:bg-primary hover:text-white"
+                :class="activeApp.menuId === m.id ? '!text-[#fa284e]' : 'text-primary'"
+                @click="handleMenuClick(menu, m)"
+            >{{ m.name }}</a-menu-item
+            >
+          </a-menu>
+        </template>
+      </a-dropdown>
+    </div>
 
     <strong
-        class="uppercase text-[15px] mr-1 text-primary underline underline-offset-4 whitespace-nowrap"
+        class="uppercase text-[15px] mr-1 text-[#fa284e] border-b-2 border-b-[#fa284e] whitespace-nowrap"
     >
-      {{ activeApp }}
+      {{ activeApp.label }}
     </strong>
   </div>
 </template>
@@ -71,4 +74,5 @@ const handleMenuClick = async (
     }
   })
 }
+console.log(MENU_TOP)
 </script>

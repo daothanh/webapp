@@ -9,7 +9,11 @@ import { useActiveAppStore } from "dnp-core";
 import { storeToRefs } from "pinia";
 
 const { activeApp } = storeToRefs(useActiveAppStore())
-activeApp.value = "Quản lý dự án"
+activeApp.value = {
+  label: "Quản lý ngân sách và thông tin dự án",
+  menuId: 2.5,
+  clientId: import.meta.env.VITE_CLIENT_ID
+}
 
 dayjs.locale('en')
 const loading = computed(() => {
