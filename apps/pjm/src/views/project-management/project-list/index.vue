@@ -6,14 +6,14 @@
           <a-collapse v-model:activeKey="activeKeySearch" class="collapse-criteria">
             <template #expandIcon="{ isActive }">
               <caret-right-outlined
-                :rotate="isActive ? 90 : 0"
-                style="font-size: 16px; margin-right: 6px"
+                  :rotate="isActive ? 90 : 0"
+                  style="font-size: 16px; margin-right: 6px"
               />
             </template>
             <a-collapse-panel
-              key="1"
-              :header="'Tìm kiếm'"
-              style="background: white; border-radius: 4px; border: 0; overflow: hidden"
+                key="1"
+                :header="'Tìm kiếm'"
+                style="background: white; border-radius: 4px; border: 0; overflow: hidden"
             >
               <a-row :gutter="16">
                 <a-col :xs="24" :md="24" :lg="24">
@@ -22,18 +22,18 @@
                       <a-col :xs="24" :md="7" :xl="4">
                         <a-form-item label="Đơn vị" :rules="[{ required: true }]">
                           <c-select
-                            v-model:value="params.orgUnitId"
-                            :options="companyList"
-                            placeholder="Chọn đơn vị"
-                            :field-names="{
+                              v-model:value="params.orgUnitId"
+                              :options="companies"
+                              placeholder="Chọn đơn vị"
+                              :field-names="{
                               label: 'orgUnitName',
                               value: 'orgUnitId'
                             }"
-                            show-search
-                            :filter-option="filterSelectOption"
-                            :loading="loadingCompanyList"
-                            @keyup.enter="handleSearch"
-                            @change="
+                              show-search
+                              :filter-option="filterSelectOption"
+                              :loading="companyLoading"
+                              @keyup.enter="handleSearch"
+                              @change="
                               () => {
                                 params.managerId = null
                               }
@@ -45,18 +45,18 @@
                       <a-col :xs="24" :md="24" :lg="4">
                         <a-form-item label="Mã dự án">
                           <a-input
-                            v-model:value="params.code"
-                            placeholder="Nhập mã dự án"
-                            @keyup.enter="handleSearch"
+                              v-model:value="params.code"
+                              placeholder="Nhập mã dự án"
+                              @keyup.enter="handleSearch"
                           />
                         </a-form-item>
                       </a-col>
                       <a-col :xs="24" :md="24" :lg="4">
                         <a-form-item label="Tên dự án">
                           <a-input
-                            v-model:value="params.name"
-                            placeholder="Nhập tên dự án"
-                            @keyup.enter="handleSearch"
+                              v-model:value="params.name"
+                              placeholder="Nhập tên dự án"
+                              @keyup.enter="handleSearch"
                           />
                         </a-form-item>
                       </a-col>
@@ -64,16 +64,16 @@
                       <a-col :xs="24" :md="24" :lg="4">
                         <a-form-item label="Loại dự án ">
                           <c-select
-                            v-model:value="params.type"
-                            :options="typeProjectList"
-                            :loading="loadingTypeProjectList"
-                            placeholder="Chọn loại dự án"
-                            allow-clear
-                            :field-names="{
+                              v-model:value="params.type"
+                              :options="typeProjectList"
+                              :loading="globalListLoading"
+                              placeholder="Chọn loại dự án"
+                              allow-clear
+                              :field-names="{
                               label: 'name',
                               value: 'value'
                             }"
-                            @keyup.enter="handleSearch"
+                              @keyup.enter="handleSearch"
                           />
                         </a-form-item>
                       </a-col>
@@ -81,16 +81,16 @@
                       <a-col :span="4">
                         <a-form-item label="Loại mục tiêu">
                           <c-select
-                            v-model:value="params.objectivesType"
-                            :options="objectivesTypeList"
-                            :loading="loadingObjectivesTypeList"
-                            allow-clear
-                            placeholder="Chọn loại mục tiêu"
-                            :field-names="{
+                              v-model:value="params.objectivesType"
+                              :options="objectivesTypeList"
+                              :loading="globalListLoading"
+                              allow-clear
+                              placeholder="Chọn loại mục tiêu"
+                              :field-names="{
                               label: 'name',
                               value: 'value'
                             }"
-                            @keyup.enter="handleSearch"
+                              @keyup.enter="handleSearch"
                           />
                         </a-form-item>
                       </a-col>
@@ -99,12 +99,12 @@
                       <a-col :xs="24" :md="24" :lg="4">
                         <a-form-item label="Quản lý dự án">
                           <staff-select
-                            :staff-id="params.managerId"
-                            :org-unit-id="params.orgUnitId"
-                            allow-clear
-                            placeholder="Chọn nhân viên"
-                            @keyup.enter="handleSearch"
-                            @change="handleChangeManager"
+                              :staff-id="params.managerId"
+                              :org-unit-id="params.orgUnitId"
+                              allow-clear
+                              placeholder="Chọn nhân viên"
+                              @keyup.enter="handleSearch"
+                              @change="handleChangeManager"
                           />
                         </a-form-item>
                       </a-col>
@@ -112,16 +112,16 @@
                       <a-col :xs="24" :md="24" :lg="4">
                         <a-form-item label="Giai đoạn dự án">
                           <c-select
-                            v-model:value="params.state"
-                            :options="stateProjectList"
-                            :loading="loadingStateProjectList"
-                            allow-clear
-                            placeholder="Chọn giai đoạn"
-                            :field-names="{
+                              v-model:value="params.state"
+                              :options="stateProjectList"
+                              :loading="globalListLoading"
+                              allow-clear
+                              placeholder="Chọn giai đoạn"
+                              :field-names="{
                               label: 'name',
                               value: 'value'
                             }"
-                            @keyup.enter="handleSearch"
+                              @keyup.enter="handleSearch"
                           />
                         </a-form-item>
                       </a-col>
@@ -129,12 +129,12 @@
                       <a-col :xs="24" :md="24" :lg="6">
                         <a-form-item label="Thời gian khởi tạo">
                           <c-range-picker
-                            :value="[params.fromInitDate, params.toInitDate]"
-                            allow-clear
-                            format="DD/MM/YYYY"
-                            class="w-full"
-                            :value-format="'DD/MM/YYYY'"
-                            @change="handleChangeDateInit"
+                              :value="[params.fromInitDate, params.toInitDate]"
+                              allow-clear
+                              format="DD/MM/YYYY"
+                              class="w-full"
+                              :value-format="'DD/MM/YYYY'"
+                              @change="handleChangeDateInit"
                           />
                         </a-form-item>
                       </a-col>
@@ -142,12 +142,12 @@
                       <a-col :xs="24" :md="24" :lg="6">
                         <a-form-item label="Thời gian hoàn thành thực tế">
                           <c-range-picker
-                            :value="[params.fromCompleteDate, params.toCompleteDate]"
-                            allow-clear
-                            format="DD/MM/YYYY"
-                            class="w-full"
-                            :value-format="'DD/MM/YYYY'"
-                            @change="handleChangeDateAcceptance"
+                              :value="[params.fromCompleteDate, params.toCompleteDate]"
+                              allow-clear
+                              format="DD/MM/YYYY"
+                              class="w-full"
+                              :value-format="'DD/MM/YYYY'"
+                              @change="handleChangeDateAcceptance"
                           />
                         </a-form-item>
                       </a-col>
@@ -157,13 +157,13 @@
                           <div class="flex justify-end space-x-2 pr-3">
                             <c-button @click="handleCancel">
                               <template #icon>
-                                <close-outlined />
+                                <close-outlined/>
                               </template>
                               Bỏ lọc
                             </c-button>
                             <c-button type="primary" :disabled="loadingTable" @click="handleSearch">
                               <template #icon>
-                                <search-outlined />
+                                <search-outlined/>
                               </template>
                               Tìm kiếm
                             </c-button>
@@ -178,26 +178,26 @@
           </a-collapse>
 
           <c-table
-            class="table-project-list"
-            :pagination="pagination"
-            :data-source="dataTable"
-            :show-quick-search="true"
-            :show-download-file-excel="isAgreeExportExcel"
-            :columns="columnTable"
-            :loading="loadingTable"
-            :reload-data="
+              class="table-project-list"
+              :pagination="pagination"
+              :data-source="dataTable"
+              :show-quick-search="true"
+              :show-download-file-excel="isAgreeExportExcel"
+              :columns="columnTable"
+              :loading="loadingTable"
+              :reload-data="
               () => {
                 handleSearch()
               }
             "
-            @handle-quick-search="handleQuickSearch"
-            @change="handleTabChange"
+              @handle-quick-search="handleQuickSearch"
+              @change="handleTabChange"
           >
             <template #extraAction>
               <c-button
-                type="primary"
-                :disabled="loadingTable || !isAgreeCreate"
-                @click="handleCreate"
+                  type="primary"
+                  :disabled="loadingTable || !isAgreeCreate"
+                  @click="handleCreate"
               >
                 Thêm mới
               </c-button>
@@ -212,30 +212,30 @@
 
               <template v-if="column.dataIndex === 'stateName'">
                 <i :style="{ color: `${renderProcessColorByState(record.state)}` }">{{
-                  record.stateName
-                }}</i>
+                    record.stateName
+                  }}</i>
               </template>
               <template v-if="column.dataIndex === 'actions'">
                 <div class="flex justify-center items-center space-x-2">
                   <div v-if="isAgreeDetail" @click="handleViewProject(record)">
                     <a-tooltip>
                       <eye-outlined
-                        class="outline-none cursor-pointer"
-                        :style="{ fontSize: '18px' }"
+                          class="outline-none cursor-pointer"
+                          :style="{ fontSize: '18px' }"
                       />
                       <template #title>Xem chi tiết</template>
                     </a-tooltip>
                   </div>
                   <div
-                    v-if="isAgreeUpdate"
-                    class="cursor-pointer outline-none"
-                    @click="handleEditProject(record)"
+                      v-if="isAgreeUpdate"
+                      class="cursor-pointer outline-none"
+                      @click="handleEditProject(record)"
                   >
                     <a-tooltip>
                       <template #title>
                         <span>Sửa</span>
                       </template>
-                      <edit-icon class="outline-none" />
+                      <edit-icon class="outline-none"/>
                     </a-tooltip>
                   </div>
                 </div>
@@ -249,25 +249,25 @@
     </div>
 
     <modal-create-project
-      :title="`${isEdit ? `Cập nhật dự án ${selectedProject.name || ''}` : 'Thêm mới dự án'}`"
-      :visible="visibleModalCreate"
-      :state-project-list="stateProjectList"
-      :is-edit="isEdit"
-      :record="selectedProject"
-      :type-project-list="typeProjectList"
-      :org-unit-id="selectedOrgUnit.orgUnitId"
-      :org-unit-name="selectedOrgUnit.name"
-      :loading="loadingModalCreateProject"
-      @close-drawer="visibleModalCreate = false"
-      @on-submit="handleSubmit"
+        :title="`${isEdit ? `Cập nhật dự án ${selectedProject.name || ''}` : 'Thêm mới dự án'}`"
+        :visible="visibleModalCreate"
+        :state-project-list="stateProjectList"
+        :is-edit="isEdit"
+        :record="selectedProject"
+        :type-project-list="typeProjectList"
+        :org-unit-id="selectedOrgUnit.orgUnitId"
+        :org-unit-name="selectedOrgUnit.name"
+        :loading="loadingModalCreateProject"
+        @close-drawer="visibleModalCreate = false"
+        @on-submit="handleSubmit"
     />
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, computed, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import {EditIcon, StaffSelect } from 'dnp-core'
-import { message } from 'ant-design-vue'
+import {onMounted, computed, ref, watch} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import {EditIcon, StaffSelect, useSysStore} from 'dnp-core'
+import {message} from 'ant-design-vue'
 import {
   CaretRightOutlined,
   EyeOutlined,
@@ -275,8 +275,8 @@ import {
   SearchOutlined
 } from '@ant-design/icons-vue'
 import _ from 'lodash'
-import { columnTable } from './columns.ts'
-import { getCompanyList, getGlobalListDetail } from '@/apis/global'
+import {storeToRefs} from "pinia";
+import {columnTable} from './columns.ts'
 import {
   buildTree,
   checkRoles,
@@ -284,18 +284,19 @@ import {
   getTableRowIndex,
   renderProcessColorByState
 } from '@/utils'
-import { projectListService } from '@/apis/project-management/project-list'
+import {projectListService} from '@/apis/project-management/project-list'
 import ModalCreateProject from '@/views/project-management/project-list/ModalCreateProject.vue'
-import { PAGINATION } from '@/contants'
-import { GLOBAL_ROLES, MODE_ACTION_TO_PAGE } from '@/configs'
-import { RouterName } from '@/routes/config.ts'
+import {PAGINATION} from '@/contants'
+import {GLOBAL_ROLES, MODE_ACTION_TO_PAGE} from '@/configs'
+import {RouterName} from '@/routes/config.ts'
 
 const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
 const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))
 const isAgreeDetail = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_SELF))
 const isAgreeExportExcel = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_EXPORT_EXCEL))
-
-const pagination = ref({ ...PAGINATION })
+const {fetchCompanies, fetchGlobalListByCodes} = useSysStore()
+const {companies, companyLoading, globalListItems, globalListLoading} = storeToRefs(useSysStore())
+const pagination = ref({...PAGINATION})
 
 const route = useRoute()
 const router = useRouter()
@@ -310,20 +311,13 @@ const autoExpandParent = ref<boolean>(true)
 const loadingTree = ref<boolean>(false)
 
 const selectedOrgUnit = ref({})
-const companyList = ref([])
-const loadingCompanyList = ref(false)
 
 const loadingTable = ref(false)
 const dataTable = ref([])
 
-const loadingTypeProjectList = ref(false)
-const typeProjectList = ref([])
-
-const loadingStateProjectList = ref(false)
-const stateProjectList = ref([])
-
-const loadingObjectivesTypeList = ref(false)
-const objectivesTypeList = ref([])
+const typeProjectList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.TYPE'] || [])
+const stateProjectList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.STATE'] || [])
+const objectivesTypeList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.OBJECTIVES_TYPE'] || [])
 
 const selectedProject = ref({})
 const isEdit = ref(false)
@@ -380,16 +374,15 @@ const onExpand = (expdKeys) => {
 
 const getTreeUnit = async (reset?: any) => {
   loadingTree.value = true
-  loadingCompanyList.value = true
-  const res = await getCompanyList({ listOrgUnitType: '2,3' }).finally(() => {
-    loadingCompanyList.value = false
-  })
-  const filterData = filterDataTree(res.body)
-
-  companyList.value = res.body
-  selectedOrgUnit.value = res.body[0]
-  params.value.orgUnitId = params.value.orgUnitId || res.body?.[0]?.orgUnitId
-
+  await fetchCompanies({listOrgUnitType: '2,3'})
+  const filterData = filterDataTree(companies.value)
+  if (companies.value.length > 0) {
+    selectedOrgUnit.value = companies.value[0]
+    if (!params.value.orgUnitId) {
+      params.value.orgUnitId = selectedOrgUnit.value?.orgUnitId
+    }
+  }
+  
   treeData.value = buildTree(filterData)
 
   if (!reset) {
@@ -417,7 +410,7 @@ const handleChangeManager = (value) => {
 }
 
 const handleTabChange = (p) => {
-  pagination.value = { ...pagination.value, ...p }
+  pagination.value = {...pagination.value, ...p}
   getData()
 }
 
@@ -440,7 +433,7 @@ const handleQuickSearch = (quickSearch) => {
 const handleCreate = () => {
   router.push({
     name: RouterName.PROJECT_DETAIL,
-    params: { id: 0 },
+    params: {id: 0},
     query: {
       pageMode: MODE_ACTION_TO_PAGE.CREATE,
       paramName: route.name,
@@ -456,7 +449,7 @@ const handleEditProject = (record) => {
 
   router.push({
     name: RouterName.PROJECT_DETAIL,
-    params: { id: record.id },
+    params: {id: record.id},
     query: {
       ..._.pickBy(params.value, _.identity),
       paramName: route.name,
@@ -468,7 +461,7 @@ const handleEditProject = (record) => {
 const handleViewProject = (record) => {
   router.push({
     name: RouterName.PROJECT_DETAIL,
-    params: { id: record.id },
+    params: {id: record.id},
     query: {
       ..._.pickBy(params.value, _.identity),
       paramName: route.name,
@@ -521,53 +514,17 @@ const updateData = async (record) => {
   }
 }
 
-const getTypeProject = async () => {
-  loadingTypeProjectList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.TYPE' })
-    if (res.message === 'SUCCESS') {
-      typeProjectList.value = res.body
-    }
-  } finally {
-    loadingTypeProjectList.value = false
-  }
-}
-
-const getStateProject = async () => {
-  loadingStateProjectList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.STATE' })
-    if (res.message === 'SUCCESS') {
-      stateProjectList.value = res.body
-    }
-  } finally {
-    loadingStateProjectList.value = false
-  }
-}
-
 const getDetailProject = async (id: number) => {
   loadingModalCreateProject.value = true
 
   try {
-    const res = await projectListService.detail({ id })
+    const res = await projectListService.detail({id})
 
     if (res.message === 'SUCCESS') {
       selectedProject.value = res?.body || {}
     }
   } finally {
     loadingModalCreateProject.value = false
-  }
-}
-
-const getObjectivesTypeList = async () => {
-  loadingObjectivesTypeList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.OBJECTIVES_TYPE' })
-    if (res.message === 'SUCCESS') {
-      objectivesTypeList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingObjectivesTypeList.value = false
   }
 }
 
@@ -594,37 +551,35 @@ const getData = async (val?: string) => {
 }
 
 onMounted(async () => {
+  await fetchGlobalListByCodes(['ASM_ASSET_PROJECT.STATE', 'ASM_ASSET_PROJECT.TYPE', 'ASM_ASSET_PROJECT.OBJECTIVES_TYPE'])
   await getTreeUnit()
-  await getTypeProject()
-  await getStateProject()
-  await getObjectivesTypeList()
 })
 
 watch(
-  () => route.name,
-  async (newVal, oldVal) => {
-    if (route.name === RouterName.PROJECT_LIST) {
-      query.value = _.pickBy(
-        { ...route.query, orgUnitId: parseFloat(route.query.orgUnitId) },
-        _.identity
-      )
-      params.value = {
-        ...params.value,
-        orgUnitId: query.value.orgUnitId || null,
-        // objectivesType: query.value.objectivesType || null,
-        code: query.value.code || null,
-        name: query.value.name || null
-        // managerId: query.value.managerId || null,
-        // state: query.value.state || null,
-        // type: query.value.pe || null,
-        // fromInitDate: query.value.fromInitDate || null,
-        // toInitDate: query.value.toInitDate || null,
-        // fromCompleteDate: query.value.fromCompleteDate || null,
-        // toCompleteDate: query.value.toCompleteDate || null
+    () => route.name,
+    async (newVal, oldVal) => {
+      if (route.name === RouterName.PROJECT_LIST) {
+        query.value = _.pickBy(
+            {...route.query, orgUnitId: parseFloat(route.query.orgUnitId)},
+            _.identity
+        )
+        params.value = {
+          ...params.value,
+          orgUnitId: query.value.orgUnitId || null,
+          // objectivesType: query.value.objectivesType || null,
+          code: query.value.code || null,
+          name: query.value.name || null
+          // managerId: query.value.managerId || null,
+          // state: query.value.state || null,
+          // type: query.value.pe || null,
+          // fromInitDate: query.value.fromInitDate || null,
+          // toInitDate: query.value.toInitDate || null,
+          // fromCompleteDate: query.value.fromCompleteDate || null,
+          // toCompleteDate: query.value.toCompleteDate || null
+        }
       }
-    }
-  },
-  { immediate: true, deep: true }
+    },
+    {immediate: true, deep: true}
 )
 </script>
 
@@ -636,17 +591,21 @@ watch(
 .project-list-page {
   .ant-tabs {
     font-weight: 600;
+
     .ant-tabs-tab {
       padding-left: 10px;
       padding-right: 10px;
     }
+
     .ant-tabs-nav {
       margin: 0;
     }
+
     .ant-tabs-ink-bar {
       height: 3px;
     }
   }
+
   .card-table {
     height: auto;
   }

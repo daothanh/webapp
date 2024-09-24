@@ -1,10 +1,8 @@
 import {defineStore} from "pinia";
-import {useRequest} from "../composable";
+import {useFetch, useFetchWithModule, useLocalStorage} from "../composable";
 import {ref} from "vue";
-import type { AxiosResponse } from "axios";
+import type {AxiosResponse} from "axios";
 import {KEY_LOCAL} from "../contants";
-import type {TypeAPIError} from "../../types";
-import {useLocalStorage} from "../composable";
 
 export type ExchangeTokenParams = {
     newClientId?: string
@@ -12,7 +10,8 @@ export type ExchangeTokenParams = {
 }
 
 export const useAuthStore = defineStore('authStore', () => {
-    const { externalRequest } = useRequest()
+    const {post} = useFetchWithModule('iam')
+    const {post: authPost} = useFetch()
     const lcStorage = useLocalStorage()
 
     const auth = ref({
@@ -27,19 +26,21 @@ export const useAuthStore = defineStore('authStore', () => {
         const token = access_token || lcStorage.getItem(`${KEY_LOCAL}access_token`)
 
         try {
-            const res: AxiosResponse = await externalRequest('iam').post(`/user/userInfo`, {
-                access_token: token
-            })
-            return res.data
-        } catch (_error: TypeAPIError) {
+            return await post(`/user/userInfo`, {access_token: token})
+        } catch (_error) {
             console.log(_error)
+            throw _error
         }
     }
 
     const changePassword = async () => {
-        const res: AxiosResponse = await externalRequest('iam').post('/user/request-change-pwd')
-
-        return res.data
+        try {
+            const {body} = await post('/user/request-change-pwd')
+            return body
+        } catch (error) {
+            console.error('Error changing password:', error)
+            throw error
+        }
     }
 
     const setAuth = (payload: any) => {
@@ -55,8 +56,8 @@ export const useAuthStore = defineStore('authStore', () => {
         auth.value.showModalChangePassword = payload
     }
     const exchangeToken = async (params: ExchangeTokenParams) => {
-        const res = await externalRequest('auth').post('/auth/token-exchange', params)
-        return res.data
+        const res = await authPost('/auth/token-exchange', params)
+        return res.body
     }
 
     const refreshToken = async (params: {
@@ -71,17 +72,17 @@ export const useAuthStore = defineStore('authStore', () => {
                 Authorization: `Bearer ${params.access_token}`
             }
         }
-        const res: AxiosResponse = await externalRequest('auth').post(
+        const res: AxiosResponse = await authPost(
             `/auth/refresh-token`,
             {refreshToken: params.refresh_token, clientId: params.clientId, username: params.username},
             config
         )
-        return res.data
+        return res.body
     }
 
     const logOut = () => {
         const clientId = import.meta.env.VITE_CLIENT_ID
-        const { pathname, search } = window.location
+        const {pathname, search} = window.location
         const redirectPath = pathname && search ? encodeURIComponent(`${pathname}${search}`) : ''
 
         setTimeout(() => {
@@ -92,16 +93,15 @@ export const useAuthStore = defineStore('authStore', () => {
     }
 
     const logOutServer = async (params: any) => {
-        const res: AxiosResponse = await externalRequest('auth').post('/auth/logout', params)
-        return res.data
+        const res: AxiosResponse = await authPost('/auth/logout', params)
+        return res.body
     }
 
     const hasRole = (role: string) => {
-        const roles =
-            auth.value.userInfo?.authorization
-                ?.filter((item: { type: string }) => item.type === 'web')
-                ?.map((item: { uri: string }) => item.uri) || []
-        return role ? roles.includes(role) : true
+        const roles = auth.value.userInfo?.authorization
+            ?.filter(({type}) => type === 'web')
+            ?.map(({uri}) => uri) || [];
+        return role ? roles.includes(role) : true;
     }
 
     return {
@@ -118,4 +118,4 @@ export const useAuthStore = defineStore('authStore', () => {
         changePassword,
         hasRole
     }
-}, { persist: true})
+}, {persist: true})

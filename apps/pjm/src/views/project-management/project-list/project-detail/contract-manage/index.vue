@@ -98,16 +98,16 @@
 </script>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import {EditIcon, DeleteIcon} from 'dnp-core'
+import {computed, onMounted, ref, watch} from 'vue'
+import {EditIcon, DeleteIcon, useSysStore } from 'dnp-core'
 import { EyeOutlined } from '@ant-design/icons-vue'
 import { message, Modal } from 'ant-design-vue'
+import {storeToRefs} from "pinia";
 import { columnContractList } from './columns.ts'
 import { getTableRowIndex, isEmptyObject } from '@/utils'
 import { PAGINATION } from '@/contants'
 import { contractProjectListService } from '@/apis/project-management/project-list/contract-manage'
 import ModalCreateContract from '@/views/project-management/project-list/project-detail/contract-manage/ModalCreateContract.vue'
-import { getGlobalListDetail } from '@/apis/global'
 import DocContract from '@/views/project-management/project-list/project-detail/contract-manage/DocsContract.vue'
 
 const props = defineProps({
@@ -142,8 +142,10 @@ const pagination = ref({ ...PAGINATION })
 const loadingTable = ref(false)
 const dataTable = ref([])
 
-const stateContractList = ref([])
-const typeContractList = ref([])
+const { globalListItems } = storeToRefs(useSysStore())
+const { fetchGlobalListByCodes } = useSysStore()
+const stateContractList = computed(() => globalListItems.value['ASM_ASSET_PROJECT_CONTRACT.STATE'])
+const typeContractList = computed(() => globalListItems.value['ASM_ASSET_PROJECT_CONTRACT.TYPE'])
 
 const selectedContract = ref({})
 
@@ -286,35 +288,11 @@ const updateData = async (record) => {
   }
 }
 
-const getTypeContractList = async () => {
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT_CONTRACT.TYPE' })
-    if (res.message === 'SUCCESS') {
-      typeContractList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-const getStateContractList = async () => {
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT_CONTRACT.STATE' })
-    if (res.message === 'SUCCESS') {
-      stateContractList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 watch(
   () => props.record,
   (newVal, oldVal) => {
     if (!props.loading && props.record.id) {
       getData()
-      getTypeContractList()
-      getStateContractList()
     }
   },
   {
@@ -322,6 +300,9 @@ watch(
     deep: true
   }
 )
+onMounted(async () => {
+  await fetchGlobalListByCodes(['ASM_ASSET_PROJECT_CONTRACT.TYPE', 'ASM_ASSET_PROJECT_CONTRACT.STATE'])
+})
 </script>
 
 <style lang="scss">

@@ -51,7 +51,7 @@
           <c-select
             v-model:value="record.type"
             :options="typeDocList"
-            :loading="loadingTypeDocList"
+            :loading="globalListLoading"
             allow-clear
             :bordered="false"
             placeholder="Chọn loại tài liệu"
@@ -80,7 +80,7 @@
           <c-select
             v-model:value="record.state"
             :options="stateDocList"
-            :loading="loadingStateDocList"
+            :loading="globalListLoading"
             allow-clear
             :bordered="false"
             placeholder="Chọn trạng thái"
@@ -96,7 +96,7 @@
           <c-select
             v-model:value="record.projectState"
             :options="projectStateList"
-            :loading="loadingStateProjectList"
+            :loading="globalListLoading"
             allow-clear
             :bordered="false"
             placeholder="Chọn giai đoạn"
@@ -145,13 +145,13 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import {DeleteIcon, useAuthStore} from 'dnp-core'
+import {DeleteIcon, useAuthStore, useSysStore } from 'dnp-core'
 import { message } from 'ant-design-vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
+import {storeToRefs} from "pinia";
 import { columnTableDocs } from './columns.ts'
 import { projectListService } from '@/apis/project-management/project-list'
 import { GLOBAL_ROLES } from '@/configs'
-import { getGlobalListDetail } from '@/apis/global'
 
 const props = defineProps({
   record: {
@@ -182,14 +182,14 @@ const dataTableDelete = ref([])
 const dataTableUpdate = ref([])
 const loadingTable = ref(false)
 
-const typeDocList = ref([])
-const loadingTypeDocList = ref(false)
+const { fetchGlobalListByCodes } = useSysStore()
+const { globalListItems, globalListLoading } = storeToRefs(useSysStore())
 
-const stateDocList = ref([])
-const loadingStateDocList = ref(false)
+const typeDocList = computed(() => globalListItems.value['ASM_ASSET_PROJECT_DOC.TYPE'] || [])
 
-const projectStateList = ref([])
-const loadingStateProjectList = ref(false)
+const stateDocList = computed(() => globalListItems.value['ASM_ASSET_PROJECT_DOC.STATE'] || [])
+
+const projectStateList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.STATE'] || [])
 
 const disabledButtonSave = computed(() => {
   const isCheckFieldName = dataTable.value?.filter((d) => !d.name)?.length
@@ -313,49 +313,8 @@ const handleChangeFile = ({ fileList }, record) => {
   record.listFileDelete = listFileDelete
 }
 
-const getTypeDocList = async () => {
-  loadingTypeDocList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT_DOC.TYPE' })
-    if (res.message === 'SUCCESS') {
-      typeDocList.value =
-        res.body
-          ?.filter((docType) => props.type !== 'quality' && parseInt(docType.value) !== 6)
-          .map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingTypeDocList.value = false
-  }
-}
-
-const getStateProjectList = async () => {
-  loadingStateProjectList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.STATE' })
-    if (res.message === 'SUCCESS') {
-      projectStateList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingStateProjectList.value = false
-  }
-}
-
-const getStateDocList = async () => {
-  loadingStateDocList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT_DOC.STATE' })
-    if (res.message === 'SUCCESS') {
-      stateDocList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingStateDocList.value = false
-  }
-}
-
-onMounted(() => {
-  getTypeDocList()
-  getStateProjectList()
-  getStateDocList()
+onMounted(async () => {
+  await fetchGlobalListByCodes(['ASM_ASSET_PROJECT_DOC.TYPE', 'ASM_ASSET_PROJECT_DOC.STATE', 'ASM_ASSET_PROJECT.STATE'])
 })
 
 watch(

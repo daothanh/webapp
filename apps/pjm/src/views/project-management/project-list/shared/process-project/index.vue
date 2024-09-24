@@ -13,7 +13,7 @@
         v-for="(p, index) in stateProjectList"
         :key="p.value"
       >
-        <a-spin v-if="loadingStateProjectList" />
+        <a-spin v-if="globalListLoading" />
         <div class="h-full flex flex-col w-full gap-4" v-else>
           <process-title
             :record="p"
@@ -63,14 +63,10 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted, h, computed } from 'vue'
 import { Modal } from 'ant-design-vue'
-import _ from 'lodash'
+import { useSysStore } from 'dnp-core'
+import {storeToRefs} from "pinia";
 import { renderProcessColorByState } from '@/utils'
 import ProcessTitle from '@/views/project-management/project-list/shared/process-project/ProcessTitle.vue'
-import { getGlobalListDetail } from '@/apis/global'
-import EstimatedCosts from '@/views/project-management/project-list/shared/process-project/EstimatedCosts.vue'
-import EffectiveInvest from '@/views/project-management/project-list/shared/process-project/EffectiveInvest.vue'
-import ApproveStep from '@/views/project-management/project-list/shared/process-project/ApproveStep.vue'
-import NoteStep from '@/views/project-management/project-list/shared/process-project/NoteStep.vue'
 
 const props = defineProps({
   record: {
@@ -92,8 +88,10 @@ const modelRef = ref({
   assetProjectStateList: []
 })
 
-const loadingStateProjectList = ref(false)
-const stateProjectList = ref([])
+const { fetchGlobalListItems } = useSysStore()
+const { globalListItems, globalListLoading } = storeToRefs(useSysStore())
+const stateProjectList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.STATE'] || [])
+
 const widthProcessContainer = ref(0)
 
 const widthGrid = computed(() => {
@@ -148,21 +146,9 @@ const setField = (data) => {
   modelRef.value.assetProjectStateList = data.assetProjectStateList || []
 }
 
-const getStateProject = async () => {
-  loadingStateProjectList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.STATE' })
-    if (res.message === 'SUCCESS') {
-      stateProjectList.value = res.body
-    }
-  } finally {
-    loadingStateProjectList.value = false
-    widthProcessContainer.value = document.querySelectorAll('.process-project')[0]?.clientWidth
-  }
-}
-
 onMounted(async () => {
-  await getStateProject()
+  await fetchGlobalListItems('ASM_ASSET_PROJECT.STATE')
+  widthProcessContainer.value = document.querySelectorAll('.process-project')[0]?.clientWidth
 })
 
 watch(

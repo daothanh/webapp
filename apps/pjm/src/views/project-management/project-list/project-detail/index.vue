@@ -1,34 +1,34 @@
 <template>
   <div
-    class="project-detail-page px-4 pt-2 py-[70px] bg-white"
-    :class="[{ 'project-detail-page-scroll pt-[50px]': isHeaderFixed }]"
+      class="project-detail-page px-4 pt-2 py-[70px] bg-white"
+      :class="[{ 'project-detail-page-scroll pt-[50px]': isHeaderFixed }]"
   >
     <div
-      class="flex items-center space-x-2 bg-white"
-      :class="[
+        class="flex items-center space-x-2 bg-white"
+        :class="[
         { 'header-fixed': isHeaderFixed },
         { '!left-[72px]': isHeaderFixed && isCollapseMenuStore },
         { '!left-[290px]': isHeaderFixed && !isCollapseMenuStore }
       ]"
     >
       <c-button @click="handleBack">
-        <arrow-left-outlined />
+        <arrow-left-outlined/>
         Quay lại
       </c-button>
       <a-tag color="orange">
         <span class="uppercase font-semibold text-[15px] py-1 inline-block">{{
-          params.pageMode === MODE_ACTION_TO_PAGE.EDIT || params.projectId
-            ? isHeaderFixed
-              ? `${infoProject.code} - ${infoProject.name}`
-              : 'Thông tin dự án'
-            : 'Tạo mới dự án'
-        }}</span>
+            params.pageMode === MODE_ACTION_TO_PAGE.EDIT || params.projectId
+                ? isHeaderFixed
+                    ? `${infoProject.code} - ${infoProject.name}`
+                    : 'Thông tin dự án'
+                : 'Tạo mới dự án'
+          }}</span>
       </a-tag>
     </div>
 
     <div
-      v-if="[MODE_ACTION_TO_PAGE.EDIT, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
-      class="info-project-field !mt-[20px]"
+        v-if="[MODE_ACTION_TO_PAGE.EDIT, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
+        class="info-project-field !mt-[20px]"
     >
       <div class="field">
         <div class="label">Đơn vị quản lý</div>
@@ -61,86 +61,86 @@
     </div>
 
     <process-project
-      :record="infoProject"
-      :is-view="[MODE_ACTION_TO_PAGE.CREATE, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
-      :loading="loading"
-      @change="handleChangeState"
+        :record="infoProject"
+        :is-view="[MODE_ACTION_TO_PAGE.CREATE, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
+        :loading="loading"
+        @change="handleChangeState"
     />
 
     <a-tabs :active-key="activeKey" class="bg-white" @change="handleChangeTab">
       <a-tab-pane :key="1" tab="Thông tin chung">
         <general-info
-          :record="infoProject"
-          :is-btn-save-fixed="isBtnSaveFixed"
-          :loading="loading"
-          :is-edit="params.pageMode === MODE_ACTION_TO_PAGE.EDIT"
-          :is-view="params.pageMode === MODE_ACTION_TO_PAGE.VIEW"
-          :org-unit-list="orgUnitList"
-          :org-unit-id="params.orgUnitId"
-          @change="handleChangeValue"
-          @on-submit="handleSubmit"
+            :record="infoProject"
+            :is-btn-save-fixed="isBtnSaveFixed"
+            :loading="loading"
+            :is-edit="params.pageMode === MODE_ACTION_TO_PAGE.EDIT"
+            :is-view="params.pageMode === MODE_ACTION_TO_PAGE.VIEW"
+            :org-unit-list="companies"
+            :org-unit-id="params.orgUnitId"
+            @change="handleChangeValue"
+            @on-submit="handleSubmit"
         />
       </a-tab-pane>
       <a-tab-pane
-        v-if="[MODE_ACTION_TO_PAGE.EDIT, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
-        :key="2"
-        tab="Quản lý hợp đồng"
+          v-if="[MODE_ACTION_TO_PAGE.EDIT, MODE_ACTION_TO_PAGE.VIEW].includes(params.pageMode)"
+          :key="2"
+          tab="Quản lý hợp đồng"
       >
         <contract-manage
-          :record="infoProject"
-          :loading="loading"
-          :is-edit="params.pageMode === MODE_ACTION_TO_PAGE.EDIT"
-          :is-view="params.pageMode === MODE_ACTION_TO_PAGE.VIEW"
-          :org-unit-list="orgUnitList"
-          :org-unit-id="params.orgUnitId"
-          @change="handleChangeValue"
-          @on-submit="handleSubmit"
+            :record="infoProject"
+            :loading="loading"
+            :is-edit="params.pageMode === MODE_ACTION_TO_PAGE.EDIT"
+            :is-view="params.pageMode === MODE_ACTION_TO_PAGE.VIEW"
+            :org-unit-list="companies"
+            :org-unit-id="params.orgUnitId"
+            @change="handleChangeValue"
+            @on-submit="handleSubmit"
         />
       </a-tab-pane>
-      <a-tab-pane :key="3" tab="Quản lý chi phí" />
-      <a-tab-pane :key="4" tab="Thông tin thầu" />
-      <a-tab-pane :key="5" tab="Quản lý công việc" />
-      <a-tab-pane :key="6" tab="Quản lý tài sản" />
+      <a-tab-pane :key="3" tab="Quản lý chi phí"/>
+      <a-tab-pane :key="4" tab="Thông tin thầu"/>
+      <a-tab-pane :key="5" tab="Quản lý công việc"/>
+      <a-tab-pane :key="6" tab="Quản lý tài sản"/>
     </a-tabs>
 
     <modal-confirm-edit
-      :visible="modalConfirmExit"
-      :on-cancel="
+        :visible="modalConfirmExit"
+        :on-cancel="
         () => {
           modalConfirmExit = false
         }
       "
-      :on-submit="handleAgreeExit"
+        :on-submit="handleAgreeExit"
     />
   </div>
 </template>
 <script lang="ts" setup>
-import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
-import { computed, createVNode, onMounted, ref, watch } from 'vue'
+import {onBeforeRouteLeave, useRoute, useRouter} from 'vue-router'
+import {computed, createVNode, onMounted, ref, watch} from 'vue'
 import _ from 'lodash'
-import { ArrowLeftOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
-import { projectListService } from '@/apis/project-management/project-list/index.js'
+import {ArrowLeftOutlined, ExclamationCircleOutlined} from '@ant-design/icons-vue'
+import {projectListService} from '@/apis/project-management/project-list/index.js'
 import GeneralInfo from '@/views/project-management/project-list/project-detail/general-info/index.vue'
-import { getCompanyList } from '@/apis/global'
-import { message, Modal } from 'ant-design-vue'
-import { RouterName } from '@/routes/config.ts'
+import {message, Modal} from 'ant-design-vue'
+import {RouterName} from '@/routes/config.ts'
 import ProcessProject from '@/views/project-management/project-list/shared/process-project/index.vue'
-import { isBoolean } from '@antfu/utils'
-import { GLOBAL_ROLES, MODE_ACTION_TO_PAGE } from '@/configs'
+import {isBoolean} from '@antfu/utils'
+import {GLOBAL_ROLES, MODE_ACTION_TO_PAGE} from '@/configs'
 import ContractManage from '@/views/project-management/project-list/project-detail/contract-manage/index.vue'
-import { useGlobalStore } from '@/stores/global-store.ts'
+import {useGlobalStore} from '@/stores/global-store.ts'
 import {useAuthStore} from "dnp-core";
+import {useSysStore} from "dnp-core";
+import {storeToRefs} from "pinia";
 
 const route = useRoute()
 const router = useRouter()
-const { hasRole } = useAuthStore()
+const {hasRole} = useAuthStore()
 const params = ref({})
 const infoProject = ref({})
-
+const {fetchCompanies} = useSysStore()
+const {companies} = storeToRefs(useSysStore())
 const activeKey = ref(1)
 const loading = ref(false)
-
-const orgUnitList = ref([])
 
 const isHeaderFixed = ref(false)
 const isBtnSaveFixed = ref(false)
@@ -158,7 +158,7 @@ const isAgreeDetail = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_SEL
 const isCollapseMenuStore = computed(() => {
   const {
     $state: {
-      state: { isCollapseMenu }
+      state: {isCollapseMenu}
     }
   } = globalStore
 
@@ -170,18 +170,18 @@ const handleChangeValue = (bol: boolean) => {
 }
 
 const handleBack = () => {
-  router.push({ name: params.value.paramName || RouterName.PROJECT_LIST, query: params.value })
+  router.push({name: params.value.paramName || RouterName.PROJECT_LIST, query: params.value})
 }
 
 const handleAgreeExit = () => {
   allowExit.value = true
   modalConfirmExit.value = false
 
-  router.push({ name: changeRouteTo.value })
+  router.push({name: changeRouteTo.value})
 }
 
 const handleChangeState = (data) => {
-  updateData({ ...infoProject.value, state: data.state })
+  updateData({...infoProject.value, state: data.state})
 }
 
 const handleChangeTab = (value) => {
@@ -251,7 +251,7 @@ const getDetailProject = async (id: number) => {
   allowExit.value = false
 
   try {
-    const res = await projectListService.detail({ id })
+    const res = await projectListService.detail({id})
 
     if (res.message === 'SUCCESS') {
       infoProject.value = res?.body || {}
@@ -266,24 +266,11 @@ const getDetailProject = async (id: number) => {
   }
 }
 
-const getOrgUnitList = async () => {
-  try {
-    const res = await getCompanyList({
-      listOrgUnitType: '1,2'
-    })
-    if (res.message === 'SUCCESS') {
-      orgUnitList.value = res.body
-    }
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 const checkRolePage = () => {
   if (
-    (params.value.pageMode === MODE_ACTION_TO_PAGE.CREATE && !isAgreeCreate.value) ||
-    (params.value.pageMode === MODE_ACTION_TO_PAGE.EDIT && !isAgreeUpdate.value) ||
-    (params.value.pageMode === MODE_ACTION_TO_PAGE.VIEW && !isAgreeDetail.value)
+      (params.value.pageMode === MODE_ACTION_TO_PAGE.CREATE && !isAgreeCreate.value) ||
+      (params.value.pageMode === MODE_ACTION_TO_PAGE.EDIT && !isAgreeUpdate.value) ||
+      (params.value.pageMode === MODE_ACTION_TO_PAGE.VIEW && !isAgreeDetail.value)
   ) {
     message.error('Bạn không có quyền thực hiện hành động này')
     handleBack()
@@ -304,32 +291,34 @@ onMounted(() => {
     mainContent.addEventListener('scroll', handleScroll)
   }
   checkRolePage()
-  getOrgUnitList()
+  await fetchCompanies({
+    listOrgUnitType: '1,2'
+  })
 })
 
 watch(
-  () => route.params.id,
-  async (newVal, oldVal) => {
-    const query = _.pickBy({ ...route.query }, _.identity)
+    () => route.params.id,
+    async (newVal, oldVal) => {
+      const query = _.pickBy({...route.query}, _.identity)
 
-    params.value = {
-      ...query,
-      projectId: parseFloat(route.params.id),
-      orgUnitId: query.orgUnitId ? parseFloat(query.orgUnitId) : null,
-      pageMode: query.pageMode || MODE_ACTION_TO_PAGE.VIEW
-    }
-    if (params.value.projectId) {
-      await getDetailProject(route.params.id)
-    }
-  },
-  { immediate: true, deep: true }
+      params.value = {
+        ...query,
+        projectId: parseFloat(route.params.id),
+        orgUnitId: query.orgUnitId ? parseFloat(query.orgUnitId) : null,
+        pageMode: query.pageMode || MODE_ACTION_TO_PAGE.VIEW
+      }
+      if (params.value.projectId) {
+        await getDetailProject(route.params.id)
+      }
+    },
+    {immediate: true, deep: true}
 )
 
 onBeforeRouteLeave((to, from, next) => {
   if (
-    allowExit.value ||
-    !isUserChangedData.value ||
-    params.value.pageMode === MODE_ACTION_TO_PAGE.VIEW
+      allowExit.value ||
+      !isUserChangedData.value ||
+      params.value.pageMode === MODE_ACTION_TO_PAGE.VIEW
   ) {
     next()
   } else {
@@ -378,11 +367,14 @@ onBeforeRouteLeave((to, from, next) => {
     flex-wrap: wrap;
     gap: 50px;
     padding: 0 20px;
+
     .field {
       min-width: 10%;
+
       .label {
         color: #777;
       }
+
       .content {
         font-weight: 600;
         font-size: 15px;

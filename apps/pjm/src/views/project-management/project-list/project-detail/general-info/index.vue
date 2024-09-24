@@ -2,12 +2,12 @@
   <div class="project-info">
     <div class="btn-save flex justify-end mb-[20px]" :class="{ 'btn-save-fixed': isBtnSaveFixed }">
       <c-button
-        type="primary"
-        :loading="loading"
-        :disabled="isView || disabledBtnSave"
-        @click="handleSubmit"
+          type="primary"
+          :loading="loading"
+          :disabled="isView || disabledBtnSave"
+          @click="handleSubmit"
       >
-        <SaveOutlined v-if="isEdit" />
+        <SaveOutlined v-if="isEdit"/>
         Lưu thông tin
       </c-button>
     </div>
@@ -17,8 +17,8 @@
         <a-collapse v-model:active-key="activeKeyCollapse" ghost>
           <template #expandIcon="{ isActive }">
             <caret-right-outlined
-              :rotate="isActive ? 90 : 0"
-              style="font-size: 14px; margin-right: 5px; margin-top: 4px"
+                :rotate="isActive ? 90 : 0"
+                style="font-size: 14px; margin-right: 5px; margin-top: 4px"
             />
           </template>
           <a-collapse-panel key="1">
@@ -33,17 +33,17 @@
               <a-col :span="6">
                 <a-form-item label="Đơn vị quản lý" v-bind="validateInfos.pmOrgUnitId">
                   <c-select
-                    v-model:value="modelRef.pmOrgUnitId"
-                    placeholder="Chọn đơn vị"
-                    :options="orgUnitList"
-                    :filter-option="filterSelectOption"
-                    show-search
-                    :disabled="isView"
-                    :field-names="{
+                      v-model:value="modelRef.pmOrgUnitId"
+                      placeholder="Chọn đơn vị"
+                      :options="orgUnitList"
+                      :filter-option="filterSelectOption"
+                      show-search
+                      :disabled="isView"
+                      :field-names="{
                       label: 'orgUnitName',
                       value: 'orgUnitId'
                     }"
-                    @change="handleChangeOrg"
+                      @change="handleChangeOrg"
                   />
                 </a-form-item>
               </a-col>
@@ -51,22 +51,22 @@
               <a-col :span="6">
                 <a-form-item label="Quản lý dự án" v-bind="validateInfos.managerId">
                   <staff-select
-                    :staff-id="modelRef.managerId"
-                    :org-unit-id="modelRef.pmOrgUnitId"
-                    :disabled="isView || !modelRef.pmOrgUnitId"
-                    :placeholder="'Chọn nhân sự'"
-                    @change="handleChangeManager"
+                      :staff-id="modelRef.managerId"
+                      :org-unit-id="modelRef.pmOrgUnitId"
+                      :disabled="isView || !modelRef.pmOrgUnitId"
+                      :placeholder="'Chọn nhân sự'"
+                      @change="handleChangeManager"
                   />
                 </a-form-item>
               </a-col>
               <a-col :span="6">
                 <a-form-item label="Mã dự án" v-bind="validateInfos.code">
                   <project-code-input
-                    v-model="modelRef.code"
-                    placeholder="NămDA-STT"
-                    :disabled="isView || !modelRef.pmOrgUnitId"
-                    :org-unit-code="selectedOrgUnit?.orgUnitCode"
-                    @change="handleUpdateValue"
+                      v-model="modelRef.code"
+                      placeholder="NămDA-STT"
+                      :disabled="isView || !modelRef.pmOrgUnitId"
+                      :org-unit-code="selectedOrgUnit?.orgUnitCode"
+                      @change="handleUpdateValue"
                   >
                   </project-code-input>
                 </a-form-item>
@@ -75,10 +75,10 @@
               <a-col :span="6">
                 <a-form-item label="Tên dự án" v-bind="validateInfos.name">
                   <c-input
-                    v-model:value="modelRef.name"
-                    placeholder="Nhập tên dự án"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.name"
+                      placeholder="Nhập tên dự án"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -86,16 +86,16 @@
               <a-col :span="6">
                 <a-form-item label="Loại dự án" v-bind="validateInfos.type">
                   <c-select
-                    v-model:value="modelRef.type"
-                    :options="typeProjectList"
-                    :loading="loadingTypeProjectList"
-                    placeholder="Chọn loại dự án"
-                    :field-names="{
+                      v-model:value="modelRef.type"
+                      :options="typeProjectList"
+                      :loading="globalListLoading"
+                      placeholder="Chọn loại dự án"
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -103,16 +103,16 @@
               <a-col :span="6">
                 <a-form-item label="Loại mục tiêu" v-bind="validateInfos.objectivesType">
                   <c-select
-                    v-model:value="modelRef.objectivesType"
-                    :options="objectivesTypeList"
-                    :loading="loadingObjectivesTypeList"
-                    placeholder="Chọn loại mục tiêu"
-                    :field-names="{
+                      v-model:value="modelRef.objectivesType"
+                      :options="objectivesTypeList"
+                      :loading="globalListLoading"
+                      placeholder="Chọn loại mục tiêu"
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -120,10 +120,10 @@
               <a-col :span="6">
                 <a-form-item label="Hạng mục">
                   <c-input
-                    v-model:value="modelRef.category"
-                    placeholder="Nhập hạng mục"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.category"
+                      placeholder="Nhập hạng mục"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -131,10 +131,10 @@
               <a-col :span="6">
                 <a-form-item label="Địa điểm triển khai">
                   <c-input
-                    v-model:value="modelRef.deployAddress"
-                    placeholder="Nhập địa điểm"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.deployAddress"
+                      placeholder="Nhập địa điểm"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -142,11 +142,11 @@
               <a-col :span="24">
                 <a-form-item label="Mục tiêu chung dự án">
                   <a-textarea
-                    v-model:value="modelRef.objectives"
-                    placeholder="Nhập mục tiêu"
-                    :rows="2"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.objectives"
+                      placeholder="Nhập mục tiêu"
+                      :rows="2"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -162,17 +162,17 @@
               <a-col :span="6">
                 <a-form-item label="Loại ngân sách">
                   <c-select
-                    v-model:value="modelRef.budgetType"
-                    :options="budgetTypeList"
-                    :loading="loadingBudgetTypeList"
-                    allow-clear
-                    placeholder="Chọn loại ngân sách "
-                    :field-names="{
+                      v-model:value="modelRef.budgetType"
+                      :options="budgetTypeList"
+                      :loading="globalListLoading"
+                      allow-clear
+                      placeholder="Chọn loại ngân sách "
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -180,17 +180,17 @@
               <a-col :span="6">
                 <a-form-item label="Hình thức đầu tư">
                   <c-select
-                    v-model:value="modelRef.investType"
-                    :options="investTypeList"
-                    :loading="loadingInvestTypeList"
-                    allow-clear
-                    :field-names="{
+                      v-model:value="modelRef.investType"
+                      :options="investTypeList"
+                      :loading="globalListLoading"
+                      allow-clear
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    placeholder="Chọn hình thức"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      placeholder="Chọn hình thức"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -198,18 +198,18 @@
               <a-col :span="6">
                 <a-form-item label="Loại nguồn vốn">
                   <c-select
-                    v-model:value="modelRef.capitalType"
-                    :loading="loadingCapitalTypeList"
-                    mode="multiple"
-                    :placeholder="'Chọn loại nguồn vốn'"
-                    :max-tag-count="2"
-                    :field-names="{
+                      v-model:value="modelRef.capitalType"
+                      :loading="globalListLoading"
+                      mode="multiple"
+                      :placeholder="'Chọn loại nguồn vốn'"
+                      :max-tag-count="2"
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    :disabled="isView"
-                    :options="capitalTypeList"
-                    @change="handleUpdateValue"
+                      :disabled="isView"
+                      :options="capitalTypeList"
+                      @change="handleUpdateValue"
                   >
                   </c-select>
                 </a-form-item>
@@ -218,17 +218,17 @@
               <a-col :span="6">
                 <a-form-item label="Mức độ ưu tiên">
                   <c-select
-                    v-model:value="modelRef.important"
-                    :options="importantList"
-                    :loading="loadingImportantList"
-                    allow-clear
-                    placeholder="Chọn mức độ ưu tiên"
-                    :field-names="{
+                      v-model:value="modelRef.important"
+                      :options="importantList"
+                      :loading="globalListLoading"
+                      allow-clear
+                      placeholder="Chọn mức độ ưu tiên"
+                      :field-names="{
                       label: 'name',
                       value: 'value'
                     }"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -244,15 +244,15 @@
               <a-col :span="6">
                 <a-form-item label="Năm">
                   <a-date-picker
-                    v-model:value="modelRef.year"
-                    class="w-full"
-                    placeholder="Chọn năm"
-                    picker="year"
-                    :value-format="'YYYY'"
-                    allow-clear
-                    :format="'YYYY'"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.year"
+                      class="w-full"
+                      placeholder="Chọn năm"
+                      picker="year"
+                      :value-format="'YYYY'"
+                      allow-clear
+                      :format="'YYYY'"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -260,13 +260,13 @@
               <a-col :span="6">
                 <a-form-item label="Thời gian triển khai" v-bind="validateInfos.deployDate">
                   <a-date-picker
-                    v-model:value="modelRef.deployDate"
-                    allow-clear
-                    :value-format="'DD/MM/YYYY'"
-                    :format="'DD/MM/YYYY'"
-                    placeholder="Chọn ngày"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.deployDate"
+                      allow-clear
+                      :value-format="'DD/MM/YYYY'"
+                      :format="'DD/MM/YYYY'"
+                      placeholder="Chọn ngày"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -274,13 +274,13 @@
               <a-col :span="6">
                 <a-form-item label="Tgian hoàn thành dự kiến">
                   <a-date-picker
-                    v-model:value="modelRef.completeDateEst"
-                    allow-clear
-                    :value-format="'DD/MM/YYYY'"
-                    placeholder="Chọn ngày"
-                    :format="'DD/MM/YYYY'"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.completeDateEst"
+                      allow-clear
+                      :value-format="'DD/MM/YYYY'"
+                      placeholder="Chọn ngày"
+                      :format="'DD/MM/YYYY'"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -288,13 +288,13 @@
               <a-col :span="6">
                 <a-form-item label="Tgian hoàn thành thực tế">
                   <a-date-picker
-                    v-model:value="modelRef.completeDate"
-                    allow-clear
-                    :value-format="'DD/MM/YYYY'"
-                    :format="'DD/MM/YYYY'"
-                    placeholder="Chọn ngày"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.completeDate"
+                      allow-clear
+                      :value-format="'DD/MM/YYYY'"
+                      :format="'DD/MM/YYYY'"
+                      placeholder="Chọn ngày"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -312,10 +312,10 @@
                   <a-col :span="24">
                     <a-form-item label="Bộ phận lập dự án">
                       <c-input
-                        v-model:value="modelRef.projectPlanningOrg"
-                        placeholder="Nhập bộ phận"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.projectPlanningOrg"
+                          placeholder="Nhập bộ phận"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -323,10 +323,10 @@
                   <a-col :span="24">
                     <a-form-item label="Nhân sự lập dự án">
                       <c-input
-                        v-model:value="modelRef.projectPlanningStaff"
-                        placeholder="Nhập nhân sự"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.projectPlanningStaff"
+                          placeholder="Nhập nhân sự"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -337,10 +337,10 @@
                   <a-col :span="24">
                     <a-form-item label="Phê duyệt cấp đơn vị">
                       <c-input
-                        v-model:value="modelRef.orgApprove"
-                        placeholder="Nhập đơn vị"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.orgApprove"
+                          placeholder="Nhập đơn vị"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -348,10 +348,10 @@
                   <a-col :span="24">
                     <a-form-item label="Người duyệt cấp đơn vị">
                       <c-input
-                        v-model:value="modelRef.orgApproveBy"
-                        placeholder="Nhập người duyệt"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.orgApproveBy"
+                          placeholder="Nhập người duyệt"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -359,13 +359,13 @@
                   <a-col :span="24">
                     <a-form-item label="Ngày duyệt cấp đơn vị">
                       <a-date-picker
-                        v-model:value="modelRef.orgApproveDate"
-                        allow-clear
-                        :value-format="'DD/MM/YYYY'"
-                        :format="'DD/MM/YYYY'"
-                        :disabled="isView"
-                        placeholder="Chọn ngày"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.orgApproveDate"
+                          allow-clear
+                          :value-format="'DD/MM/YYYY'"
+                          :format="'DD/MM/YYYY'"
+                          :disabled="isView"
+                          placeholder="Chọn ngày"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -376,10 +376,10 @@
                   <a-col :span="24">
                     <a-form-item label="Phê duyệt cấp DNPW">
                       <c-input
-                        v-model:value="modelRef.corpApprove"
-                        placeholder="Nhập đơn vị"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.corpApprove"
+                          placeholder="Nhập đơn vị"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -387,10 +387,10 @@
                   <a-col :span="24">
                     <a-form-item label="Người duyệt cấp DNPW">
                       <c-input
-                        v-model:value="modelRef.corpApproveBy"
-                        placeholder="Nhập người duyệt"
-                        :disabled="isView"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.corpApproveBy"
+                          placeholder="Nhập người duyệt"
+                          :disabled="isView"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -398,13 +398,13 @@
                   <a-col :span="24">
                     <a-form-item label="Ngày duyệt cấp DNPW">
                       <a-date-picker
-                        v-model:value="modelRef.corpApproveDate"
-                        allow-clear
-                        :value-format="'DD/MM/YYYY'"
-                        :format="'DD/MM/YYYY'"
-                        :disabled="isView"
-                        placeholder="Chọn ngày"
-                        @change="handleUpdateValue"
+                          v-model:value="modelRef.corpApproveDate"
+                          allow-clear
+                          :value-format="'DD/MM/YYYY'"
+                          :format="'DD/MM/YYYY'"
+                          :disabled="isView"
+                          placeholder="Chọn ngày"
+                          @change="handleUpdateValue"
                       />
                     </a-form-item>
                   </a-col>
@@ -419,10 +419,10 @@
               </div>
             </template>
             <doc-project
-              v-if="!isEmptyObject(record)"
-              :record="record"
-              :is-view="isView"
-              class="mb-4"
+                v-if="!isEmptyObject(record)"
+                :record="record"
+                :is-view="isView"
+                class="mb-4"
             />
           </a-collapse-panel>
           <a-collapse-panel key="6">
@@ -434,11 +434,11 @@
               </div>
             </template>
             <doc-project
-              v-if="!isEmptyObject(record)"
-              :record="record"
-              :is-view="isView"
-              :type="'quality'"
-              class="mb-4"
+                v-if="!isEmptyObject(record)"
+                :record="record"
+                :is-view="isView"
+                :type="'quality'"
+                class="mb-4"
             />
           </a-collapse-panel>
           <a-collapse-panel key="7">
@@ -451,10 +451,10 @@
               <a-col :span="6">
                 <a-form-item label="Người tạo">
                   <c-input
-                    v-model:value="modelRef.createProjectBy"
-                    placeholder="Nhập người tạo"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.createProjectBy"
+                      placeholder="Nhập người tạo"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -462,13 +462,13 @@
               <a-col :span="6">
                 <a-form-item label="Ngày tạo">
                   <a-date-picker
-                    v-model:value="modelRef.createProjectTime"
-                    allow-clear
-                    :value-format="'DD/MM/YYYY'"
-                    :format="'DD/MM/YYYY'"
-                    :disabled="isView"
-                    placeholder="Chọn ngày"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.createProjectTime"
+                      allow-clear
+                      :value-format="'DD/MM/YYYY'"
+                      :format="'DD/MM/YYYY'"
+                      :disabled="isView"
+                      placeholder="Chọn ngày"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -476,10 +476,10 @@
               <a-col :span="6">
                 <a-form-item label="Người cập nhật">
                   <c-input
-                    v-model:value="modelRef.updateProjectBy"
-                    placeholder="Nhập người cập nhật"
-                    :disabled="isView"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.updateProjectBy"
+                      placeholder="Nhập người cập nhật"
+                      :disabled="isView"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -487,13 +487,13 @@
               <a-col :span="6">
                 <a-form-item label="Ngày cập nhật">
                   <a-date-picker
-                    v-model:value="modelRef.updateProjectTime"
-                    allow-clear
-                    :value-format="'DD/MM/YYYY'"
-                    :format="'DD/MM/YYYY'"
-                    :disabled="isView"
-                    placeholder="Chọn ngày"
-                    @change="handleUpdateValue"
+                      v-model:value="modelRef.updateProjectTime"
+                      allow-clear
+                      :value-format="'DD/MM/YYYY'"
+                      :format="'DD/MM/YYYY'"
+                      :disabled="isView"
+                      placeholder="Chọn ngày"
+                      @change="handleUpdateValue"
                   />
                 </a-form-item>
               </a-col>
@@ -503,10 +503,10 @@
       </a-form>
 
       <budget-exp
-        v-if="record.budgetExp"
-        :record="record.budgetExp"
-        :is-view="isView"
-        @change="handleChangeValue"
+          v-if="record.budgetExp"
+          :record="record.budgetExp"
+          :is-view="isView"
+          @change="handleChangeValue"
       />
     </a-spin>
   </div>
@@ -516,14 +516,14 @@
 </script>
 
 <script lang="ts" setup>
-import { ref, reactive, watch, onMounted, toRaw, computed } from 'vue'
-import { Form } from 'ant-design-vue'
-import { SaveOutlined, CaretRightOutlined } from '@ant-design/icons-vue'
-import type { Rule } from 'ant-design-vue/es/form'
-import { StaffSelect } from 'dnp-core'
-import { isEmptyObject } from '@/utils'
+import {ref, reactive, watch, onMounted, toRaw, computed} from 'vue'
+import {Form} from 'ant-design-vue'
+import {SaveOutlined, CaretRightOutlined} from '@ant-design/icons-vue'
+import type {Rule} from 'ant-design-vue/es/form'
+import {StaffSelect,useSysStore} from 'dnp-core'
+import {storeToRefs} from "pinia";
+import {isEmptyObject} from '@/utils'
 import DocProject from '@/views/project-management/project-list/project-detail/general-info/DocsList.vue'
-import { getGlobalListDetail } from '@/apis/global'
 import BudgetExp from '@/views/project-management/project-list/project-detail/general-info/BudgetExp.vue'
 import ProjectCodeInput from '@/components/ProjectCodeInput.vue'
 
@@ -569,23 +569,20 @@ const codeFormat = async (_rule: Rule, value: string) => {
 }
 const activeKeyCollapse = ref(['1', '2', '3', '4', '5', '6'])
 
-const loadingTypeProjectList = ref(false)
-const typeProjectList = ref([])
+const {fetchGlobalListByCodes} = useSysStore()
+const {globalListItems} = storeToRefs(useSysStore())
 
-const loadingObjectivesTypeList = ref(false)
-const objectivesTypeList = ref([])
+const typeProjectList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.TYPE'] || [])
 
-const loadingInvestTypeList = ref(false)
-const investTypeList = ref([])
+const objectivesTypeList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.OBJECTIVES_TYPE'] || [])
 
-const loadingBudgetTypeList = ref(false)
-const budgetTypeList = ref([])
+const investTypeList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.INVEST_TYPE'] || [])
 
-const loadingImportantList = ref(false)
-const importantList = ref([])
+const budgetTypeList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.BUDGET_TYPE'] || [])
 
-const loadingCapitalTypeList = ref(false)
-const capitalTypeList = ref([])
+const importantList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.IMPORTANT'] || [])
+
+const capitalTypeList = computed(() => globalListItems.value['ASM_ASSET_PROJECT.CAPITAL_TYPE'] || [])
 
 const modelRef = ref({
   name: '',
@@ -637,7 +634,7 @@ const modelRef = ref({
   year: null
 })
 const selectedOrgUnit = computed(() =>
-  props.orgUnitList.find((orgUnit) => orgUnit.orgUnitId === modelRef.value.pmOrgUnitId)
+    props.orgUnitList.find((orgUnit) => orgUnit.orgUnitId === modelRef.value.pmOrgUnitId)
 )
 const rulesForm = reactive({
   code: [
@@ -689,19 +686,19 @@ const rulesForm = reactive({
 })
 
 const useForm = Form.useForm
-const { validateInfos, validate } = useForm(modelRef, rulesForm)
+const {validateInfos, validate} = useForm(modelRef, rulesForm)
 
 const disabledBtnSave = computed(() => {
   return (
-    !modelRef.value.name ||
-    !modelRef.value.code ||
-    !modelRef.value.orgUnitId ||
-    !modelRef.value.pmOrgUnitId ||
-    !modelRef.value.managerId ||
-    !modelRef.value.deployDate ||
-    !modelRef.value.objectivesType ||
-    !modelRef.value.type ||
-    !modelRef.value.code
+      !modelRef.value.name ||
+      !modelRef.value.code ||
+      !modelRef.value.orgUnitId ||
+      !modelRef.value.pmOrgUnitId ||
+      !modelRef.value.managerId ||
+      !modelRef.value.deployDate ||
+      !modelRef.value.objectivesType ||
+      !modelRef.value.type ||
+      !modelRef.value.code
   )
 })
 
@@ -772,133 +769,60 @@ const setField = (data) => {
   modelRef.value.capitalType = data.capitalType || []
 }
 
-const getTypeProject = async () => {
-  loadingTypeProjectList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.TYPE' })
-    if (res.message === 'SUCCESS') {
-      typeProjectList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingTypeProjectList.value = false
-  }
-}
-
-const getObjectivesTypeList = async () => {
-  loadingObjectivesTypeList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.OBJECTIVES_TYPE' })
-    if (res.message === 'SUCCESS') {
-      objectivesTypeList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingObjectivesTypeList.value = false
-  }
-}
-
-const getBudgetTypeList = async () => {
-  loadingBudgetTypeList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.BUDGET_TYPE' })
-    if (res.message === 'SUCCESS') {
-      budgetTypeList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingBudgetTypeList.value = false
-  }
-}
-
-const getInvestTypeList = async () => {
-  loadingInvestTypeList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.INVEST_TYPE' })
-    if (res.message === 'SUCCESS') {
-      investTypeList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingInvestTypeList.value = false
-  }
-}
-
-const getImportantList = async () => {
-  loadingImportantList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.IMPORTANT' })
-    if (res.message === 'SUCCESS') {
-      importantList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingImportantList.value = false
-  }
-}
-
-const getCapitalTypeList = async () => {
-  loadingCapitalTypeList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT.CAPITAL_TYPE' })
-    if (res.message === 'SUCCESS') {
-      capitalTypeList.value =
-        res.body?.map((d) => ({
-          ...d,
-          value: parseFloat(d.value)
-        })) || []
-    }
-  } finally {
-    loadingCapitalTypeList.value = false
-  }
-}
-
 onMounted(() => {
-  getTypeProject()
-  getObjectivesTypeList()
-  getBudgetTypeList()
-  getInvestTypeList()
-  getImportantList()
-  getCapitalTypeList()
+  await fetchGlobalListByCodes(['ASM_ASSET_PROJECT.TYPE', 'ASM_ASSET_PROJECT.OBJECTIVES_TYPE', 'ASM_ASSET_PROJECT.BUDGET_TYPE', 'ASM_ASSET_PROJECT.INVEST_TYPE', 'ASM_ASSET_PROJECT.IMPORTANT', 'ASM_ASSET_PROJECT.CAPITAL_TYPE'])
 })
 
 watch(
-  () => props.record,
-  (newVal, oldVal) => {
-    if (!props.loading) {
-      setField(newVal)
+    () => props.record,
+    (newVal, oldVal) => {
+      if (!props.loading) {
+        setField(newVal)
+      }
+    },
+    {
+      immediate: true,
+      deep: true
     }
-  },
-  {
-    immediate: true,
-    deep: true
-  }
 )
 </script>
 
 <style lang="scss">
 .project-info {
   min-height: 300px;
+
   .ant-picker {
     width: 100%;
   }
+
   .ant-collapse-header {
     padding: 0 0 10px 0 !important;
   }
+
   .ant-collapse-content-box {
     padding: 0 10px !important;
   }
+
   .ant-picker-disabled {
     input {
       color: #000;
     }
   }
+
   .ant-descriptions-item-label {
     font-weight: 600;
   }
+
   .ant-descriptions-row {
     .ant-descriptions-item {
       padding-bottom: 5px;
     }
+
     .ant-descriptions-item-label {
       color: #73777a;
       font-weight: 400;
     }
+
     .ant-descriptions-item-content {
       padding-bottom: 10px;
       font-weight: 700;

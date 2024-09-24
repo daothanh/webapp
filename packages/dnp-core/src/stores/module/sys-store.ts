@@ -20,14 +20,15 @@ export const useSysStore = defineStore('sysModuleStore', () => {
 
     const {post, get} = useFetchWithModule('sys')
 
-    const companyList = ref([])
+    const companies = ref([])
+    const companyLoading = ref(false)
 
     interface GlObj {
         [T: string]: GlobalListItem[]
     }
 
     const globalListItems = ref<GlObj>({})
-
+    const globalListLoading = ref(false)
     interface Option {
         label: string
         value: string
@@ -42,15 +43,13 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         if (!provinces.value.length) {
             loading.value = true
             try {
-                const res = await getListProvince()
-                if (res.message === 'SUCCESS') {
-                    provinces.value = res.body.map((item: { fullName: string; areaCode: string }) => {
-                        return {
-                            label: item.fullName,
-                            value: item.areaCode
-                        }
-                    })
-                }
+                const {body} = await post(`${urls.GET_PROVINCE}`, {})
+                provinces.value = body.map((item: { fullName: string; areaCode: string }) => {
+                    return {
+                        label: item.fullName,
+                        value: item.areaCode
+                    }
+                })
             } finally {
                 loading.value = false
             }
@@ -62,15 +61,13 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         params = params || {}
         loading.value = true
         try {
-            const res = await getListDistrict(params)
-            if (res.message === 'SUCCESS') {
-                districts.value = res.body.map((item: { name: string; areaCode: string }) => {
-                    return {
-                        label: item.name,
-                        value: item.areaCode
-                    }
-                })
-            }
+            const {body} = await post(`${urls.GET_DISTRICT}`, params)
+            districts.value = body.map((item: { name: string; areaCode: string }) => {
+                return {
+                    label: item.name,
+                    value: item.areaCode
+                }
+            })
         } finally {
             loading.value = false
         }
@@ -81,15 +78,13 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         params = params || {}
         loading.value = true
         try {
-            const res = await getListCommune(params)
-            if (res.message === 'SUCCESS') {
-                wards.value = res.body.map((item: { name: string; areaCode: string }) => {
-                    return {
-                        label: item.name,
-                        value: item.areaCode
-                    }
-                })
-            }
+            const { body } = await post(`${urls.GET_COMMUNE}`, params)
+            wards.value = body.map((item: { name: string; areaCode: string }) => {
+                return {
+                    label: item.name,
+                    value: item.areaCode
+                }
+            })
         } finally {
             loading.value = false
         }
@@ -98,17 +93,17 @@ export const useSysStore = defineStore('sysModuleStore', () => {
 
     const fetchGlobalList = async (code: string) => {
         if (!globalListItems.value[code]?.length) {
-            loading.value = true
+            globalListLoading.value = true
             try {
-                const res = await getGlobalListDetail({code})
-                if (res.message === 'SUCCESS') {
+                const {body} = await get(`${urls.GET_GLOBAL_LIST_DETAIL}`, {params: {code}})
+                if (body) {
                     globalListItems.value = {
                         ...globalListItems.value,
-                        [code]: res.body
+                        [code]: body
                     }
                 }
             } finally {
-                loading.value = false
+                globalListLoading.value = false
             }
         }
         return globalListItems.value
@@ -119,28 +114,22 @@ export const useSysStore = defineStore('sysModuleStore', () => {
     }
 
     // Lấy danh sách công ty
-    const getCompanyList = async (params?: {
+    const fetchCompanies = async (params?: {
         listOrgUnitType: string | number
         orgUnitId?: number
         getParent?: boolean
     }) => {
-        if (companyList.value.length) return companyList.value
-
-        const {data}: AxiosResponse = await get(urls.GET_COMPANY_LIST, {params})
-        companyList.value = data
-        return data
+        companyLoading.value = true
+        const {body}: AxiosResponse = await get(urls.GET_COMPANY_LIST, {params})
+        companies.value = body
+        companyLoading.value = false
+        return body
     }
 
-    // Lấy danh sách phân loại khu vực
-    const getGlobalListDetail = async (params: { code: string }) => {
-        const {data} = await get(`${urls.GET_GLOBAL_LIST_DETAIL}`, {params})
-        return data
-    }
-
-// Lấy file
-    const getFile = async (params: { objectCode: string; objectId?: number }) => {
-        const {data} = await get(`${urls.GET_FILE}`, {params})
-        return data
+    // Lấy file
+    const fetchFile = async (params: { objectCode: string; objectId?: number }) => {
+        const {body} = await get(`${urls.GET_FILE}`, {params})
+        return body
     }
 
     // Tải file lên
@@ -152,19 +141,10 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         });
     }
 
-    const getApplicationList = () => get(`${urls.ALL_CLIENT}`)
+    const getApplicationList = async () => await get(`${urls.ALL_CLIENT}`)
 
-// Lấy danh sách tỉnh thành
-    const getListProvince = () => post(`${urls.GET_PROVINCE}`, {})
-
-// Lấy danh sách huyện
-    const getListDistrict = (params: any) => post(`${urls.GET_DISTRICT}`, params)
-
-// Lấy danh sách xã
-    const getListCommune = (params: any) => post(`${urls.GET_COMMUNE}`, params)
-
-// Lấy đối tượng theo loại đối tượng
-    const getObjectListByCode = (path: string, params: any) => get(`${path}`, {params})
+    // Lấy đối tượng theo loại đối tượng
+    const getObjectListByCode = async (path: string, params: any) => await get(`${path}`, {params})
 
     return {
         globalListItems,
@@ -172,19 +152,16 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         districts,
         wards,
         loading,
-        companyList,
+        companies,
+        companyLoading,
         fetchGlobalListByCodes,
         fetchProvinces,
         fetchDistricts,
         fetchWards,
-        getCompanyList,
-        getGlobalListDetail,
-        getFile,
+        fetchCompanies,
+        fetchFile,
         uploadFile,
         getApplicationList,
-        getListProvince,
-        getListDistrict,
-        getListCommune,
         getObjectListByCode
     }
 }, {persist: true});

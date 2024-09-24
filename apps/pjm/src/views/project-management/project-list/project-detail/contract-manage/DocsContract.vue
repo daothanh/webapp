@@ -123,12 +123,12 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import {DeleteIcon, useAuthStore} from 'dnp-core'
+import {DeleteIcon, useAuthStore, useSysStore } from 'dnp-core'
 import { message } from 'ant-design-vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
+import {storeToRefs} from "pinia";
 import { columnTableDocsContract } from './columns.ts'
 import { GLOBAL_ROLES } from '@/configs'
-import { getGlobalListDetail } from '@/apis/global'
 import { contractProjectListService } from '@/apis/project-management/project-list/contract-manage'
 
 const props = defineProps({
@@ -151,14 +151,9 @@ const dataTableDelete = ref([])
 const dataTableUpdate = ref([])
 const loadingTable = ref(false)
 
-const typeDocList = ref([])
-const loadingTypeDocList = ref(false)
-
-const stateDocList = ref([])
-const loadingStateDocList = ref(false)
-
-const contractStateList = ref([])
-const loadingStateContractList = ref(false)
+const { globalListItems } = storeToRefs( useSysStore())
+const { fetchGlobalListItems } = useSysStore()
+const typeDocList = computed(() => globalListItems.value['ASM_ASSET_PROJECT_CONTRACT_DOC.TYPE'])
 
 const disabledButtonSave = computed(() => {
   const isCheckFieldName = dataTable.value?.filter((d) => !d.name)?.length
@@ -266,20 +261,8 @@ const handleChangeFile = ({ fileList }, record) => {
   record.listFileDelete = listFileDelete
 }
 
-const getTypeDocList = async () => {
-  loadingTypeDocList.value = true
-  try {
-    const res = await getGlobalListDetail({ code: 'ASM_ASSET_PROJECT_CONTRACT_DOC.TYPE' })
-    if (res.message === 'SUCCESS') {
-      typeDocList.value = res.body?.map((d) => ({ ...d, value: parseFloat(d.value) })) || []
-    }
-  } finally {
-    loadingTypeDocList.value = false
-  }
-}
-
 onMounted(() => {
-  getTypeDocList()
+  fetchGlobalListItems('ASM_ASSET_PROJECT_CONTRACT_DOC.TYPE')
 })
 
 watch(
