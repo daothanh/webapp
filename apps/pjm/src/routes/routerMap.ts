@@ -1,12 +1,9 @@
 import { MainLayout } from 'dnp-core'
 import overviewIcon from '@/assets/icons/sidebar/overview.svg'
-import businessPlanIcon from '@/assets/icons/sidebar/business-plan.svg'
-import customerServiceIcon from '@/assets/icons/sidebar/customer-service.svg'
-import productionOperationIcon from '@/assets/icons/sidebar/production-operation.svg'
-import networkManagementIcon from '@/assets/icons/sidebar/network-management.svg'
-import assetManagementIcon from '@/assets/icons/sidebar/asset-management.svg'
+import contractIcon from '@/assets/icons/sidebar/contract.svg'
+import taskIcon from '@/assets/icons/sidebar/todo-list.svg'
+import balanceIcon from '@/assets/icons/sidebar/dutoan.svg'
 import projectIcon from '@/assets/icons/sidebar/project.svg'
-import personnelIcon from '@/assets/icons/sidebar/personnel.svg'
 import { RouterName, UriRole } from '@/routes/config.ts'
 
 export const routes = [
@@ -42,66 +39,11 @@ export const routes = [
         hidden: false
       },
       {
-        path: '/business-plan',
-        name: RouterName.BUSINESS_PLAN,
-        component: () => import('@/views/ComingSoon.vue'),
-        meta: {
-          title: 'Kế hoạch kinh doanh',
-          icon: businessPlanIcon,
-          page: RouterName.BUSINESS_PLAN
-        },
-        hidden: false
-      },
-      {
-        path: '/customer-service',
-        name: RouterName.CUSTOMER_SERVICE,
-        component: () => import('@/views/ComingSoon.vue'),
-        meta: {
-          title: 'Khách hàng & dịch vụ',
-          icon: customerServiceIcon,
-          page: RouterName.CUSTOMER_SERVICE
-        },
-        hidden: false
-      },
-      {
-        path: '/production-operation',
-        name: RouterName.PRODUCTION_OPERATION,
-        component: () => import('@/views/ComingSoon.vue'),
-        meta: {
-          title: 'Vận hành & sản xuất',
-          icon: productionOperationIcon,
-          page: RouterName.PRODUCTION_OPERATION
-        },
-        hidden: false
-      },
-      {
-        path: '/network-manage',
-        name: RouterName.NETWORK_MANAGE,
-        component: () => import('@/views/ComingSoon.vue'),
-        meta: {
-          title: 'Quản lý mạng lưới',
-          icon: networkManagementIcon,
-          page: RouterName.NETWORK_MANAGE
-        },
-        hidden: false
-      },
-      {
-        path: '/asset-manage',
-        name: RouterName.ASSET_MANAGE,
-        component: () => import('@/views/ComingSoon.vue'),
-        meta: {
-          title: 'Quản lý tài sản',
-          icon: assetManagementIcon,
-          page: RouterName.ASSET_MANAGE
-        },
-        hidden: false
-      },
-      {
         path: '/project-management',
         name: RouterName.PROJECT_MANAGEMENT,
         component: () => import('@/views/project-management/index.vue'),
         meta: {
-          title: 'Quản lý dự án',
+          title: 'Thông tin dự án',
           icon: projectIcon,
           page: 'project-management'
         },
@@ -120,7 +62,7 @@ export const routes = [
             path: '/project-management/project-list/:id',
             name: RouterName.PROJECT_DETAIL,
             component: () =>
-              import('@/views/project-management/project-list/project-detail/index.vue'),
+                import('@/views/project-management/project-list/project-detail/index.vue'),
             meta: {
               title: 'Chi tiết dự án'
               // uriRole: UriRole.PROJECT_DETAIL
@@ -138,13 +80,35 @@ export const routes = [
         ]
       },
       {
-        path: '/personnel-info',
-        name: RouterName.PERSONNEL_INFO,
+        path: '/customer-service',
+        name: RouterName.CUSTOMER_SERVICE,
         component: () => import('@/views/ComingSoon.vue'),
         meta: {
-          title: 'Thông tin nhân sự',
-          icon: personnelIcon,
-          page: RouterName.PERSONNEL_INFO
+          title: 'Quản lý hợp đồng',
+          icon: contractIcon,
+          page: RouterName.CUSTOMER_SERVICE
+        },
+        hidden: false
+      },
+      {
+        path: '/production-operation',
+        name: RouterName.PRODUCTION_OPERATION,
+        component: () => import('@/views/ComingSoon.vue'),
+        meta: {
+          title: 'Quản lý công việc',
+          icon: taskIcon,
+          page: RouterName.PRODUCTION_OPERATION
+        },
+        hidden: false
+      },
+      {
+        path: '/network-manage',
+        name: RouterName.NETWORK_MANAGE,
+        component: () => import('@/views/ComingSoon.vue'),
+        meta: {
+          title: 'Quản lý dự toán',
+          icon: balanceIcon,
+          page: RouterName.NETWORK_MANAGE
         },
         hidden: false
       }
