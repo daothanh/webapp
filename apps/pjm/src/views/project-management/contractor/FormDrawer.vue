@@ -147,9 +147,8 @@
 import { computed, reactive, ref, toRaw, watchEffect } from 'vue'
 import { Form, message } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
-import {useSysStore} from "dnp-core";
+import {useSysStore, useUtils } from "dnp-core";
 import type { Contractor } from '@/types/contractor'
-import { filterOption } from '@/utils'
 import contractorApi from '@/apis/project-management/contractor.ts'
 
 const props = defineProps({
@@ -168,7 +167,7 @@ const props = defineProps({
 })
 
 const loading = ref(false)
-
+const { filterOption } = useUtils()
 const sysStore = useSysStore()
 const { globalListItems, provinces, districts, wards, loading: provinceLoading } = storeToRefs(sysStore)
 
@@ -261,11 +260,14 @@ const emit = defineEmits(['close', 'finish'])
 
 const currentMode = computed<string>(() => props.mode)
 const title = computed(() => {
-  return currentMode.value === 'create'
-    ? 'Tạo mới nhà thầu'
-    : currentMode.value === 'edit'
-    ? 'Cập nhật nhà thầu'
-    : 'Xem chi tiết nhà thầu'
+  switch (currentMode.value) {
+    case 'create':
+      return 'Tạo mới nhà thầu';
+    case 'edit':
+      return 'Cập nhật nhà thầu';
+    default:
+      return 'Xem chi tiết nhà thầu';
+  }
 })
 const handleSubmit = async () => {
   const data = {

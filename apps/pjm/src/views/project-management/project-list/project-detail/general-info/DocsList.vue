@@ -145,12 +145,11 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import {DeleteIcon} from 'dnp-core'
+import {DeleteIcon, useAuthStore} from 'dnp-core'
 import { message } from 'ant-design-vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
 import { columnTableDocs } from './columns.ts'
 import { projectListService } from '@/apis/project-management/project-list'
-import { checkRoles } from '@/utils'
 import { GLOBAL_ROLES } from '@/configs'
 import { getGlobalListDetail } from '@/apis/global'
 
@@ -168,6 +167,7 @@ const props = defineProps({
     default: () => 'legal'
   }
 })
+const { hasRole } = useAuthStore()
 const columns = computed(() => {
   if (props.type === 'quality') {
     return columnTableDocs.filter((item) => item['dataIndex'] !== 'type')
@@ -175,7 +175,7 @@ const columns = computed(() => {
     return columnTableDocs
   
 })
-const isAgreeUpdateDoc = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE_DOCUMENT))
+const isAgreeUpdateDoc = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE_DOCUMENT))
 
 const dataTable = ref([])
 const dataTableDelete = ref([])

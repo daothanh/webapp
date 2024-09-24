@@ -1,4 +1,5 @@
 import {message} from "ant-design-vue";
+import {removeUtf8Vowel} from "pjm/src/utils";
 
 export function useUtils () {
     const convertVietnamese = (str: string): string => {
@@ -76,7 +77,16 @@ export function useUtils () {
     const removeAllCookies = () => {
         cookies.keys().forEach((cookie) => cookies.remove(cookie))
     }
+
+    const filterOption = (val: string, option: { value: string; label: string }) => {
+        return val
+            ? removeUtf8Vowel(option.label?.toLowerCase()).includes(
+                removeUtf8Vowel(String(val).toLowerCase())
+            )
+            : false
+    }
     return {
+        filterOption,
         convertVietnamese,
         isEmptyObject,
         copyTextToClipboard,

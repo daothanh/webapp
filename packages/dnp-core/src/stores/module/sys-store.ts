@@ -1,8 +1,9 @@
 import {defineStore} from "pinia";
-import type { AxiosResponse } from "axios";
+import type {AxiosResponse} from "axios";
 import {useFetchWithModule} from "../../composable/request";
 import {ref} from "vue";
-import type { GlobalListItem } from "../../types";
+import type {GlobalListItem} from "../../types";
+
 export const useSysStore = defineStore('sysModuleStore', () => {
 
     const urls = {
@@ -17,18 +18,21 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         ALL_CLIENT: '/client/findAll'
     }
 
-    const { post, get } = useFetchWithModule('sys')
+    const {post, get} = useFetchWithModule('sys')
 
     const companyList = ref([])
+
     interface GlObj {
         [T: string]: GlobalListItem[]
     }
+
     const globalListItems = ref<GlObj>({})
 
     interface Option {
         label: string
         value: string
     }
+
     const provinces = ref<Option[]>([])
     const districts = ref<Option[]>([])
     const wards = ref<Option[]>([])
@@ -93,29 +97,25 @@ export const useSysStore = defineStore('sysModuleStore', () => {
     }
 
     const fetchGlobalList = async (code: string) => {
-        const temp: GlObj = { ...globalListItems.value }
-        if (temp[code] === undefined) {
-            temp[code] = []
-        }
-        if (temp[code].length === 0) {
+        if (!globalListItems.value[code]?.length) {
             loading.value = true
             try {
-                const res = await getGlobalListDetail({ code })
+                const res = await getGlobalListDetail({code})
                 if (res.message === 'SUCCESS') {
-                    temp[code] = res.body
+                    globalListItems.value = {
+                        ...globalListItems.value,
+                        [code]: res.body
+                    }
                 }
             } finally {
                 loading.value = false
             }
         }
-        globalListItems.value = { ...temp }
         return globalListItems.value
     }
 
     const fetchGlobalListByCodes = async (codes: string[]) => {
-        for (const code of codes) {
-            await fetchGlobalList(code)
-        }
+        await Promise.all(codes.map(code => fetchGlobalList(code)))
     }
 
     // Lấy danh sách công ty
@@ -124,76 +124,56 @@ export const useSysStore = defineStore('sysModuleStore', () => {
         orgUnitId?: number
         getParent?: boolean
     }) => {
-        if (companyList.value.length > 0) return companyList.value
+        if (companyList.value.length) return companyList.value
 
-        const res: AxiosResponse = await get(`${urls.GET_COMPANY_LIST}`, {params})
-        companyList.value = res.data
-        return res.data
+        const {data}: AxiosResponse = await get(urls.GET_COMPANY_LIST, {params})
+        companyList.value = data
+        return data
     }
 
     // Lấy danh sách phân loại khu vực
     const getGlobalListDetail = async (params: { code: string }) => {
-        const res: AxiosResponse = await get(`${urls.GET_GLOBAL_LIST_DETAIL}`, {
-            params
-        })
-        return res.data
+        const {data} = await get(`${urls.GET_GLOBAL_LIST_DETAIL}`, {params})
+        return data
     }
 
-    // Lấy file
+// Lấy file
     const getFile = async (params: { objectCode: string; objectId?: number }) => {
-        const res: AxiosResponse = await get(`${urls.GET_FILE}`, {params})
-        return res.data
+        const {data} = await get(`${urls.GET_FILE}`, {params})
+        return data
     }
 
     // Tải file lên
-    const uploadFile = async (params: any) => {
-        const res: AxiosResponse = await post(
-            `${urls.UPLOAD_MULTIPART_FILE}`,
-            params,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+    const uploadFile = async (params: FormData) => {
+        return await post(urls.UPLOAD_MULTIPART_FILE, params, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
             }
-        )
-        return res.data
+        });
     }
 
-    const getApplicationList = async () => {
-        const res: AxiosResponse = await get(`${urls.ALL_CLIENT}`)
-        return res.data
-    }
+    const getApplicationList = () => get(`${urls.ALL_CLIENT}`)
 
-    //Lấy danh sách tỉnh thành
-    const getListProvince = async () => {
-        const res: AxiosResponse = await post(`${urls.GET_PROVINCE}`, {})
-        return res.data
-    }
+// Lấy danh sách tỉnh thành
+    const getListProvince = () => post(`${urls.GET_PROVINCE}`, {})
 
-    //Lấy danh sách huyện
-    const getListDistrict = async (params: any) => {
-        const res: AxiosResponse = await post(`${urls.GET_DISTRICT}`, params)
-        return res.data
-    }
+// Lấy danh sách huyện
+    const getListDistrict = (params: any) => post(`${urls.GET_DISTRICT}`, params)
 
-    //Lấy danh sách xã
-    const getListCommune = async (params: any) => {
-        const res: AxiosResponse = await post(`${urls.GET_COMMUNE}`, params)
-        return res.data
-    }
+// Lấy danh sách xã
+    const getListCommune = (params: any) => post(`${urls.GET_COMMUNE}`, params)
 
-    //Lấy đối tượng theo loại đối tượng
-    const getObjectListByCode = async (path: string, params: any) => {
-        const res: AxiosResponse = await get(`${path}`, {params})
-        return res.data
-    }
+// Lấy đối tượng theo loại đối tượng
+    const getObjectListByCode = (path: string, params: any) => get(`${path}`, {params})
 
     return {
+        globalListItems,
         provinces,
         districts,
         wards,
         loading,
         companyList,
+        fetchGlobalListByCodes,
         fetchProvinces,
         fetchDistricts,
         fetchWards,

@@ -17,19 +17,18 @@
 <script lang="ts">
 </script>
 <script setup lang="ts">
-import {SelectRouter} from 'dnp-core'
+import {SelectRouter, useAuthStore} from 'dnp-core'
 import { ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { selectedRouterList } from './config'
-import { checkRoles } from '@/utils'
 import { RouterName } from '@/routes/config.ts'
 
 const selectedId = ref(1)
 const route = useRoute()
 const router = useRouter()
-
+const { hasRole } = useAuthStore()
 const listSelect = computed(() =>
-  selectedRouterList.filter((l: { uriRole?: string }) => (l.uriRole ? checkRoles(l.uriRole) : l))
+  selectedRouterList.filter((l: { uriRole?: string }) => (l.uriRole ? hasRole(l.uriRole) : l))
 )
 
 watch(

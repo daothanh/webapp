@@ -419,24 +419,3 @@ export const renderProcessColorByState = (state: number | string) => {
   return color
 }
 
-export const filterOption = (val: string, option: { value: string; label: string }) => {
-  return val
-    ? removeUtf8Vowel(option.label?.toLowerCase()).includes(
-        removeUtf8Vowel(String(val).toLowerCase())
-      )
-    : false
-}
-
-export const getDevBaseUrl = (moduleCode: string) => {
-  const devBaseUrls = {
-    iam: 'http://localhost:8050',
-    auth: 'http://localhost:8051',
-    sys: 'http://localhost:8052',
-    fsm: 'http://localhost:8054',
-    wtpm: 'http://localhost:8057',
-    noti: 'http://localhost:8058',
-    asm: 'http://localhost:8059',
-    wsm: 'http://localhost:8062'
-  }
-  return devBaseUrls[moduleCode]
-}

@@ -181,24 +181,26 @@ import {
 } from '@ant-design/icons-vue'
 import {useForm} from 'ant-design-vue/es/form'
 import {storeToRefs} from 'pinia'
-import {EditIcon, DeleteIcon, useSysStore} from 'dnp-core'
+import {EditIcon, DeleteIcon, useSysStore, useUtils,useAuthStore} from 'dnp-core'
 import {message, Modal} from 'ant-design-vue'
 import FormDrawer from './FormDrawer.vue'
-import {checkRoles, filterOption, getTableRowIndex} from '@/utils'
+import {getTableRowIndex} from '@/utils'
 import {useContractorStore} from '@/stores/contractor-store.ts'
 import {GLOBAL_ROLES} from '@/configs'
 import type {Contractor, SearchForm} from '@/types/contractor.ts'
 import contractorApi from '@/apis/project-management/contractor.ts'
 
-const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_CREATE))
-const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_UPDATE))
-const isAgreeDetail = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_VIEW))
-const isAgreeDelete = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_DELETE))
+const { hasRole }= useAuthStore()
+
+const isAgreeCreate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_CONTRACTOR_CREATE))
+const isAgreeUpdate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_CONTRACTOR_UPDATE))
+const isAgreeDetail = computed(() => hasRole(GLOBAL_ROLES.PROJECT_CONTRACTOR_VIEW))
+const isAgreeDelete = computed(() => hasRole(GLOBAL_ROLES.PROJECT_CONTRACTOR_DELETE))
 const activeKeySearch = ref('1')
 
+const { filterOption } = useUtils()
 const sysStore = useSysStore()
 const {globalListItems, provinces, loading: provinceLoading} = storeToRefs(sysStore)
-console.log(globalListItems.value)
 type TObj = { [T: string]: string }
 const legalTypes = computed(
     () => globalListItems.value['ASM_ASSET_PROJECT_CONTRACTOR.LEGAL_TYPE'] ?? []
@@ -341,11 +343,11 @@ const onView = (contractor: Contractor) => {
 }
 
 onMounted(async () => {
-  await globalListStore.fetchGlobalListByCodes([
+  await sysStore.fetchGlobalListByCodes([
     'ASM_ASSET_PROJECT_CONTRACTOR.TYPE',
     'ASM_ASSET_PROJECT_CONTRACTOR.LEGAL_TYPE'
   ])
-  await locationStore.fetchProvinces()
+  await sysStore.fetchProvinces()
   await onSearch()
 })
 </script>

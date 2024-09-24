@@ -122,12 +122,11 @@
 </script>
 
 <script lang="ts" setup>
-import { ref, computed, watch, createVNode, onMounted } from 'vue'
-import {DeleteIcon} from 'dnp-core'
+import { ref, computed, watch, onMounted } from 'vue'
+import {DeleteIcon, useAuthStore} from 'dnp-core'
 import { message } from 'ant-design-vue'
 import { PlusCircleOutlined } from '@ant-design/icons-vue'
 import { columnTableDocsContract } from './columns.ts'
-import { checkRoles, getTableRowIndex } from '@/utils'
 import { GLOBAL_ROLES } from '@/configs'
 import { getGlobalListDetail } from '@/apis/global'
 import { contractProjectListService } from '@/apis/project-management/project-list/contract-manage'
@@ -144,9 +143,9 @@ const props = defineProps({
 })
 
 const isAgreeUpdateDoc = computed(() =>
-  checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_CONTRACT_UPDATE_DOCUMENT)
+  hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_CONTRACT_UPDATE_DOCUMENT)
 )
-
+const { hasRole } = useAuthStore()
 const dataTable = ref([])
 const dataTableDelete = ref([])
 const dataTableUpdate = ref([])

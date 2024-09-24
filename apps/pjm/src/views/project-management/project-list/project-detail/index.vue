@@ -126,14 +126,14 @@ import { message, Modal } from 'ant-design-vue'
 import { RouterName } from '@/routes/config.ts'
 import ProcessProject from '@/views/project-management/project-list/shared/process-project/index.vue'
 import { isBoolean } from '@antfu/utils'
-import { checkRoles } from '@/utils'
 import { GLOBAL_ROLES, MODE_ACTION_TO_PAGE } from '@/configs'
 import ContractManage from '@/views/project-management/project-list/project-detail/contract-manage/index.vue'
 import { useGlobalStore } from '@/stores/global-store.ts'
+import {useAuthStore} from "dnp-core";
 
 const route = useRoute()
 const router = useRouter()
-
+const { hasRole } = useAuthStore()
 const params = ref({})
 const infoProject = ref({})
 
@@ -151,9 +151,9 @@ const modalConfirmExit = ref<boolean>(false)
 const isUserChangedData = ref<boolean>(false)
 const changeRouteTo = ref<string>('')
 
-const isAgreeUpdate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
-const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))
-const isAgreeDetail = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_MANAGEMENT_SELF))
+const isAgreeUpdate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_UPDATE))
+const isAgreeCreate = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_CREATE))
+const isAgreeDetail = computed(() => hasRole(GLOBAL_ROLES.PROJECT_MANAGEMENT_SELF))
 
 const isCollapseMenuStore = computed(() => {
   const {
