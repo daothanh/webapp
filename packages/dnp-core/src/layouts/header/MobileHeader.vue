@@ -45,24 +45,19 @@
 
       <a-menu mode="inline" @click="visibleMenu = false">
         <template v-for="m in menus" :key="m.path">
-          <SideMenuItem :menu="m" />
+          <SideMenuItem :menu="m" :collapsed="false" />
         </template>
       </a-menu>
     </div>
   </a-drawer>
 </template>
-<script lang="ts">
-export default {
-  name: 'MobileHeader'
-}
-</script>
 
 <script lang="ts" setup>
-import AvatarHeader from '@/components/account/index.vue'
+import AvatarHeader from './account/index.vue'
 import { MenuOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
-import SideMenuItem from '@/components/menu/SideMenuItem.vue'
-import { appList } from '@/components/header/config.ts'
+import SideMenuItem from '../menu/SideMenuItem.vue'
+import { appList } from './config.ts'
 
 const visibleMenu = ref(false)
 

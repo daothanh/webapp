@@ -69,6 +69,7 @@ import { useThemeStore } from "../stores"
 import LeftSideMenu from './menu/SideMenu.vue'
 import AppHeader from './header/index.vue'
 import AppFooter from './footer/index.vue'
+import MobileHeader from './header/MobileHeader.vue'
 // import ModalWarningChangePassword from './account/ModalChangePassword.vue'
 
 const lcStorage = useLocalStorage()
