@@ -10,12 +10,15 @@ export type ExchangeTokenParams = {
     newClientId?: string
     refreshToken?: string
 }
-const { externalRequest } = useRequest()
+
 export const useAuthStore = defineStore('authStore', () => {
-    console.log(import.meta.env)
+    const { externalRequest } = useRequest()
     const lcStorage = useLocalStorage()
-    const auth = ref(lcStorage.getItem(`${KEY_LOCAL}auth_info`) || {
+
+    const auth = ref({
         userInfo: {},
+        accessToken: '',
+        refreshToken: '',
         isAuthentication: false,
         showModalChangePassword: false
     })
@@ -41,19 +44,15 @@ export const useAuthStore = defineStore('authStore', () => {
 
     const setAuth = (payload: any) => {
         auth.value = payload
-        lcStorage.setItem(`${KEY_LOCAL}auth_info`, payload)
     }
     const setUserInfo = (payload: any) => {
         auth.value.userInfo = payload
-        lcStorage.setItem(`${KEY_LOCAL}auth_info`, auth)
     }
     const setIsAuthentication = (payload: boolean) => {
         auth.value.isAuthentication = payload
-        lcStorage.setItem(`${KEY_LOCAL}auth_info`, auth)
     }
     const setShowModalChangePassword = (payload: boolean) => {
         auth.value.showModalChangePassword = payload
-        lcStorage.setItem(`${KEY_LOCAL}auth_info`, auth)
     }
     const exchangeToken = async (params: ExchangeTokenParams) => {
         const res = await externalRequest('auth').post('/auth/token-exchange', params)
@@ -81,13 +80,13 @@ export const useAuthStore = defineStore('authStore', () => {
     }
 
     const logOut = () => {
-        const {userInfo} = auth
         const clientId = import.meta.env.VITE_CLIENT_ID
         const { pathname, search } = window.location
         const redirectPath = pathname && search ? encodeURIComponent(`${pathname}${search}`) : ''
-        lcStorage.clear()
+
         setTimeout(() => {
-            const userNameQuery = `?redirect=${redirectPath}&u=${userInfo?.userName}&clientId=${clientId}`
+            const userNameQuery = `?redirect=${redirectPath}&u=${auth.value.userInfo?.userName}&clientId=${clientId}`
+            lcStorage.clear()
             window.location.replace(import.meta.env.VITE_REDIRECT_URL_LOGOUT + userNameQuery)
         }, 100)
     }
@@ -119,4 +118,4 @@ export const useAuthStore = defineStore('authStore', () => {
         changePassword,
         hasRole
     }
-})
+}, { persist: true})

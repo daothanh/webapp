@@ -44,4 +44,6 @@ export const useThemeStore = defineStore('themeStore', () => {
         setMenu,
         setTheme
     }
+}, {
+    persist: true
 })

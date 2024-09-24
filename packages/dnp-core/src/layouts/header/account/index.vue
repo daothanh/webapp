@@ -48,7 +48,7 @@ import { useLocalStorage } from "../../../composable";
 
 const visibleDrawer = ref<boolean>(false)
 
-const { auth, logOutServer } = useAuthStore()
+const { auth, logOutServer, logOut } = useAuthStore()
 const { userInfo } = auth
 const toggleDrawer = () => {
   visibleDrawer.value = !visibleDrawer.value
@@ -64,9 +64,7 @@ const handleLogout = () => {
     onOk: async () => {
       try {
         const { getItemFromCookies } = useUtils()
-        const lcStorage = useLocalStorage()
         const refreshToken = getItemFromCookies(`${KEY_LOCAL}refresh_token`)
-        const userInfo = lcStorage.getItem(`${KEY_LOCAL}user_info`)
         // Logout phía server
         const data = {
           clientId: import.meta.env.VITE_CLIENT_ID,

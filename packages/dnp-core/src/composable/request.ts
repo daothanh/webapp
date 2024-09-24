@@ -124,3 +124,55 @@ export function useRequest()  {
         externalRequest
     }
 }
+
+export function useFetch() {
+    const {httpRequest} = useRequest()
+    const get = async (url: string, config: any) => {
+        const res = await httpRequest().get(url, config)
+        return res.data
+    }
+    const post = async (url: string, data: any, config: any) => {
+        const res = await httpRequest().post(url, data, config)
+        return res.data
+    }
+    const put = async (url: string, data: any, config: any) => {
+        const res = await httpRequest().put(url, data, config)
+        return res.data
+    }
+    const del = async (url: string, config: any) => {
+        const res = await httpRequest().delete(url, config)
+        return res.data
+    }
+    return {
+        get,
+        post,
+        del,
+        put
+    }
+}
+
+export function useFetchWithModule(prefix: string) {
+    const { externalRequest } = useRequest()
+    const get = async (url: string, config: any) => {
+        const res = await externalRequest(prefix).get(url, config)
+        return res.data
+    }
+    const post = async (url: string, data: any, config: any) => {
+        const res = await externalRequest(prefix).post(url, data, config)
+        return res.data
+    }
+    const put = async (url: string, data: any, config: any) => {
+        const res = await externalRequest(prefix).put(url, data, config)
+        return res.data
+    }
+    const del = async (url: string, config: any) => {
+        const res = await externalRequest(prefix).delete(url, config)
+        return res.data
+    }
+    return {
+        get,
+        post,
+        del,
+        put
+    }
+}

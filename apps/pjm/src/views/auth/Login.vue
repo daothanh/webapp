@@ -27,10 +27,13 @@ onMounted(async () => {
       ) {
         await lc.setItem(`${KEY_LOCAL}access_token`, access_token)
         await lc.setItem(`${KEY_LOCAL}refresh_token`, refresh_token)
-        authStore.setUserInfo(res.body)
-        authStore.setIsAuthentication(true)
-        authStore.setShowModalChangePassword(res?.body?.rqrChangePwd || false)
-        lc.setItem(`${KEY_LOCAL}user_info`, res.body)
+        authStore.setAuth({
+          userInfo: res.body,
+          isAuthentication: true,
+          showModalChangePassword: res?.body?.rqrChangePwd || false,
+          accessToken: access_token,
+          refreshToken: refresh_token
+        })
         await router.replace({ path: '/welcome' })
         lc.setItem(`${KEY_LOCAL}client_id`, 'WP_WDNM')
       } else {
