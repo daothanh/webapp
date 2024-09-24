@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage } from './index'
 import { KEY_LOCAL } from '@/contants'
-import { useGlobalStore } from '@/stores/globalStore.ts'
+import { useGlobalStore } from '@/stores/global-store.ts'
 import { listThemes } from '@/components/account/config.ts'
 
 export const setTheme = () => {

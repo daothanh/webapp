@@ -42,6 +42,14 @@ export type APIError = {
     context?: any
 }
 
+export interface GlobalListItem {
+    globalListId: number
+    value: string
+    name: string
+    code: string
+}
+
+
 export type TypeAPIError =
     | {
     response?: { data?: APIError }

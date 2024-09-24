@@ -129,7 +129,7 @@ import { isBoolean } from '@antfu/utils'
 import { checkRoles } from '@/utils'
 import { GLOBAL_ROLES, MODE_ACTION_TO_PAGE } from '@/configs'
 import ContractManage from '@/views/project-management/project-list/project-detail/contract-manage/index.vue'
-import { useGlobalStore } from '@/stores/globalStore.ts'
+import { useGlobalStore } from '@/stores/global-store.ts'
 
 const route = useRoute()
 const router = useRouter()

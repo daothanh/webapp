@@ -147,9 +147,9 @@
 import { computed, reactive, ref, toRaw, watchEffect } from 'vue'
 import { Form, message } from 'ant-design-vue'
 import { storeToRefs } from 'pinia'
+import {useSysStore} from "dnp-core";
 import type { Contractor } from '@/types/contractor'
 import { filterOption } from '@/utils'
-import { useGlobalListStore, useLocationStore } from '@/stores/sysModuleStore.ts'
 import contractorApi from '@/apis/project-management/contractor.ts'
 
 const props = defineProps({
@@ -168,8 +168,9 @@ const props = defineProps({
 })
 
 const loading = ref(false)
-const globalListStore = useGlobalListStore()
-const { globalListItems } = storeToRefs(globalListStore)
+
+const sysStore = useSysStore()
+const { globalListItems, provinces, districts, wards, loading: provinceLoading } = storeToRefs(sysStore)
 
 const legalTypes = computed(() =>
   globalListItems.value
@@ -192,8 +193,6 @@ const types = computed(() =>
     : []
 )
 
-const locationStore = useLocationStore()
-const { provinces, districts, wards, loading: provinceLoading } = storeToRefs(locationStore)
 const onChangeProvince = () => {
   modelRef.districtCode = ''
   modelRef.commueCode = ''

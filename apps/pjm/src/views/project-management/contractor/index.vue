@@ -6,14 +6,14 @@
           <a-collapse v-model:active-key="activeKeySearch" class="collapse-criteria">
             <template #expandIcon="{ isActive }">
               <caret-right-outlined
-                :rotate="isActive ? 90 : 0"
-                style="font-size: 16px; margin-right: 6px"
+                  :rotate="isActive ? 90 : 0"
+                  style="font-size: 16px; margin-right: 6px"
               />
             </template>
             <a-collapse-panel
-              key="1"
-              :header="'Tìm kiếm'"
-              style="background: white; border-radius: 4px; border: 0; overflow: hidden"
+                key="1"
+                :header="'Tìm kiếm'"
+                style="background: white; border-radius: 4px; border: 0; overflow: hidden"
             >
               <a-row :gutter="16">
                 <a-col :xs="24" :md="24" :lg="24">
@@ -22,41 +22,41 @@
                       <a-col :xs="24" :md="7" :xl="4">
                         <a-form-item label="Loại nhà thầu" v-bind="validateInfos.type">
                           <c-select
-                            v-model:value="searchForm.type"
-                            :options="types"
-                            placeholder="Chọn loại nhà thầu"
-                            :field-names="{
+                              v-model:value="searchForm.type"
+                              :options="types"
+                              placeholder="Chọn loại nhà thầu"
+                              :field-names="{
                               label: 'name',
                               value: 'value'
                             }"
-                            allow-clear
+                              allow-clear
                           />
                         </a-form-item>
                       </a-col>
                       <a-col :xs="24" :md="7" :xl="4">
                         <a-form-item label="Loại hình pháp lý" v-bind="validateInfos.legalType">
                           <c-select
-                            v-model:value="searchForm.legalType"
-                            :options="legalTypes"
-                            placeholder="Chọn loại hình pháp lý"
-                            :field-names="{
+                              v-model:value="searchForm.legalType"
+                              :options="legalTypes"
+                              placeholder="Chọn loại hình pháp lý"
+                              :field-names="{
                               label: 'name',
                               value: 'value'
                             }"
-                            allow-clear
+                              allow-clear
                           />
                         </a-form-item>
                       </a-col>
                       <a-col :xs="24" :md="7" :xl="4">
                         <a-form-item label="Tỉnh/TP" v-bind="validateInfos.provinceCode">
                           <c-select
-                            v-model:value="searchForm.provinceCode"
-                            :options="provinces"
-                            placeholder="Chọn tỉnh/tp"
-                            allow-clear
-                            show-search
-                            :filter-option="filterOption"
-                            :loading="provinceLoading"
+                              v-model:value="searchForm.provinceCode"
+                              :options="provinces"
+                              placeholder="Chọn tỉnh/tp"
+                              allow-clear
+                              show-search
+                              :filter-option="filterOption"
+                              :loading="provinceLoading"
                           />
                         </a-form-item>
                       </a-col>
@@ -65,13 +65,13 @@
                           <div class="flex justify-end space-x-2 pr-3">
                             <c-button @click="onResetFilter">
                               <template #icon>
-                                <close-outlined />
+                                <close-outlined/>
                               </template>
                               Bỏ lọc
                             </c-button>
                             <c-button type="primary" :disabled="loading" @click="onSearch">
                               <template #icon>
-                                <search-outlined />
+                                <search-outlined/>
                               </template>
                               Tìm kiếm
                             </c-button>
@@ -85,25 +85,25 @@
             </a-collapse-panel>
           </a-collapse>
           <c-table
-            class="table-project-list"
-            :pagination="pagination"
-            :data-source="items"
-            :show-quick-search="true"
-            :show-download-file-excel="true"
-            :columns="columns"
-            :loading="loading"
-            :reload-data="
+              class="table-project-list"
+              :pagination="pagination"
+              :data-source="items"
+              :show-quick-search="true"
+              :show-download-file-excel="true"
+              :columns="columns"
+              :loading="loading"
+              :reload-data="
               () => {
                 onSearch()
               }
             "
-            @handle-quick-search="onQuickSearch"
+              @handle-quick-search="onQuickSearch"
           >
             <template #extraAction>
               <c-button
-                type="primary"
-                :disabled="loading || isAgreeCreate"
-                @click="onShowFormDrawer"
+                  type="primary"
+                  :disabled="loading || isAgreeCreate"
+                  @click="onShowFormDrawer"
               >
                 Thêm mới
               </c-button>
@@ -125,34 +125,34 @@
                   <div v-if="!isAgreeDetail" @click="onView(record)">
                     <a-tooltip>
                       <eye-outlined
-                        class="outline-none cursor-pointer"
-                        :style="{ fontSize: '18px' }"
+                          class="outline-none cursor-pointer"
+                          :style="{ fontSize: '18px' }"
                       />
                       <template #title>Xem chi tiết</template>
                     </a-tooltip>
                   </div>
                   <div
-                    v-if="!isAgreeUpdate"
-                    class="cursor-pointer outline-none"
-                    @click="onEdit(record)"
+                      v-if="!isAgreeUpdate"
+                      class="cursor-pointer outline-none"
+                      @click="onEdit(record)"
                   >
                     <a-tooltip>
                       <template #title>
                         <span>Sửa</span>
                       </template>
-                      <edit-icon class="outline-none" />
+                      <edit-icon class="outline-none"/>
                     </a-tooltip>
                   </div>
                   <div
-                    v-if="!isAgreeDelete"
-                    class="cursor-pointer outline-none"
-                    @click="onDelete(record)"
+                      v-if="!isAgreeDelete"
+                      class="cursor-pointer outline-none"
+                      @click="onDelete(record)"
                   >
                     <a-tooltip>
                       <template #title>
                         <span>Xóa</span>
                       </template>
-                      <delete-icon class="outline-none" />
+                      <delete-icon class="outline-none"/>
                     </a-tooltip>
                   </div>
                 </div>
@@ -163,32 +163,31 @@
       </div>
     </div>
     <form-drawer
-      :id="contractorId"
-      :visible="formVisible"
-      :mode="formMode"
-      @close="formVisible = false"
-      @finish="onFormFinish"
+        :id="contractorId"
+        :visible="formVisible"
+        :mode="formMode"
+        @close="formVisible = false"
+        @finish="onFormFinish"
     />
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, reactive, computed } from 'vue'
+import {onMounted, ref, reactive, computed} from 'vue'
 import {
   CaretRightOutlined,
   CloseOutlined,
   EyeOutlined,
   SearchOutlined
 } from '@ant-design/icons-vue'
-import { useForm } from 'ant-design-vue/es/form'
-import { storeToRefs } from 'pinia'
-import {EditIcon, DeleteIcon} from 'dnp-core'
-import { message, Modal } from 'ant-design-vue'
+import {useForm} from 'ant-design-vue/es/form'
+import {storeToRefs} from 'pinia'
+import {EditIcon, DeleteIcon, useSysStore} from 'dnp-core'
+import {message, Modal} from 'ant-design-vue'
 import FormDrawer from './FormDrawer.vue'
-import { checkRoles, filterOption, getTableRowIndex } from '@/utils'
-import { useGlobalListStore, useLocationStore } from '@/stores/sysModuleStore'
-import { useContractorStore } from '@/stores/contractorStore.ts'
-import { GLOBAL_ROLES } from '@/configs'
-import type { Contractor, SearchForm } from '@/types/contractor.ts'
+import {checkRoles, filterOption, getTableRowIndex} from '@/utils'
+import {useContractorStore} from '@/stores/contractor-store.ts'
+import {GLOBAL_ROLES} from '@/configs'
+import type {Contractor, SearchForm} from '@/types/contractor.ts'
 import contractorApi from '@/apis/project-management/contractor.ts'
 
 const isAgreeCreate = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_CREATE))
@@ -197,12 +196,12 @@ const isAgreeDetail = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_
 const isAgreeDelete = computed(() => checkRoles(GLOBAL_ROLES.PROJECT_CONTRACTOR_DELETE))
 const activeKeySearch = ref('1')
 
-const globalListStore = useGlobalListStore()
-const { globalListItems } = storeToRefs(globalListStore)
+const sysStore = useSysStore()
+const {globalListItems, provinces, loading: provinceLoading} = storeToRefs(sysStore)
 console.log(globalListItems.value)
 type TObj = { [T: string]: string }
 const legalTypes = computed(
-  () => globalListItems.value['ASM_ASSET_PROJECT_CONTRACTOR.LEGAL_TYPE'] ?? []
+    () => globalListItems.value['ASM_ASSET_PROJECT_CONTRACTOR.LEGAL_TYPE'] ?? []
 )
 const types = computed(() => globalListItems.value['ASM_ASSET_PROJECT_CONTRACTOR.TYPE'] ?? [])
 const convertGlobalList = (items: Array<{ value: string; name: string }>) => {
@@ -215,8 +214,6 @@ const convertGlobalList = (items: Array<{ value: string; name: string }>) => {
 const objTypes = computed<TObj>(() => convertGlobalList(types.value))
 const objLegalTypes = computed<TObj>(() => convertGlobalList(legalTypes.value))
 
-const locationStore = useLocationStore()
-const { provinces, loading: provinceLoading } = storeToRefs(locationStore)
 const objProvinces = computed(() => {
   const items: TObj = {}
   for (const p of provinces.value) {
@@ -235,17 +232,17 @@ const searchForm = reactive<SearchForm>({
   provinceCode: null,
   legalType: null
 })
-const { validateInfos } = useForm(searchForm)
+const {validateInfos} = useForm(searchForm)
 
 const contractorStore = useContractorStore()
-const { loading, contractors, pagination } = storeToRefs(contractorStore)
+const {loading, contractors, pagination} = storeToRefs(contractorStore)
 const items = computed(() =>
-  contractors.value.map((item: Contractor) => {
-    item.typeName = item.type ? objTypes.value[item.type] : null
-    item.legalTypeName = item.legalType ? objLegalTypes.value[item.legalType] : null
-    item.provinceName = item.provinceCode ? objProvinces.value[item.provinceCode] : null
-    return item
-  })
+    contractors.value.map((item: Contractor) => {
+      item.typeName = item.type ? objTypes.value[item.type] : null
+      item.legalTypeName = item.legalType ? objLegalTypes.value[item.legalType] : null
+      item.provinceName = item.provinceCode ? objProvinces.value[item.provinceCode] : null
+      return item
+    })
 )
 const columns = ref([
   {
@@ -361,17 +358,21 @@ onMounted(async () => {
 .project-list-page {
   .ant-tabs {
     font-weight: 600;
+
     .ant-tabs-tab {
       padding-left: 10px;
       padding-right: 10px;
     }
+
     .ant-tabs-nav {
       margin: 0;
     }
+
     .ant-tabs-ink-bar {
       height: 3px;
     }
   }
+
   .card-table {
     height: auto;
   }

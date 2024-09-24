@@ -6,7 +6,7 @@ import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'
 import {useAuthStore,KEY_LOCAL, useUtils, useLocalStorage } from 'dnp-core'
 import {routes} from '@/routes/routerMap'
 import {RouterName} from '@/routes/config.ts'
-import {useGlobalStore} from '@/stores/globalStore.ts'
+import {useGlobalStore} from '@/stores/global-store.ts'
 
 const lc = useLocalStorage()
 const { isEmptyObject } = useUtils()

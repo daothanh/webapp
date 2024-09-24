@@ -20,7 +20,7 @@
 
 <script setup>
 import welcomeImage from '@/assets/images/welcome.jpg'
-import { useAuthStore } from '@/stores/authStore.ts'
+import { useAuthStore } from '@/stores/auth-store.ts'
 
 const welcomeImg = welcomeImage
 const { auth } = useAuthStore()

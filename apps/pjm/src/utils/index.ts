@@ -2,7 +2,7 @@ import { Excel } from 'antd-table-saveas-excel'
 import moment from 'moment'
 import _ from 'lodash'
 import { message } from 'ant-design-vue'
-import { useAuthStore } from '@/stores/authStore.ts'
+import { useAuthStore } from '@/stores/auth-store.ts'
 
 export const setItemToLocalStorage = (key: string, payload: any): any => {
   return localStorage.setItem(key, JSON.stringify(payload))

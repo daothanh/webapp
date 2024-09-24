@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue'
 import vi_VN from 'ant-design-vue/es/locale/vi_VN'
 import dayjs from 'dayjs'
-import { useGlobalStore } from '@/stores/globalStore.ts'
+import { useGlobalStore } from '@/stores/global-store.ts'
 import 'dayjs/locale/vi'
 import { setTheme } from '@/utils/setupDefaultSetting.ts'
 import { useActiveAppStore } from "dnp-core";
